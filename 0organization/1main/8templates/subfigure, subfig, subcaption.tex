@@ -1,0 +1,62 @@
+% NOTE:
+%  Never use subfigure anymore. Rather use subcaption or subfig
+%  I very much prefer subcaption.
+%  My preferred way of using it:
+
+% Subcaption / Subfigure
+% % % When the two figures are in on column, below/above each other
+\begin{figure}%[!htpb]%
+\centering%
+    \mbox{\hspace*{\fill}%
+    \begin{minipage}[b]{0.6\columnwidth}%
+        \centering%
+    	\includegraphics[width=\textwidth]{{"\DenKrGraphicsRootDir/InfrastructureAbstraction"}.png}%
+    	\subcaption{Infrastructure Abstraction}%
+    	\label{subfig:infrastructureAbstraction}%
+    \end{minipage}%
+    \hspace*{\fill}}%
+    \mbox{\hspace*{\fill}%
+    \begin{minipage}[b]{0.9\columnwidth}%
+        \centering%
+    	\includegraphics[width=\textwidth]{{"\DenKrGraphicsRootDir/ViewsAbstraction"}.png}%
+    	\subcaption{Viewpoints}%
+    	\label{subfig:viewpointsAbstraction}%
+    \end{minipage}%
+    \hspace*{\fill}}%
+	\caption{Abstraction Model\denkrcom{Draft}}%
+	\label{fig:infrastructurePlanes}%
+\end{figure}%
+
+% % % When the two figures are across the whole page-width, aside each other
+\begin{figure*}[!htpb]
+\centering
+    \hspace*{\fill}
+    \begin{minipage}[b]{0.8\columnwidth}
+        \centering
+    	\includegraphics[width=\textwidth]{{"\DenKrGraphicsRootDir/DynamicRedeployment-pre"}.png}
+    	\subcaption{Pre Re-Deployment}%
+    	\label{subfig:DynamicRedeployment-pre}
+    \end{minipage}
+    \hspace*{\fill}
+    \begin{minipage}[b]{0.8\columnwidth}
+        \centering
+    	\includegraphics[width=\textwidth]{{"\DenKrGraphicsRootDir/DynamicRedeployment-post"}.png}
+    	\subcaption{Post Re-Deployment}%
+    	\label{subfig:DynamicRedeployment-post}
+    \end{minipage}
+    \hspace*{\fill}
+	\caption{Dynamic Re-Deployment: Setup (\subref{subfig:DynamicRedeployment-pre}) is changed to (\subref{subfig:DynamicRedeployment-post})}%
+	\label{fig:DynamicRedeployment}
+\end{figure*}
+
+
+
+% Double-Column Figure (in two-column mode)
+\begin{figure*}%[!ht]
+\centering
+	\includegraphics[width=0.98\textwidth]{{"\DenKrGraphicsRootDir/Blockdiagram"}.png}
+	\caption{Block-Diagram and Examplarily Device-Configuration
+	%\chficom{ADAg darstellen, dass schon in der Abbildung klar wird, dass es mehrere geben kann?! Und Core /RAN raus und durch Inserve ersetzen?!}
+	}
+	\label{fig:blockdiagram}
+\end{figure*}

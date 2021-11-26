@@ -1,0 +1,18 @@
+%==================================================================================
+% --  Required basic, initial stuff to Set-Up the DenKr-Comments
+%----------------------------------------------------------------------------------
+%
+%
+%
+%==================================================================================
+% ----  Some Stuff to help during working state
+%----------------------------------------------------------------------------------
+% Disable-Wrapper. Helps to disable everything with just one Step. Remember to use it ;oP
+\expandafter\ifstrequal\expandafter{\DenKrCommentsUsage}{0}{%
+    \newcommand{\disablewr}[1]{}%
+}{%
+	\newcommand{\disablewr}[1]{#1}%
+}%
+\newcommand{\newcommanddisw}[3]{\newcommand{#1}[1]{\disablewr{{\color{#2}#3}}}}%
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
