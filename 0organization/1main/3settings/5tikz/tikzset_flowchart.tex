@@ -1,21 +1,4 @@
 %
-\tikzset{%
-    o/.style={%
-        shorten >=0,%
-        decoration={%
-            markings,%
-            mark={%
-                at position 1%
-                with {%
-                    \fill circle [radius=#1];%
-                }%
-            }%
-        },%
-        postaction=decorate%
-    },%
-    o/.default=0.5*\pgflinewidth%
-}%
-%
 \definecolor{muxpurple}{RGB}{210,140,210}%
 \definecolor{entryred}{RGB}{255,50,50}%
 \definecolor{exitgreen}{RGB}{70,200,80}%
@@ -190,32 +173,6 @@
 	minimum width=0pt,%
 	minimum height=0pt,%
 ]%
-\tikzstyle{arrow}=[ultra thick,->,>=stealth]%
-\tikzstyle{arrowdouble}=[ultra thick,<->,>=latex]%
-\tikzstyle{arrowwait}=[ultra thick,->,>=stealth,
-	dash pattern=on \pgflinewidth off 6pt]%
-\tikzstyle{arrowkomm}=[ultra thick,<->,>=latex,
-	dash pattern=on 8pt off 6pt on 2pt off 6pt]%
-\tikzstyle{connect}=[ultra thick,-,o]%
-\tikzstyle{vecarrow}=[thick, decoration={markings,mark=at position%
-   1 with {\arrow[semithick]{open triangle 60}}},%
-   double distance=1.4pt, shorten >= 5.5pt,%
-   preaction = {decorate},%
-   postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]%
-\definecolor{Datastream_Color}{RGB}{100,0,170}%
-\definecolor{MPTCP_Path1_Color}{RGB}{255,60,0}%
-\definecolor{MPTCP_Path2_Color}{RGB}{50,0,255}%
-\tikzstyle{cable}=[ultra thick,double,double distance=4pt,%
-% 	I,%
-	shorten >= -0.1pt,%
-	postaction = {draw,line width=4pt, white, shorten >= -0.2pt},%
-	postaction = {draw,line width=1pt, Datastream_Color, shorten >= -0.2pt}]%
-\tikzstyle{cable2}=[cable,%
-	postaction = {draw=MPTCP_Path2_Color,line width=1pt, shorten >= -0.2pt}]%
-\tikzstyle{cable_optional}=[cable,%
-	postaction = {draw=MPTCP_Path1_Color,line width=1pt, shorten >= -0.2pt}]%
-\tikzstyle{innerWhite}=[semithick, white,line width=1.4pt, shorten >= 4.5pt]%
-%
 %
 %
 %-----------------------------------------------------------
@@ -273,22 +230,4 @@
 	text centered,%
 	align=center,%
 ]%
-%
-%
-% use the "`bend"' arrows with (Bsp.)
-%	\draw[arrowoben](sourcenode)to(destinationnode)
-%		(instead of) (look between the node coordinates)
-%	\draw[arrowoben](sourcenode)--(destinationnode)
-\tikzstyle{arrowoben}=[%
-	arrow,%
-	shorten >=1ex,%
-	shorten <=1ex,%
-	bend angle=30,%
-	bend left,%
-]%
-\tikzstyle{arrowunten}=[%
-	arrowoben,%
-	bend right,%
-]%
-%
 %
