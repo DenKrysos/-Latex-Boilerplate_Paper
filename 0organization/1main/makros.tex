@@ -236,6 +236,8 @@
 %
 % Initialisierungen wie Counter, Theorem, Variablen, Konstanten..
 %
+\newcommand{\stdleftbarwidth}{0.15em}
+%
 \theoremstyle{break}
 \theoremheaderfont{\bfseries}
 \theorembodyfont{\normalfont}
@@ -243,8 +245,33 @@
 \theorempreskip{0ex}
 \theorempostskip{0ex}
 \theoremindent0.5em
-\newtheorem{Einschub}{Einschub}[section]
-\newcommand{\stdleftbarwidth}{0.15em}
+%
+%That is not quite working well, hence, instead an own solution below
+%    \newtheorem{InciRem}{\protect\InciRemname}[section]%
+%    \newcommand{\InciRemname}{}%Initialization
+%    \addto\captionsenglish{%
+%      \renewcommand{\InciRemname}{Incidential Remark}%
+%    }%
+%    \addto\captionsngerman{%
+%      \renewcommand{\InciRemname}{Einschub}%
+%    }%
+\ifdef{\DenKrLayoutLanguage}{%
+    \expandafter\ifstrequal\expandafter{\DenKrLayoutLanguage}{english}{%
+        \newtheorem{InciRem}{Incidential Remark}[section]%
+    }{%
+    \expandafter\ifstrequal\expandafter{\DenKrLayoutLanguage}{ngerman}{%
+        \newtheorem{InciRem}{Einschub}[section]%
+    }{%
+    \expandafter\ifstrequal\expandafter{\DenKrLayoutLanguage}{german}{%
+        \newtheorem{InciRem}{Einschub}[section]%
+    }{%
+        \newtheorem{InciRem}{Incidential Remark}[section]%
+    }%
+    }%
+    }%
+}{%
+    \newtheorem{InciRem}{Incidential Remark}[section]%
+}%
 %
 %
 %________________________________________________________________________
@@ -270,9 +297,9 @@ m O{Sidenote} O{0pt}%
 }{%
 \vspace{#3}
 \begin{myleftbar}{\stdleftbarwidth}{0.5em}
-\begin{Einschub}[#2]
+\begin{InciRem}[#2]
 #1
-\end{Einschub}
+\end{InciRem}
 \end{myleftbar}
 \vspace{#3}
 }%
@@ -287,9 +314,9 @@ m O{Sidenote} O{0pt}%
 \vspace{#3}
 \begin{samepage}
 \begin{myleftbar}{\stdleftbarwidth}{0.25em}
-\begin{Einschub}[#2]
+\begin{InciRem}[#2]
 #1
-\end{Einschub}
+\end{InciRem}
 \end{myleftbar}
 \end{samepage}
 \vspace{#3}
