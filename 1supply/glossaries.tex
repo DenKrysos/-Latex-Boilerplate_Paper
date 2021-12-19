@@ -32,7 +32,77 @@
 % {Architecture-Daemon}% long form
 % {Part of the \gls{denkrsuite}. \textit{\gls{integhierarchl}~4} of the \gls{integhierarch} from the \gls{denkrnuc}.}% description
 % % % % % % % % % % % % % % %
+\newacronym{indeco}{InDeCo}{Interconnection Detachment \& Convergence}%ArchDaemon-Tool: Interconnection
+\newacronym{coma}{CoMa}{Context-Management}%ArchDaemon-Tool: Context-Management
+\newacronym{peac}{PeAc}{Permission \& Access}%ArchDaemon-Tool: Permission & Access
+\newacronym{dynploy}{DynPloy}{Dynamic Deployment}%ArchDaemon-Tool: Dynamic Deployment
+\newacronym{remcon}{RemCon}{Remote Configuration}%ArchDaemon-Tool: Device \& Service Remote Configuration
+\newacronym{archdaemon}{ArchDaemon}{Architecture-Daemon}
+\newacronym{ctrllog}{ACL}{Aggregated Control Logic}
+\newacronym{adagent}{ADAg}{ArchDaemon-Agent}
+\newacronym{adaloc}{ADAl}{ArchDaemon-Allocator}%Commissioner, Allocator, Controller, Hub, Pivot
+\newacronym{inserv}{InServ}{Inserted-Service}% Inserted/Infrastrucure Service  |  service, item, component,
+\newacronym{infrserv}{InfrServ}{Infrastructure-Service}% unit, member, extension, addition, attachment, additive
+\newacronym{atserv}{AtServ}{Atop-Service}%
+\newacronym{orcus}{OrCuS}{Organic Customization System}% Culmination, Cumulation
+\newacronym{ore}{ORE}{Organic Runtime Environment}
 
+%------------------------------------------------------------------------
+%________________________________________________________________________
+%
+
+\newacronym{imu}{IMU}{Intertial Measurement Unit}
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{ros}{ROS}{Robot Operating System}
+\newacronym{ml}{ML}{Machine Learning}
+\newacronym{uwb}{UWB}{Ultra Wideband}
+\newacronym{nr}{NR}{New Radio}
+\newacronym{etl}{ETL}{Extract, Transfer, Load}
+\newacronym{dds}{DDS}{Data Distribution Service}
+\newacronym{3gpp}{3GPP}{3rd Generation Partnership Project}
+\newacronym{dgps}{DGPS}{Differential Global Positioning System}
+\newacronym{ecef}{ECEF}{Earth-centered, Earth-fixed}
+\newacronym{gnss}{GNSS}{Global Navigation Satellite System}
+
+
+\newacronym{dcmod}{DCMod}{Data Collection Module}
+
+
+\newacronym{posmod}{PosMod}{Positioning Module}
+\newacronym{mts}{MTS}{Map Transformation Stage}
+\newacronym{sensmod}{SensMod}{Sensing Module}
+\newacronym{sidr}{SIDR}{Sensor ID Resolver}
+
+
+
+
+\newacronym{camod}{CAMod}{Carrier Aggregation Module}
+\newacronym{muxs}{MuxS}{Multiplexer Stage}
+\newacronym[plural=CSEs,%
+	firstplural=Carrier State Estimators (CSEs),%
+	longplural=Carrier State Estimators]%
+	{cse}{CSE}{Carrier State Estimator}%
+\newacronym{ca}{CA}{Carrier Aggregator}
+\newacronym[plural=IAs,%
+	firstplural=Information Anchors (IAs),%
+	longplural=Information Anchors]%
+	{ia}{IA}{Information Anchor}%
+
+
+\newacronym{dbmod}{DBMod}{Data Base Module}
+\newacronym{bui}{BUI}{Base User Interface}
+\newacronym{bman}{BMan}{Base Manager}
+\newacronym[plural=DSs,%
+	firstplural=Data Suppliers (DSs),%
+	longplural=Data Suppliers]%
+	{ds}{DS}{Data Supplier}%
+\newacronym[plural=GWs,%
+	firstplural=Gateways (GWs),%
+	longplural=Gateways]%
+	{gw}{GW}{Gateway}%
+
+
+%\glsunset{funcserv}%
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 %					Central Terms done
 %------------------------------------------------------------------------
@@ -107,12 +177,15 @@
 \newacronym{https}{HTTPS}{Hypertext Transfer Protocol Secure}
 \newacronym{opc}{OPC}{Open Platform Communication}
 \newacronym{opcua}{\gls{opc} UA}{OPC Unified Architecture}
-\newacronym{mqtt}{MQTT}{Message Queue Telemetry Transport}
+\newacronym{opcda}{\gls{opc} DA}{OPC Data Access}
+\newacronym{mqtt}{MQTT}{Message Queuing Telemetry Transport}
 \newacronym{iiot}{IIoT}{Industrial Internet of Things}
 \newacronym{nic}{NIC}{Network Interface Card}
 \newacronym{gps}{GPS}{Global Positioning System}
 \newacronym{ntp}{NTP}{Network Time Protocol}
-\newacronym{ptp}{PTP}{Precision Time Protocol}
+\newacronym{ptp}{PTP}{Precision Time Protocol}%
+\newacronym{p2p}{P2P}{Point-to-Point}%
+\newacronym{peer2p}{Peer2P}{Peer-to-Peer}%
 \newacronym{rbs}{RBS}{Reference Broadcast Time Synchronization}
 \newacronym{rbis}{RBIS}{Reference Broadcast Infrastructure Synchronization}
 \newacronym{utc}{UTC}{Coordinated Universal Time}
@@ -129,8 +202,11 @@
 	longplural=Key Performance Indicators]%
 	{kpi}{KPI}{Key Performance Indicator}%
 \newacronym{loc}{LoC}{Lines of Code}
-\newacronym{agv}{AGV}{Automated Guided Vehicle}
-\newacronym{urllc}{URLLC}{Ultra Reliable Low Latency Communication}
+\newacronym[plural=AGVs,%
+	firstplural=Automated Guided Vehicles (AGVs),%
+	longplural=Automated Guided Vehicles]%
+	{agv}{AGV}{Automated Guided Vehicle}%
+\newacronym{urllc}{URLLC}{Ultra-Reliable Low-Latency Communication}
 \newacronym{relag}{Agent}{Agent}
 \newacronym{relorc}{Orc}{Orchestrator}
 \newacronym{slaag}{SLAAg}{Service Level Agreement Agent}
@@ -158,15 +234,28 @@
 \newacronym{rrm}{RRM}{Radio Resource Management}
 \newacronym{lmf}{LMF}{Localization Management Function}
 \newacronym{uequ}{UE}{User Equipment}
-\newacronym{gmlc}{GMLC}{Gateway Mobile Location Center}
+\newacronym{mlc}{MLC}{Mobile Location Center}
+\newacronym{lcs}{LCS}{Location Services}
 \newacronym{nef}{NEF}{Network Exposure Function}
-\newacronym{embb}{eMBB}{enhanced Mobile Broad-band}
-\newacronym{mmtc}{MMTC}{Massive Machine Type Communication}
+\newacronym{embb}{eMBB}{enhanced Mobile Broadband}
+\newacronym{mmtc}{mMTC}{massive Machine Type Communication}
 \newacronym{rand}{R\&D}{Research \& Development}
 \newacronym{poc}{PoC}{Proof-of-Concept}
 \newacronym{snmp}{SNMP}{Simple Network Management Protocol}
 \newacronym{typlv}{TLV}{Type-Length-Value}
 \newacronym{trl}{TRL}{Technology Readiness Level}%
+\newacronym{ot}{OT}{Operation Technology}
+\newacronym{inft}{IT}{Information Technology}
+\newacronym{nsh}{NSH}{Network Service Header}
+\newacronym{trl}{TRL}{Technology Readiness Level}%
+\newacronym{ot}{OT}{Operation Technology}
+\newacronym{inft}{IT}{Information Technology}%
+\newacronym{mano}{MANO}{Management \& Orchestration}
+\newacronym{nsh}{NSH}{Network Service Header}%
+\newacronym{plc}{PLC}{Programmable Logic Controller}%
+\newacronym{vpc}{VPC}{Virtual Process Controller}%
+\newacronym{ppm}{PPM}{Parallel Process Migration}%
+\newacronym{wip}{WiP}{Work in Progress}%
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 %						Akronyme fertig
 %------------------------------------------------------------------------
