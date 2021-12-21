@@ -745,16 +745,17 @@ O{#2} m o%
 % Makro für die Tikz Abbildungen
 % Arg#1 (Optional): Includestandalone-Mode
 % Arg#2: Pic-Name (Location: \tikzFilesPath//NAME.tex) % This Macro can be defined somewhere, by you. In my Template it is found inside the Preamble right by the inclusion of the tikz-Package, together with \includestandalonedefaultmode
-% Arg#3 (Optional): Alternatives Caption (TableOfContents usw.)
+% Arg#3 (Optional): Alternative Directory to take the picture from. This macro "actually" only takes the Picture-Name and tries to take it from the directory "\tikzFilesPath" aka set to "\DenKrTikzRootDir". Passing a value as this optional Argument, overrides the directory. (Pass without trailing '\')
 % Arg#4: Bildbeschriftung
-% Arg#5: Number of Lines des Caption
-% Arg#6 (Optional): Liste mit folgendem Inhalt. Parameter zu Skalierung und Positionierung
+% Arg#5 (Optional): Alternatives Caption (TableOfContents usw.)
+% Arg#6: Number of Lines des Caption
+% Arg#7 (Optional): Liste mit folgendem Inhalt. Parameter zu Skalierung und Positionierung
 %			#1: Faktor der Seitenhöhe, der nicht überschritten werden soll 
 %			#2: Faktor der Seitenbreite, der nicht überschritten werden soll
 %			#3: Positionierungsmodus. Bsp.: !ht, !htpb, H
 %	  Beispiel für ein Listen-Format: [1,1,!htp]
-% Arg#7: Label für referencing
-% Arg#8 (Optional): Rotations-Winkel für das Bild
+% Arg#8: Label für referencing
+% Arg#9 (Optional): Rotations-Winkel für das Bild
 %% Möglichkeiten für den includestandalone-mode: tex, buildnew
 %% The Default Macro: See Definition in Header (should be buildnew)
 %% Use the optinal Argument with "tex", to make the tikz-Pics inline and hence
@@ -762,19 +763,19 @@ O{#2} m o%
 %% pre-rendered Pictures and includes them like standard-png; only rendered, if
 %% tex-file is newer than the picture
 \DeclareDocumentCommand{\tikzabb}{%
-O{\includestandalonedefaultmode} m o m m >{\SplitList{,}}O{1,1,!ht} m O{0}%
+O{\includestandalonedefaultmode} m O{\tikzFilesPath} m o m >{\SplitList{,}}O{1,1,!ht} m O{0}%
 }{%
 \def\efigure{\begin{figure}}%
 \def\efigureend{\end{figure}}%
-\SplitListScalePos#6\relax%
+\SplitListScalePos#7\relax%
 %\textheightscaled=\textheight-\parskip-\abovecaptionskip-\belowcaptionskip-\baselineskip%
-\textheightscaled=\dimexpr\textheight-#5\baselineskip-\parskip-\abovecaptionskip-\belowcaptionskip\relax%
+\textheightscaled=\dimexpr\textheight-#6\baselineskip-\parskip-\abovecaptionskip-\belowcaptionskip\relax%
 \textwidthactual=\dimexpr\linewidth\relax%
-\ifthenelse{#8=90}{%
+\ifthenelse{#9=90}{%
 	\tikzAimedHeight=\tikzWidthFactorArgument\textwidthactual%
 	\tikzAimedWidth=\tikzHeightFactorArgument\textheightscaled%
 }{
-	\ifthenelse{#8=-90}{%
+	\ifthenelse{#9=-90}{%
 		\tikzAimedHeight=\tikzWidthFactorArgument\textwidthactual%
 		\tikzAimedWidth=\tikzHeightFactorArgument\textheightscaled%
 	}{
@@ -782,22 +783,22 @@ O{\includestandalonedefaultmode} m o m m >{\SplitList{,}}O{1,1,!ht} m O{0}%
 		\tikzAimedWidth=\tikzWidthFactorArgument\textwidthactual%
 	}%
 }%
-\settowidth{\tikzwidth}{\includestandalone{\tikzFilesPath/#2}}%
-\settoheight{\tikzheight}{\includestandalone{\tikzFilesPath/#2}}%
+\settowidth{\tikzwidth}{\includestandalone{#3/#2}}%
+\settoheight{\tikzheight}{\includestandalone{#3/#2}}%
 \tikzwidth=\tikzpicturescaleboxfactor\tikzwidth%
 \tikzheight=\tikzpicturescaleboxfactor\tikzheight%
 \ifthenelse{\tikzAimedHeight<\tikzheight}{%
 	\tikzheight=\tikzAimedHeight%
-	\settowidth{\tikzwidth}{\includestandalone[height=\tikzheight]{\tikzFilesPath/#2}}%
+	\settowidth{\tikzwidth}{\includestandalone[height=\tikzheight]{#3/#2}}%
 	\ifthenelse{\tikzAimedWidth<\tikzwidth}{%
 		\tikzwidth=\tikzAimedWidth%
 		\expandafter\efigure\expandafter[\tikzFloatPositioning]%
 			\centering%
 % 	 		\fbox{%
-			\includestandalone[width=\tikzwidth,angle=#8,mode=#1]{\tikzFilesPath/#2}%
+			\includestandalone[width=\tikzwidth,angle=#8,mode=#1]{#3/#2}%
 % 	 		}%
-			\IfValueTF{#3}{%
-				\caption[#3]{#4}%
+			\IfValueTF{#5}{%
+				\caption[#5]{#4}%
 			}{%
 				\caption{#4}%
 			}%
@@ -807,14 +808,14 @@ O{\includestandalonedefaultmode} m o m m >{\SplitList{,}}O{1,1,!ht} m O{0}%
 		\expandafter\efigure\expandafter[\tikzFloatPositioning]%
 			\centering%
 % 	 		\fbox{%
-			\includestandalone[height=\tikzheight,angle=#8,mode=#1]{\tikzFilesPath/#2}%
+			\includestandalone[height=\tikzheight,angle=#9,mode=#1]{#3/#2}%
 % 	 		}%
-			\IfValueTF{#3}{%
-				\caption[#3]{#4}%
+			\IfValueTF{#5}{%
+				\caption[#5]{#4}%
 			}{%
 				\caption{#4}%
 			}%
-			\label{#7}%
+			\label{#8}%
 		\efigureend%
 	}%
 }{%
@@ -822,14 +823,14 @@ O{\includestandalonedefaultmode} m o m m >{\SplitList{,}}O{1,1,!ht} m O{0}%
 	\expandafter\efigure\expandafter[\tikzFloatPositioning]%
 		\centering%
 % 		\fbox{%
-		\includestandalone[width=\tikzwidth,mode=#1]{\tikzFilesPath/#2}%
+		\includestandalone[width=\tikzwidth,mode=#1]{#3/#2}%
 % 		}%
-		\IfValueTF{#3}{%
-			\caption[#3]{#4}%
+		\IfValueTF{#5}{%
+			\caption[#5]{#4}%
 		}{%
 			\caption{#4}%
 		}%
-		\label{#7}%
+		\label{#8}%
 	\efigureend%
 }%
 }%
