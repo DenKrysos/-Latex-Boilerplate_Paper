@@ -7,6 +7,11 @@
 	shape=coordinate,%
 	inner sep=0pt%
 ]%
+\tikzstyle{plaintext}=[%
+	shape=rectangle,%
+	draw=none,%
+	inner sep=0pt%
+]%
 %
 %
 %
@@ -55,18 +60,20 @@
 %
 %
 %
-\tikzstyle{arrow}=[ultra thick,->,>=stealth]%
-\tikzstyle{arrowdouble}=[ultra thick,<->,>=latex]%
-\tikzstyle{arrowwait}=[ultra thick,->,>=stealth,
+\tikzstyle{arrow}=[draw,ultra thick,->,>=stealth]%draw=none
+\tikzstyle{arrowstream}=[draw,arrow,thick]%
+\tikzstyle{arrowdouble}=[draw,ultra thick,<->,>=latex]%
+\tikzstyle{arrowwait}=[draw,ultra thick,->,>=stealth,
 	dash pattern=on \pgflinewidth off 6pt]%
-\tikzstyle{arrowkomm}=[ultra thick,<->,>=latex,
+\tikzstyle{arrowkomm}=[draw,ultra thick,<->,>=latex,
 	dash pattern=on 8pt off 6pt on 2pt off 6pt]%
-\tikzstyle{connect}=[ultra thick,-,o]%
-\tikzstyle{vecarrow}=[thick, decoration={markings,mark=at position%
-   1 with {\arrow[semithick]{open triangle 60}}},%
-   double distance=1.4pt, shorten >= 5.5pt,%
-   preaction = {decorate},%
-   postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]%
+\tikzstyle{connect}=[draw,ultra thick,-,o]%
+\tikzstyle{vecarrow}=[draw,thick, decoration={markings,mark=at position%
+    1 with {\arrow[semithick]{open triangle 60}}},%
+    double distance=1.4pt, shorten >= 5.5pt,%
+    preaction = {decorate},%
+    postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}%
+]%
 %
 %
 %
@@ -154,6 +161,21 @@
       (-0.8*\Size,-0.35*\Size)--(0.2*\Size,-0.35*\Size);%
   }%
 }%
+%
+%
+%
+%
+%
+%
+\tikzstyle{rect_tight}=[
+	rectangle,
+	text centered,
+	align=center,
+	inner sep=0pt,%\inndist,
+	draw=black
+	%draw=none
+	%fill=gray!30
+]%
 %
 %
 %

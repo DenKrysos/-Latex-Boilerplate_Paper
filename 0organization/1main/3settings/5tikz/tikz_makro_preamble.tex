@@ -1,4 +1,30 @@
 %
+%========-------------------------------------------========
+%========		General					========
+%========-------------------------------------------========
+% USAGE Example for following
+%        \begin{tikzpicture}
+%          \node(mynode)[text width=3cm, draw=red]{This is a node that varies in height and I need to know the hieght and store it in a length};
+%          \getnodedimen{mynode}
+%          \node[draw, minimum height=\nodeheight, minimum width=\nodewidth]at(4,0){};
+%        \end{tikzpicture}
+\NewDocumentCommand{\getnodedimen}{O{\nodewidth} O{\nodeheight} m}{%
+  \begin{pgfinterruptboundingbox}%
+  \begin{scope}[local bounding box=bb@temp]%
+    \node[inner sep=0pt, fit=(#3)]{};%
+  \end{scope}%
+  \path($(bb@temp.north east)-(bb@temp.south west)$);%
+  \end{pgfinterruptboundingbox}%
+  \pgfgetlastxy{#1}{#2}%
+}
+%
+%
+%
+%
+%========-------------------------------------------========
+%========		Remainder					========
+%========-------------------------------------------========
+%
 % Extrusion Makros (needs shape=rectangleRoundedAnchorSurround)
 % You have to specify a coordinate-Node as Base-Anchor and pass it
 % Then pass the Directions
