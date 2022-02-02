@@ -1,0 +1,41 @@
+\input{"./2ProjectSetup".tex}%
+\input{"\DenKrLayoutMainRootDir/2includes/packages/preamble_pre".tex}%
+\documentclass[tikz,fontsize=11pt,class=scrbook]{standalone}% I.e. the content from \input{"\DenKrLayoutMainRootDir/2layout/tikz_standalone/preamble_1_class".tex}%
+\input{"\DenKrLayoutBaseRootDir/tikz_standalone/1TikzStandalonePicIncludeThis".tex}%
+\DenKrTikzStandalonePre%
+%
+%
+%
+%
+%
+\begin{tikzpicture}[
+	scale = 1.0,%Könnte das Makro \tikzpicturescale sein. Siehe in makros.tex
+	% (Sollte eigentlich übergeben werden)(Beachte Möglichkeiten der Übergabe;
+	% standalone mode=tex vs mode=buildnew)
+	auto,
+	node distance=\nodedistance
+]
+%
+\pic(directory){srceryDirOpen};%
+% \pic(directory2)[below=8pt of directory-frame]{folder};%
+%
+\newcommand{\SymbolDist}{1ex}%
+\newcommand{\CollapseArrowSiz}{0.6ex}%
+\coordinate(DirCollapse)at($(directory-frame.west)+(-\SymbolDist,-0.5*\CollapseArrowSiz)$);
+\path[draw=darkgray,thick]($(DirCollapse)+(-\CollapseArrowSiz,\CollapseArrowSiz)$)--(DirCollapse)--($(DirCollapse)+(\CollapseArrowSiz,\CollapseArrowSiz)$);
+%
+\node(srcText)[anchor=west,inner sep=0pt]at($(directory-frame.east)+(0.5*\SymbolDist,0)$){\textcolor{TikzCol_srceryDirBorder!70!black}{\texttt{Src}}};
+%
+\coordinate(DirContentLineAnchor)at($(directory-frame.south)+(0,-\SymbolDist)+(0,-\CollapseArrowSiz)$);%
+\path[draw=lightgray,thick]($(DirContentLineAnchor)+(0,1.5*\CollapseArrowSiz)$)|-($(DirContentLineAnchor)+(1.5*\CollapseArrowSiz,0)$);
+%
+\scopenode[name=magicWand,draw=none,anchor=west,at={(DirContentLineAnchor-|srcText.west)}]{%
+\pic(magicWandSym){magicWandSpiralSparkyCurlSpark};%
+}
+%
+\node(eryText)[anchor=west,inner sep=0pt]at($(magicWand.east)+(0.5*\SymbolDist,0)$){\textcolor{TikzCol_srceryDirOpenHatchBorder!70!black}{\texttt{ery}}};
+%
+\end{tikzpicture}%
+%
+%
+\DenKrTikzStandalonePost%

@@ -1,0 +1,1581 @@
+%
+%========-------------------------------------------========
+%========		\pic(NodeName)[Style]{.PicIdentifier}	========
+%========-------------------------------------------========
+\definecolor{TikzCol_folderbg}{RGB}{124,166,198}%
+\definecolor{TikzCol_folderborder}{RGB}{110,144,169}%
+% \definecolor{txtbg}{RGB}{90,130,170}%
+\definecolor{TikzCol_DirTxtbg}{RGB}{170,170,190}%
+\definecolor{TikzCol_DirTxtborder}{RGB}{255,255,255}%
+%
+\def\Size{4pt}
+\tikzset{%
+  folder/.pic={%
+    \filldraw[draw=TikzCol_folderborder,top color=TikzCol_folderbg!50,bottom color=TikzCol_folderbg]%
+      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);%
+    \filldraw[draw=TikzCol_folderborder,top color=TikzCol_folderbg!50,bottom color=TikzCol_folderbg]%
+      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);%
+  }%
+}%
+\tikzset{%
+  txt/.pic={%
+    \filldraw[draw=TikzCol_DirTxtborder,top color=TikzCol_DirTxtbg,bottom color=TikzCol_DirTxtbg!50]%
+      (-1.15*\Size,-1.1*\Size) rectangle (1.15*\Size,1.3*\Size);%
+    \draw[draw=black]%
+      (-0.8*\Size,0.75*\Size)--(0.8*\Size,0.75*\Size);%
+    \draw[draw=black]%
+      (-0.8*\Size,0.2*\Size)--(0.7*\Size,0.2*\Size);%
+    \draw[draw=black]%
+      (-0.8*\Size,-0.35*\Size)--(0.2*\Size,-0.35*\Size);%
+  }%
+}%
+%
+%
+%
+%
+%
+%
+\usetikzlibrary{fit}
+\tikzset{
+  comp/.style = {
+    minimum width  = 8cm,
+    minimum height = 4.5cm,
+    text width     = 8cm,
+    inner sep      = 0pt,
+    text           = green,
+    align          = center,
+    font           = \Huge,
+    transform shape,
+    thick
+  },
+  monitor/.style = {draw = none, xscale = 18/16, yscale = 11/9},
+  display/.style = {shading = axis, left color = black!60, right color = black},
+  ut/.style      = {fill = gray}
+}
+\tikzset{
+  computer/.pic = {
+    % screen (with border)
+    \node(-m) [comp, pic actions, monitor]
+      {\phantom{\parbox{\linewidth}{\tikzpictext}}};
+    % display (without border)
+    \node[comp, pic actions, display] {\tikzpictext};
+    \begin{scope}[x = (-m.east), y = (-m.north)]
+      % filling the lower part
+      \path[pic actions, draw = none]
+        ([yshift=2\pgflinewidth]-0.1,-1) -- (-0.1,-1.3) -- (-1,-1.3) --
+        (-1,-2.4) -- (1,-2.4) -- (1,-1.3) -- (0.1,-1.3) --
+        ([yshift=2\pgflinewidth]0.1,-1);
+      % filling the border of the lower part
+      \path[ut]
+        (-1,-2.4) rectangle (1,-1.3)
+        (-0.9,-1.4) -- (-0.7,-2.3) -- (0.7,-2.3) -- (0.9,-1.4) -- cycle;
+      % drawing the frame of the whole computer
+      \path[pic actions, fill = none]
+        (-1,1) -- (-1,-1) -- (-0.1,-1) -- (-0.1,-1.3) -- (-1,-1.3) --
+        (-1,-2.4) coordinate(sw)coordinate[pos=0.5] (-b west) --
+        (1,-2.4) -- (1,-1.3) coordinate[pos=0.5] (-b east) --
+        (0.1,-1.3) -- (0.1,-1) -- (1,-1) -- (1,1) -- cycle;
+      % node around the whole computer
+      \node(-c) [fit = (sw)(-m.north east), inner sep = 0pt] {};
+    \end{scope}
+  }
+}
+%
+%
+%
+%
+%
+\definecolor{TikzCol_srceryDirBG}{RGB}{150,40,250}%
+\definecolor{TikzCol_srceryDirBorder}{RGB}{80,0,160}%
+\definecolor{TikzCol_srceryDirOpenHatchBG}{RGB}{70,10,250}%
+\definecolor{TikzCol_srceryDirOpenHatchBorder}{RGB}{30,0,130}%
+\def\srceryDirSize{8pt}%
+\def\srceryDirBorderLineWidth{0.0625*\srceryDirSize}%
+\def\srceryDirMainBodyStretchX{1.15}%
+\tikzset{%
+  srceryDirLine/.style={%
+    draw=TikzCol_srceryDirBorder,%
+    line width=\srceryDirBorderLineWidth%
+  },%
+  srceryDir/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \path[%
+        srceryDirLine,%
+        top color=TikzCol_srceryDirBG!50,%
+        bottom color=TikzCol_srceryDirBG%
+    ]%
+        (0.1*\srceryDirSize,0.2*\srceryDirSize)%
+        [rounded corners=0.05*\srceryDirSize]--++%
+            (0.4*\srceryDirSize,0)%
+        [sharp corners]--++%
+            (0,-0.2*\srceryDirSize)%
+        --++%
+            (-0.4*\srceryDirSize,0)%
+        [rounded corners=0.05*\srceryDirSize]--%
+            cycle%
+    ;%
+    \path[%
+        srceryDirLine,%
+        top color=TikzCol_srceryDirBG!50,%
+        bottom color=TikzCol_srceryDirBG%
+    ]%
+        (0,0)%
+        [rounded corners=0.15*\srceryDirSize]--++%
+            (\srceryDirMainBodyStretchX*\srceryDirSize,0)%
+        --++%
+            (0,-\srceryDirSize)%
+        --++%
+            (-\srceryDirMainBodyStretchX*\srceryDirSize,0)%
+        [sharp corners]--%
+            cycle%
+    ;%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.5*\srceryDirBorderLineWidth,0.5*\srceryDirBorderLineWidth)$)--($(#1-frame-inner.south east)+(0.5*\srceryDirBorderLineWidth,-0.5*\srceryDirBorderLineWidth)$);%
+    }%
+  },%
+  srceryDirOpenHatchLine/.style={%
+    draw=TikzCol_srceryDirOpenHatchBorder,%
+    line width=\srceryDirBorderLineWidth%
+  },%
+  srceryDirOpenHatch/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \path[%
+        srceryDirOpenHatchLine,%
+        top color=TikzCol_srceryDirOpenHatchBG!50,%
+        bottom color=TikzCol_srceryDirOpenHatchBG%
+    ]%
+        (\srceryDirMainBodyStretchX*\srceryDirSize,-\srceryDirSize)%
+        [rounded corners=0.15*\srceryDirSize]--++%
+            (-\srceryDirMainBodyStretchX*\srceryDirSize,0)%
+        --++%
+            (0.3*\srceryDirSize,0.7*\srceryDirSize)%
+        --++%
+            (\srceryDirMainBodyStretchX*\srceryDirSize,0)%
+        []--%
+            cycle%
+    ;%
+    }%
+    \path($(#1-frame-inner.north west)+(0.0*\srceryDirBorderLineWidth,0.5*\srceryDirBorderLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\srceryDirBorderLineWidth,-0.5*\srceryDirBorderLineWidth)$);%
+    }%
+  },%
+  srceryDirOpen/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \pic(srceryDirBack){srceryDir};%
+    \scopenode[name=srceryDirFront,anchor=south west,draw=none,at={($(srceryDirBack-frame.south west)+(0.5*\srceryDirBorderLineWidth,0)$)}]%
+        {\pic(srceryDirFront-pic){srceryDirOpenHatch};}%
+    }%
+  }%
+}%
+%
+%
+%
+%
+%
+\definecolor{TikzCol_magicWandSpiral1}{RGB}{80,0,160}%
+\definecolor{TikzCol_magicWandSpiral2}{RGB}{150,40,250}%
+% \definecolor{TikzCol_magicWandSpiral3}{RGB}{70,10,250}%
+\definecolor{TikzCol_magicWandSpiral3}{RGB}{255,160,0}%
+% \definecolor{TikzCol_magicWandSpiral4}{RGB}{30,0,130}%
+\definecolor{TikzCol_magicWandSpiral4}{RGB}{250,250,0}%
+\definecolor{TikzCol_magicWandCurl1}{RGB}{30,170,255}%
+\definecolor{TikzCol_magicSparkX1}{named}{TikzCol_magicWandCurl1}%
+\definecolor{TikzCol_magicSparkOneLineColor}{named}{TikzCol_magicWandSpiral1}%
+\definecolor{TikzCol_magicSparkOneFillColor}{named}{TikzCol_magicWandSpiral2}%
+\definecolor{TikzCol_magicSparkTwoLineColor}{named}{TikzCol_magicWandSpiral3}%
+\definecolor{TikzCol_magicSparkTwoFillColor}{named}{TikzCol_magicWandSpiral1}%
+\definecolor{TikzCol_magicSparkStarOneLineColor}{named}{TikzCol_magicWandSpiral3}%
+\definecolor{TikzCol_magicSparkStarOneFillColor}{named}{TikzCol_magicWandSpiral4}%
+\newcommand{\magicWandOverlayColorShiftOne}{!70!white}%
+\newcommand{\magicWandOverlayColorShiftOneDark}{!85!white}%
+\newcommand{\magicWandOverlayColorShiftTwo}{!40!white}%
+\newcommand{\magicWandOverlayColorShiftTwoDark}{!55!white}%
+\def\magicWandSpiralSize{15pt}% 8pt, 12pt, 3ex
+\def\magicWandSpiralLineWidth{0.09*\magicWandSpiralSize}% 0.07
+\def\magicWandCurlLineWidth{0.6*\magicWandSpiralLineWidth}%
+\def\magicWandCurlOverlayWidthFactor{0.2}%
+\def\magicSparkXSize{0.07*\magicWandSpiralSize}%
+\def\magicSparkXLineWidth{\magicWandCurlLineWidth}%
+\def\magicSparkStarSize{0.3*\magicWandSpiralSize}%
+\def\magicSparkStarLineWidth{0.07*\magicSparkStarSize}%
+\def\magicSparkOneHeight{\magicSparkStarSize}%
+\def\magicSparkOneWidth{0.5*\magicSparkOneHeight}%
+\def\magicSparkOneLineWidth{\magicSparkStarLineWidth}%
+\tikzset{%
+  magicWandSpiralLine/.style={%
+    draw=black,%
+    line width=\magicWandSpiralLineWidth%
+  },%
+  magicWandSpiral/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    % \path[draw=green,line width=0.05pt](0,0)rectangle(\magicWandSpiralSize,\magicWandSpiralSize);%
+    % \node()[inner sep=0pt,rotate=-46,anchor=center,scale=1.35]%
+    % at($(0.5*\magicWandSpiralSize,0.5*\magicWandSpiralSize)+(0.3pt,0.0pt)$)%
+    % {\includegraphics[height=\magicWandSpiralSize]{0organization/1main/8templates/tikz/7Tikz/example/zztempdel.PNG}};%
+    % \path[O,draw=red,line width=\magicWandSpiralLineWidth](0,0)to[out=130,in=190](1,1);
+    % \path[%
+    %     draw=green,line width=0.05pt%
+    % ]%
+    %     (0,0)%
+    %     --++(\magicWandSpiralSize,\magicWandSpiralSize)%
+    % ;%
+    % \path[%
+    %     magicWandSpiralLine,%
+    % ]%
+    %     (0,0)%
+    %     ..controls%
+    %         ++(0.5*\magicWandSpiralSize,0)%
+    %         and
+    %         ++(-0.5*\magicWandSpiralSize,0)%
+    %     ..
+    %         ++(\magicWandSpiralSize,\magicWandSpiralSize)% ++ makes relative to starting point
+    % ;%
+    \coordinate(#1-L1S)at(0.08*\magicWandSpiralSize,0.06*\magicWandSpiralSize);%
+    \coordinate(#1-L1E)at(0.19*\magicWandSpiralSize,0.38*\magicWandSpiralSize);%
+    \coordinate(#1-L2S)at(0.24*\magicWandSpiralSize,0.04*\magicWandSpiralSize);%
+    \coordinate(#1-L2E)at(0.40*\magicWandSpiralSize,0.54*\magicWandSpiralSize);%
+    \coordinate(#1-L3S)at(0.43*\magicWandSpiralSize,0.27*\magicWandSpiralSize);%
+    \coordinate(#1-L3E)at(0.62*\magicWandSpiralSize,0.7*\magicWandSpiralSize);%
+    \coordinate(#1-L4S)at(0.62*\magicWandSpiralSize,0.48*\magicWandSpiralSize);%
+    \coordinate(#1-L4P1)at(0.71*\magicWandSpiralSize,0.75*\magicWandSpiralSize);%
+    \coordinate(#1-L4P2)at(0.95*\magicWandSpiralSize,0.95*\magicWandSpiralSize);%
+    \coordinate(#1-L4E)at(0.82*\magicWandSpiralSize,0.72*\magicWandSpiralSize);%
+    %
+    \fill[color=TikzCol_magicWandSpiral4](#1-L1S)circle(0.5*\magicWandSpiralLineWidth);%
+    \fill[color=TikzCol_magicWandSpiral4](#1-L1E)circle(0.5*\magicWandSpiralLineWidth);%
+    \fill[color=TikzCol_magicWandSpiral3](#1-L2S)circle(0.5*\magicWandSpiralLineWidth);%
+    \fill[color=TikzCol_magicWandSpiral3](#1-L2E)circle(0.5*\magicWandSpiralLineWidth);%
+    \fill[color=TikzCol_magicWandSpiral2](#1-L3S)circle(0.5*\magicWandSpiralLineWidth);%
+    \fill[color=TikzCol_magicWandSpiral2](#1-L3E)circle(0.5*\magicWandSpiralLineWidth);%
+    \fill[color=TikzCol_magicWandSpiral1](#1-L4S)circle(0.5*\magicWandSpiralLineWidth);%
+    \fill[color=TikzCol_magicWandSpiral1](#1-L4E)circle(0.5*\magicWandSpiralLineWidth);%
+    %
+    \path[magicWandSpiralLine,save path=\LOne,draw=TikzCol_magicWandSpiral4](#1-L1S)to[out=130,in=190](#1-L1E);%
+    \path[magicWandSpiralLine,save path=\LTwo,draw=TikzCol_magicWandSpiral3]%
+        (#1-L2S)..controls%
+            ++(0.26*\magicWandSpiralSize,0.18*\magicWandSpiralSize)%Relative to Start-Point
+            and%
+            ++(-0.28*\magicWandSpiralSize,-0.18*\magicWandSpiralSize)%Relative to End-Point
+        ..(#1-L2E)%
+    ;%
+    \path[magicWandSpiralLine,save path=\LThree,draw=TikzCol_magicWandSpiral2]%
+        (#1-L3S)..controls%
+            ++(0.26*\magicWandSpiralSize,0.18*\magicWandSpiralSize)%
+            and%
+            ++(-0.28*\magicWandSpiralSize,-0.18*\magicWandSpiralSize)%
+        ..(#1-L3E)%
+    ;%
+    \fill[color=TikzCol_magicWandSpiral1](#1-L4P2)circle(0.5*\magicWandSpiralLineWidth);%
+    \path[magicWandSpiralLine,save path=\LFourLOne,draw=TikzCol_magicWandSpiral1]%
+        (#1-L4S)%
+        to[out=50,in=280](#1-L4P1)%
+        to[out=50,in=210](#1-L4P2)%
+        %to[out=250,in=50](#1-L4E)%
+    ;%
+    \path[magicWandSpiralLine,save path=\LFourLTwo,draw=TikzCol_magicWandSpiral1](#1-L4P2)to[out=250,in=50](#1-L4E);%
+    \path[save path=\LFourFull]%
+        (#1-L4S)%
+        to[out=50,in=280](#1-L4P1)%
+        to[out=50,in=210](#1-L4P2)%
+        to[out=250,in=50](#1-L4E)%
+    ;%
+    %
+    \newcommand{\OverlayLine}[4]{%
+        \path[use path=##1,draw=##2##3,line width=##4];%
+    }
+    \newcommand{\OverlayLineCoordDot}[4]{%
+        \fill[color=##2##3](##1)circle(0.5*##4);%
+    }
+    \newcommand{\OverlayLinesAll}[2]{%
+        \OverlayLineCoordDot{#1-L1S}{TikzCol_magicWandSpiral4}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L1E}{TikzCol_magicWandSpiral4}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L2S}{TikzCol_magicWandSpiral3}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L2E}{TikzCol_magicWandSpiral3}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L3S}{TikzCol_magicWandSpiral2}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L3E}{TikzCol_magicWandSpiral2}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L4S}{TikzCol_magicWandSpiral1}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L4E}{TikzCol_magicWandSpiral1}{##1}{##2};%
+        \OverlayLineCoordDot{#1-L4P2}{TikzCol_magicWandSpiral1}{##1}{##2};%
+        \OverlayLine{\LOne}{TikzCol_magicWandSpiral4}{##1}{##2};%
+        \OverlayLine{\LTwo}{TikzCol_magicWandSpiral3}{##1}{##2};%
+        \OverlayLine{\LThree}{TikzCol_magicWandSpiral2}{##1}{##2};%
+        \OverlayLine{\LFourLOne}{TikzCol_magicWandSpiral1}{##1}{##2};%
+        \OverlayLine{\LFourLTwo}{TikzCol_magicWandSpiral1}{##1}{##2};%
+        % \OverlayLine{\LFourFull}{TikzCol_magicWandSpiral1}{##1}{##2};%
+    }%
+    %
+    \newcommand{\OverlayLineColorShiftOne}{\magicWandOverlayColorShiftOne}%
+    \newcommand{\OverlayLineLineWidthOne}{0.5*\magicWandSpiralLineWidth}%
+    \OverlayLinesAll{\OverlayLineColorShiftOne}{\OverlayLineLineWidthOne}%
+    \newcommand{\OverlayLineColorShiftTwo}{\magicWandOverlayColorShiftTwo}%
+    \newcommand{\OverlayLineLineWidthTwo}{0.15*\magicWandSpiralLineWidth}%
+    \OverlayLinesAll{\OverlayLineColorShiftTwo}{\OverlayLineLineWidthTwo}%
+    %
+    % \path[draw=yellow,line width=0.03pt](0,0)rectangle(\magicWandSpiralSize,\magicWandSpiralSize);%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\magicWandSpiralLineWidth,0.0*\magicWandSpiralLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\magicWandSpiralLineWidth,-0.0*\magicWandSpiralLineWidth)$);%
+    }%
+  },%
+  magicWandCurlLine/.style={%
+    draw=TikzCol_magicWandCurl1,%
+    line width=\magicWandCurlLineWidth%
+  },%
+  magicWandSpiralCurl/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(magicWand){magicWandSpiral};%
+    % \coordinate(#1-Curl1S)at=($(magicWand-L1E)+(-0.15*\magicWandSpiralSize,-0.02*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl1E)at=($(magicWand-L3E)+(-0.15*\magicWandSpiralSize,-0.04*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl2S)at=($(#1-Curl1E)+(330:0.3*\magicWandSpiralSize)$);%
+    \coordinate(#1-Curl1S)at=($(magicWand-L1E)+(-0.12*\magicWandSpiralSize,-0.09*\magicWandSpiralSize)%
+        +(110:0.65*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);% Shift away from the Line depending on the Line Width
+    \coordinate(#1-Curl1E)at=($(magicWand-L3E)+(-0.09*\magicWandSpiralSize,-0.08*\magicWandSpiralSize)%
+        +(140:0.5*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);%
+    \coordinate(#1-Curl2S)at=($(magicWand-L4S)+(0.06*\magicWandSpiralSize,0.09*\magicWandSpiralSize)%
+        +(330:0.5*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl2P1)at=($(#1-Curl2S)+(-0.15*\magicWandSpiralSize,-0.2*\magicWandSpiralSize)$);%
+    \coordinate(#1-Curl2P1)at=($(#1-Curl2S)+(240:0.32*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl2E)at=($(magicWand-L4P1)+(0.0*\magicWandSpiralSize,0.1*\magicWandSpiralSize)$);%
+    \coordinate(#1-Curl2E)at=($(magicWand-L4P1)+(0.05*\magicWandSpiralSize,0.055*\magicWandSpiralSize)%
+        +(140:0.5*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);%
+    \coordinate(#1-Curl2P2)at=($(#1-Curl2E)+(185:0.5*\magicWandSpiralSize)$);%
+    %
+    \newcommand{\OverlayLine}[4]{%
+        \path[use path=##1,draw=##2##3,line width=##4];%
+    }
+    \newcommand{\OverlayLineCoordDot}[4]{%
+        \fill[color=##2##3](##1)circle(0.5*##4);%
+    }
+    \newcommand{\OverlayLineDots}[5]{%
+        \OverlayLineCoordDot{##4}{TikzCol_magicWandCurl1}{##1}{##2};%
+        \OverlayLineCoordDot{##5}{TikzCol_magicWandCurl1}{##1}{##2};%
+        \OverlayLine{##3}{TikzCol_magicWandCurl1}{##1}{##2};%
+        % \OverlayLine{\LFourFull}{TikzCol_magicWandSpiral1}{##1}{##2};%
+    }%
+    %
+    \fill[color=TikzCol_magicWandCurl1](#1-Curl1S)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-Curl1E)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-Curl2S)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-Curl2E)circle(0.5*\magicWandCurlLineWidth);%
+    %
+    % \newcommand{\LOneAngle}{-10}%
+    % \path[magicWandCurlLine,save path=\LOne]%
+    %     (#1-Curl1S)%
+    %     to[out=90-\LOneAngle,in=160+\LOneAngle](#1-Curl1E)%
+    % ;%
+    \coordinate(#1-Curl1C)at($(#1-Curl1S) !.5! (#1-Curl1E)$);%
+    \path[magicWandCurlLine,save path=\LOne]%
+        (#1-Curl1S)..controls%
+            ($(#1-Curl1S)+(90:0.22*\magicWandSpiralSize)$)%
+            and%
+            ($(#1-Curl1E)+(170:0.22*\magicWandSpiralSize)$)%
+        ..(#1-Curl1E)%
+    ;%
+    \OverlayLineDots{\magicWandOverlayColorShiftTwo}{\magicWandCurlOverlayWidthFactor*\magicWandCurlLineWidth}{\LOne}{#1-Curl1S}{#1-Curl1E}%
+    %
+    \coordinate(#1-Curl2C1)at($(#1-Curl2S) !.5! (#1-Curl2P1)$);%
+    \coordinate(#1-Curl2C2)at($(#1-Curl2P1) !.5! (#1-Curl2P2)$);%
+    \coordinate(#1-Curl2C3)at($(#1-Curl2P2) !.5! (#1-Curl2E)$);%
+    \path[magicWandCurlLine,save path=\LTwo]%
+        (#1-Curl2S)%
+        ..controls%
+            %to[out=310,in=310]%
+            % ($(magicWand-frame.south west)+(0.7*\magicWandSpiralSize,0.4*\magicWandSpiralSize)$)%
+            % and%
+            % ($(magicWand-frame.south west)+(0.5*\magicWandSpiralSize,0.02*\magicWandSpiralSize)$)%
+            ($(#1-Curl2C1)+(350:0.2*\magicWandSpiralSize)$)%
+            and%
+            ($(#1-Curl2C1)+(310:0.25*\magicWandSpiralSize)$)%
+        ..%
+        (#1-Curl2P1)%
+        ..controls%
+            ($(#1-Curl2C2)+(250:0.25*\magicWandSpiralSize)$)%
+            and%
+            ($(#1-Curl2C2)+(160:0.25*\magicWandSpiralSize)$)%
+        ..%
+        (#1-Curl2P2)%
+        ..controls%
+            % ($(#1-Curl2C3)+(170:0.3*\magicWandSpiralSize)$)%
+            % and%
+            % ($(#1-Curl2C3)+(100:0.4*\magicWandSpiralSize)$)%
+            ($(magicWand-frame.north west)+(0.26*\magicWandSpiralSize,0)$)%
+            and%
+            ($(magicWand-frame.north west)+(0.57*\magicWandSpiralSize,0)$)%
+        ..%
+        (#1-Curl2E)%
+    ;%
+    \OverlayLineDots{\magicWandOverlayColorShiftTwo}{\magicWandCurlOverlayWidthFactor*\magicWandCurlLineWidth}{\LTwo}{#1-Curl2S}{#1-Curl2E}%
+    %
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\magicSparkStarLineWidth,0.0*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\magicSparkStarLineWidth,-0.0*\magicSparkStarLineWidth)$);%
+    }%
+  },%
+  magicWandSparkyCurlLine/.style={%
+    draw=TikzCol_magicWandCurl1,%
+    line width=\magicWandCurlLineWidth%
+  },%
+  magicWandSpiralSparkyCurl/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(magicWand){magicWandSpiral};%
+    % \coordinate(#1-Curl1S)at=($(magicWand-L1E)+(-0.15*\magicWandSpiralSize,-0.02*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl1E)at=($(magicWand-L3E)+(-0.15*\magicWandSpiralSize,-0.04*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl2S)at=($(#1-Curl1E)+(330:0.3*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl2P1)at=($(#1-Curl2S)+(240:0.32*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl2E)at=($(magicWand-L4P1)+(0.0*\magicWandSpiralSize,0.1*\magicWandSpiralSize)$);%
+    % \coordinate(#1-Curl2P2)at=($(#1-Curl2E)+(185:0.5*\magicWandSpiralSize)$);%
+    %
+    % \fill[color=TikzCol_magicWandCurl1](#1-Curl1S)circle(0.5*\magicWandCurlLineWidth);%
+    % \fill[color=TikzCol_magicWandCurl1](#1-Curl1E)circle(0.5*\magicWandCurlLineWidth);%
+    % \fill[color=TikzCol_magicWandCurl1](#1-Curl2S)circle(0.5*\magicWandCurlLineWidth);%
+    % \fill[color=TikzCol_magicWandCurl1](#1-Curl2E)circle(0.5*\magicWandCurlLineWidth);%
+    % %
+    % \coordinate(#1-Curl1C)at($(#1-Curl1S) !.5! (#1-Curl1E)$);%
+    % \path[magicWandCurlLine,save path=\CurlOne]%
+    %     (#1-Curl1S)..controls%
+    %         ($(#1-Curl1S)+(90:0.22*\magicWandSpiralSize)$)%
+    %         and%
+    %         ($(#1-Curl1E)+(170:0.22*\magicWandSpiralSize)$)%
+    %     ..(#1-Curl1E)%
+    % ;%
+    % \OverlayLineDots{\magicWandOverlayColorShiftTwo}{0.2*\magicWandCurlLineWidth}{\CurlOne}{#1-Curl1S}{#1-Curl1E}%
+    % %
+    % \coordinate(#1-Curl2C1)at($(#1-Curl2S) !.5! (#1-Curl2P1)$);%
+    % \coordinate(#1-Curl2C2)at($(#1-Curl2P1) !.5! (#1-Curl2P2)$);%
+    % \coordinate(#1-Curl2C3)at($(#1-Curl2P2) !.5! (#1-Curl2E)$);%
+    % \path[magicWandCurlLine,save path=\CurlTwo]%
+    %     (#1-Curl2S)%
+    %     ..controls%
+    %         ($(#1-Curl2C1)+(350:0.2*\magicWandSpiralSize)$)%
+    %         and%
+    %         ($(#1-Curl2C1)+(310:0.25*\magicWandSpiralSize)$)%
+    %     ..%
+    %     (#1-Curl2P1)%
+    %     ..controls%
+    %         ($(#1-Curl2C2)+(250:0.25*\magicWandSpiralSize)$)%
+    %         and%
+    %         ($(#1-Curl2C2)+(160:0.25*\magicWandSpiralSize)$)%
+    %     ..%
+    %     (#1-Curl2P2)%
+    %     ..controls%
+    %         ($(magicWand-frame.north west)+(0.26*\magicWandSpiralSize,0)$)%
+    %         and%
+    %         ($(magicWand-frame.north west)+(0.57*\magicWandSpiralSize,0)$)%
+    %     ..%
+    %     (#1-Curl2E)%
+    % ;%
+    % \OverlayLineDots{\magicWandOverlayColorShiftTwo}{0.2*\magicWandCurlLineWidth}{\CurlTwo}{#1-Curl2S}{#1-Curl2E}%
+    %
+    %
+    \newcommand{\OverlayLine}[4]{%
+        \path[use path=##1,draw=##2##3,line width=##4];%
+    }
+    \newcommand{\OverlayLineCoordDot}[4]{%
+        \fill[color=##2##3](##1)circle(0.5*##4);%
+    }
+    \newcommand{\OverlayLineDots}[5]{%
+        \OverlayLineCoordDot{##4}{TikzCol_magicWandCurl1}{##1}{##2};%
+        \OverlayLineCoordDot{##5}{TikzCol_magicWandCurl1}{##1}{##2};%
+        \OverlayLine{##3}{TikzCol_magicWandCurl1}{##1}{##2};%
+    }%
+    %
+    % \coordinate(#1-SCurl1S-draft)at=($(magicWand-L1E)+(-0.15*\magicWandSpiralSize,-0.02*\magicWandSpiralSize)$);%
+    % \coordinate(#1-SCurl1E-draft)at=($(magicWand-L3E)+(-0.15*\magicWandSpiralSize,-0.04*\magicWandSpiralSize)$);%
+    % \coordinate(#1-SCurl2S-draft)at=($(#1-SCurl1E-draft)+(335:0.3*\magicWandSpiralSize)$);%
+    % \coordinate(#1-SCurl4E-draft)at=($(magicWand-L4P1)+(0.0*\magicWandSpiralSize,0.1*\magicWandSpiralSize)$);%
+    % \fill[color=green](#1-SCurl1S-draft)circle(0.65*\magicWandCurlLineWidth);%
+    % \fill[color=green](#1-SCurl1E-draft)circle(0.65*\magicWandCurlLineWidth);%
+    % \fill[color=green](#1-SCurl2S-draft)circle(0.65*\magicWandCurlLineWidth);%
+    % \fill[color=green](#1-SCurl4E-draft)circle(0.65*\magicWandCurlLineWidth);%
+    %
+    \coordinate(#1-SCurl1S)at=($(magicWand-L1E)+(-0.12*\magicWandSpiralSize,-0.09*\magicWandSpiralSize)%
+        +(110:0.65*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);% Shift away from the Line depending on the Line Width
+    \coordinate(#1-SCurl1E)at=($(magicWand-L3E)+(-0.09*\magicWandSpiralSize,-0.08*\magicWandSpiralSize)%
+        +(140:0.5*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);%
+    \coordinate(#1-SCurl2S)at=($(magicWand-L4S)+(0.06*\magicWandSpiralSize,0.09*\magicWandSpiralSize)%
+        +(330:0.5*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);%
+    \coordinate(#1-SCurl2E)at=($(#1-SCurl2S)+(288:0.19*\magicWandSpiralSize)$);%
+    \coordinate(#1-SCurl3S)at=($(#1-SCurl2S)+(260:0.31*\magicWandSpiralSize)$);%
+    \coordinate(#1-SCurl4E)at=($(magicWand-L4P1)+(0.05*\magicWandSpiralSize,0.055*\magicWandSpiralSize)%
+        +(140:0.5*\magicWandSpiralLineWidth+0.5*\magicWandCurlLineWidth+0.01*\magicWandSpiralSize)$);%
+    \coordinate(#1-SCurl4S)at=($(#1-SCurl4E)+(165:0.35*\magicWandSpiralSize)$);%
+    \coordinate(#1-SCurl3E)at=($(#1-SCurl4E)+(182:0.49*\magicWandSpiralSize)$);%
+    %
+    \coordinate(#1-CurlSpark1Anchor-Pre)at($(#1-SCurl2E)!.5!(#1-SCurl3S)$);%
+    \coordinate(#1-CurlSpark1Anchor)at($(#1-CurlSpark1Anchor-Pre)+(320:0.9*\magicWandCurlLineWidth)$);%
+    \coordinate(#1-CurlSpark2Anchor-Pre)at($(#1-SCurl3E)!.5!(#1-SCurl4S)$);%
+    \coordinate(#1-CurlSpark2Anchor)at($(#1-CurlSpark2Anchor-Pre)+(110:0.7*\magicWandCurlLineWidth)$);%
+    %
+    \scopenode[name=#1-magicSpark1,anchor=center,draw=none,%
+        at={(#1-CurlSpark1Anchor)}%
+    ]{\pic(#1-magicSpark1-pic){magicSparkX};}%
+    \scopenode[name=magicSpark2,anchor=center,draw=none,%
+        at={(#1-CurlSpark2Anchor)}%
+    ]{\pic(magicSpark2-pic){magicSparkX};}%
+    %
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl1S)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl1E)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl2S)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl2E)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl3S)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl3E)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl4S)circle(0.5*\magicWandCurlLineWidth);%
+    \fill[color=TikzCol_magicWandCurl1](#1-SCurl4E)circle(0.5*\magicWandCurlLineWidth);%
+    %
+    \coordinate(#1-SCurl1C)at($(#1-SCurl1S) !.5! (#1-SCurl1E)$);%
+    \coordinate(#1-SCurl2C)at($(#1-SCurl2S) !.5! (#1-SCurl2E)$);%
+    \coordinate(#1-SCurl3C)at($(#1-SCurl3S) !.5! (#1-SCurl3E)$);%
+    \coordinate(#1-SCurl4C)at($(#1-SCurl4S) !.5! (#1-SCurl4E)$);%
+    \path[magicWandSparkyCurlLine,save path=\SCurlOne]%
+        (#1-SCurl1S)..controls%
+            ($(#1-SCurl1S)+(90:0.22*\magicWandSpiralSize)$)%
+            and%
+            ($(#1-SCurl1E)+(170:0.22*\magicWandSpiralSize)$)%
+        ..(#1-SCurl1E)%
+    ;%
+    \OverlayLineDots{\magicWandOverlayColorShiftTwo}{0.2*\magicWandCurlLineWidth}{\SCurlOne}{#1-SCurl1S}{#1-SCurl1E}%
+    \path[magicWandSparkyCurlLine,save path=\SCurlTwo]%
+        (#1-SCurl2S)..controls%
+            ($(#1-SCurl2S)+(320:0.08*\magicWandSpiralSize)$)%
+            and%
+            ($(#1-SCurl2E)+(70:0.06*\magicWandSpiralSize)$)%
+        ..(#1-SCurl2E)%
+    ;%
+    \OverlayLineDots{\magicWandOverlayColorShiftTwo}{0.2*\magicWandCurlLineWidth}{\SCurlTwo}{#1-SCurl2S}{#1-SCurl2E}%
+    \path[magicWandSparkyCurlLine,save path=\SCurlThree]%
+        (#1-SCurl3S)..controls%
+            ($(#1-SCurl3S)+(185:0.31*\magicWandSpiralSize)$)%
+            and%
+            ($(#1-SCurl3E)+(250:0.28*\magicWandSpiralSize)$)%
+        ..(#1-SCurl3E)%
+    ;%
+    \OverlayLineDots{\magicWandOverlayColorShiftTwo}{0.2*\magicWandCurlLineWidth}{\SCurlThree}{#1-SCurl3S}{#1-SCurl3E}%
+    \path[magicWandSparkyCurlLine,save path=\SCurlFour]%
+        (#1-SCurl4S)..controls%
+            ($(#1-SCurl4S)+(15:0.12*\magicWandSpiralSize)$)%
+            and%
+            ($(#1-SCurl4E)+(130:0.08*\magicWandSpiralSize)$)%
+        ..(#1-SCurl4E)%
+    ;%
+    \OverlayLineDots{\magicWandOverlayColorShiftTwo}{0.2*\magicWandCurlLineWidth}{\SCurlFour}{#1-SCurl4S}{#1-SCurl4E}%
+    %
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\magicSparkStarLineWidth,0.0*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\magicSparkStarLineWidth,-0.0*\magicSparkStarLineWidth)$);%
+    }%
+  },%
+  magicSparkDrawFill/.style={%
+    draw=TikzCol_magicSparkOneLineColor,%
+    fill=TikzCol_magicSparkOneFillColor,%
+    line width=\magicSparkOneLineWidth,%
+  },%
+  magicSparkOne/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \coordinate(#1-bottom)at(0.5*\magicSparkOneWidth,0);%
+    \coordinate(#1-TL)at(0,\magicSparkOneHeight);%
+    \coordinate(#1-TR)at($(#1-TL)+(\magicSparkOneWidth,0)$);%
+    \coordinate(#1-ML)at(0,0.9*\magicSparkOneHeight);%
+    \coordinate(#1-MR)at($(#1-ML)+(\magicSparkOneWidth,0)$);%
+    %
+    \coordinate(#1-coverB)at($(#1-bottom)+(90:1*\magicSparkOneLineWidth)$);%
+    \coordinate(#1-coverTL)at($(#1-TL)+(2.5*\magicSparkOneLineWidth,-1.0*\magicSparkOneLineWidth)$);%
+    \coordinate(#1-coverTR)at($(#1-TR)+(-2.5*\magicSparkOneLineWidth,-1.0*\magicSparkOneLineWidth)$);%
+    \coordinate(#1-coverML)at($(#1-coverTL|-#1-coverB)!.9!(#1-coverTL)$);%
+    \coordinate(#1-coverMR)at($(#1-coverTR|-#1-coverB)!.9!(#1-coverTR)$);%
+    %
+    \newcommand{\AngleOne}{30}
+    \newcommand{\AngleTwo}{0}
+    \newcommand{\AngleThree}{20}
+    \path[%
+        draw=TikzCol_magicSparkOneLineColor,%
+        fill=TikzCol_magicSparkOneFillColor,%
+        line width=\magicSparkOneLineWidth,%
+        save path=\circulation,%
+    ]%
+        (#1-bottom)%
+        to[out=90+\AngleOne,in=270-\AngleTwo](#1-ML)%
+        --(#1-TL)%
+        to[out=\AngleThree,in=180-\AngleThree](#1-TR)%
+        --(#1-MR)%
+        to[out=270+\AngleTwo,in=90-\AngleOne]cycle%
+    ;%
+    \path[%
+        draw=none,%
+        fill=TikzCol_magicSparkOneFillColor\magicWandOverlayColorShiftOne,%
+        line width=\magicSparkOneLineWidth,%
+        save path=\cover,%
+    ]
+        (#1-coverB)%
+        to[out=90+\AngleOne,in=270-\AngleTwo](#1-coverML)%
+        --(#1-coverTL)%
+        to[out=\AngleThree,in=180-\AngleThree](#1-coverTR)%
+        --(#1-coverMR)%
+        to[out=270+\AngleTwo,in=90-\AngleOne]cycle%
+    ;%
+    \path[save path=\clipMask,%
+        %draw,red,line width=0.01pt,%
+    ]%
+        (#1-bottom-|#1-TR)rectangle($(#1-TL)!.5!(#1-TR)$)%
+    ;%
+    \begin{scope}%
+        \clip[use path=\clipMask];%
+        \path[%
+            draw=none,%
+            fill=TikzCol_magicSparkOneFillColor\magicWandOverlayColorShiftOneDark,%
+            use path=\cover,%
+        ];%
+    \end{scope}%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.55*\magicSparkOneLineWidth,0.3*\magicSparkOneLineWidth)$)--($(#1-frame-inner.south east)+(0.55*\magicSparkOneLineWidth,-1.0*\magicSparkOneLineWidth)$);%
+    }%
+  },%
+  magicSparkTwo/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \coordinate(#1-bottom)at(0.5*\magicSparkOneWidth,0);%
+    \coordinate(#1-TL)at(0,\magicSparkOneHeight);%
+    \coordinate(#1-TR)at($(#1-TL)+(\magicSparkOneWidth,0)$);%
+    \coordinate(#1-ML)at(0.1*\magicSparkOneWidth,0.9*\magicSparkOneHeight);%
+    \coordinate(#1-MR)at($(#1-ML)+(0.8*\magicSparkOneWidth,0)$);%
+    %
+    \coordinate(#1-coverB)at($(#1-bottom)+(90:1.0*\magicSparkOneLineWidth)$);%
+    \coordinate(#1-coverTL)at($(#1-TL)+(3.0*\magicSparkOneLineWidth,-1.0*\magicSparkOneLineWidth)$);%
+    \coordinate(#1-coverTR)at($(#1-TR)+(-3.0*\magicSparkOneLineWidth,-1.0*\magicSparkOneLineWidth)$);%
+    \coordinate(#1-coverML)at($(#1-coverTL|-#1-coverB)!.9!(#1-coverTL)$);%
+    \coordinate(#1-coverMR)at($(#1-coverTR|-#1-coverB)!.9!(#1-coverTR)$);%
+    %
+    \newcommand{\AngleOne}{20}
+    \newcommand{\AngleTwo}{0}
+    \newcommand{\AngleThree}{20}
+    \path[%
+        draw=TikzCol_magicSparkTwoLineColor,%
+        fill=TikzCol_magicSparkTwoFillColor,%
+        line width=\magicSparkOneLineWidth,%
+        save path=\circulation,%
+    ]%
+        (#1-bottom)%
+        to[out=90+\AngleOne,in=270-\AngleTwo](#1-ML)%
+        --(#1-TL)%
+        to[out=\AngleThree,in=180-\AngleThree](#1-TR)%
+        --(#1-MR)%
+        to[out=270+\AngleTwo,in=90-\AngleOne]cycle%
+    ;%
+    \path[%
+        draw=none,%
+        fill=TikzCol_magicSparkTwoFillColor\magicWandOverlayColorShiftOne,%
+        line width=\magicSparkOneLineWidth,%
+        save path=\cover,%
+    ]
+        (#1-coverB)%
+        to[out=90+\AngleOne,in=270-\AngleTwo](#1-coverML)%
+        --(#1-coverTL)%
+        to[out=\AngleThree,in=180-\AngleThree](#1-coverTR)%
+        --(#1-coverMR)%
+        to[out=270+\AngleTwo,in=90-\AngleOne]cycle%
+    ;%
+    \path[save path=\clipMask,%
+        %draw,red,line width=0.01pt,%
+    ]%
+        (#1-bottom-|#1-TR)rectangle($(#1-TL)!.5!(#1-TR)$)%
+    ;%
+    \begin{scope}%
+        \clip[use path=\clipMask];%
+        \path[%
+            draw=none,%
+            fill=TikzCol_magicSparkTwoFillColor\magicWandOverlayColorShiftOneDark,%
+            use path=\cover,%
+        ];%
+    \end{scope}%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.75*\magicSparkOneLineWidth,0.3*\magicSparkOneLineWidth)$)--($(#1-frame-inner.south east)+(0.75*\magicSparkOneLineWidth,-1.5*\magicSparkOneLineWidth)$);%
+    }%
+  },%
+  magicSparkX/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \coordinate(#1-TL)at(0,1.0*\magicSparkXSize);%
+    \coordinate(#1-TR)at(1.0*\magicSparkXSize,1.0*\magicSparkXSize);%
+    \coordinate(#1-BR)at(1.0*\magicSparkXSize,0);%
+    \coordinate(#1-BL)at(0,0);%
+    %
+    \newcommand{\magicSparkXOverlayLine}[4]{%
+        \path[use path=##1,draw=##2##3,line width=##4];%
+    }
+    \newcommand{\magicSparkXOverlayLineCoordDot}[4]{%
+        \fill[color=##2##3](##1)circle(0.5*##4);%
+    }
+    \newcommand{\magicSparkXOverlayLineDots}[5]{%
+        \magicSparkXOverlayLineCoordDot{##4}{TikzCol_magicWandCurl1}{##1}{##2};%
+        \magicSparkXOverlayLineCoordDot{##5}{TikzCol_magicWandCurl1}{##1}{##2};%
+        \magicSparkXOverlayLine{##3}{TikzCol_magicWandCurl1}{##1}{##2};%
+    }%
+    %
+    \fill[color=TikzCol_magicSparkX1](#1-TL)circle(0.5*\magicSparkXLineWidth);%
+    \fill[color=TikzCol_magicSparkX1](#1-TR)circle(0.5*\magicSparkXLineWidth);%
+    \fill[color=TikzCol_magicSparkX1](#1-BR)circle(0.5*\magicSparkXLineWidth);%
+    \fill[color=TikzCol_magicSparkX1](#1-BL)circle(0.5*\magicSparkXLineWidth);%
+    %
+    \path[magicWandCurlLine,save path=\LOne]%
+        (#1-TL)%
+        --%
+        (#1-BR)%
+    ;%
+    \path[magicWandCurlLine,save path=\LTwo]%
+        (#1-TR)%
+        --%
+        (#1-BL)%
+    ;%
+    \magicSparkXOverlayLineDots{\magicWandOverlayColorShiftTwo}{1.5*\magicWandCurlOverlayWidthFactor*\magicWandCurlLineWidth}{\LOne}{#1-TL}{#1-BR}%
+    \magicSparkXOverlayLineDots{\magicWandOverlayColorShiftTwo}{1.5*\magicWandCurlOverlayWidthFactor*\magicWandCurlLineWidth}{\LTwo}{#1-TR}{#1-BL}%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\magicSparkXLineWidth,0.0*\magicSparkXLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\magicSparkXLineWidth,-0.0*\magicSparkXLineWidth)$);%
+    }%
+  },%
+  magicSparkStarOne/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \newcommand{\InnerRadius}{0.2*\magicSparkStarSize};%
+    \coordinate(#1-Center)at(0.5*\magicSparkStarSize,0.5*\magicSparkStarSize);%
+    \coordinate(#1-LTip)at(0,0.5*\magicSparkStarSize);%
+    \coordinate(#1-TTip)at(0.5*\magicSparkStarSize,\magicSparkStarSize);%
+    \coordinate(#1-RTip)at(\magicSparkStarSize,0.5*\magicSparkStarSize);%
+    \coordinate(#1-BTip)at(0.5*\magicSparkStarSize,0);%
+    \coordinate(#1-MidTL)at($(#1-Center)+(135:\InnerRadius)$);%
+    \coordinate(#1-MidTR)at($(#1-Center)+(45:\InnerRadius)$);%
+    \coordinate(#1-MidBL)at($(#1-Center)+(225:\InnerRadius)$);%
+    \coordinate(#1-MidBR)at($(#1-Center)+(315:\InnerRadius)$);%
+    %
+    \newcommand{\coverDist}{.6};%
+    \coordinate(#1-coverLBPL)at($(#1-LTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverLBPR)at(#1-Center);%
+    \coordinate(#1-coverLBPT)at($(#1-MidBL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverLTPL)at($(#1-LTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverLTPR)at(#1-Center);%
+    \coordinate(#1-coverLTPT)at($(#1-MidTL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTLPL)at($(#1-TTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTLPR)at(#1-Center);%
+    \coordinate(#1-coverTLPT)at($(#1-MidTL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTRPL)at($(#1-TTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTRPR)at(#1-Center);%
+    \coordinate(#1-coverTRPT)at($(#1-MidTR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRTPL)at($(#1-RTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRTPR)at(#1-Center);%
+    \coordinate(#1-coverRTPT)at($(#1-MidTR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRBPL)at($(#1-RTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRBPR)at(#1-Center);%
+    \coordinate(#1-coverRBPT)at($(#1-MidBR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBRPL)at($(#1-BTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBRPR)at(#1-Center);%
+    \coordinate(#1-coverBRPT)at($(#1-MidBR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBLPL)at($(#1-BTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBLPR)at(#1-Center);%
+    \coordinate(#1-coverBLPT)at($(#1-MidBL)!\coverDist!(#1-Center)$);%
+    %
+    \path[line width=\magicSparkStarLineWidth,%
+        draw=TikzCol_magicSparkStarOneLineColor,%
+        fill=TikzCol_magicSparkStarOneFillColor,%
+        save path=\circulation,%
+    ]%
+        (#1-LTip)%
+        --%
+            (#1-MidTL)%
+        --%
+            (#1-TTip)%
+        --%
+            (#1-MidTR)%
+        --%
+            (#1-RTip)%
+        --%
+            (#1-MidBR)%
+        --%
+            (#1-BTip)%
+        --%
+            (#1-MidBL)%
+        --%
+            cycle%
+    ;%
+    %
+    \path[% fill=TikzCol_magicSparkStarOneFillColor\magicWandOverlayColorShiftOne,%
+        save path=\coverLB,%
+    ](#1-coverLBPL)--(#1-coverLBPR)--(#1-coverLBPT)--cycle;%
+    \path[save path=\coverLT](#1-coverLTPL)--(#1-coverLTPR)--(#1-coverLTPT)--cycle;%
+    \path[save path=\coverTL](#1-coverTLPL)--(#1-coverTLPR)--(#1-coverTLPT)--cycle;%
+    \path[save path=\coverTR](#1-coverTRPL)--(#1-coverTRPR)--(#1-coverTRPT)--cycle;%
+    \path[save path=\coverRT](#1-coverRTPL)--(#1-coverRTPR)--(#1-coverRTPT)--cycle;%
+    \path[save path=\coverRB](#1-coverRBPL)--(#1-coverRBPR)--(#1-coverRBPT)--cycle;%
+    \path[save path=\coverBR](#1-coverBRPL)--(#1-coverBRPR)--(#1-coverBRPT)--cycle;%
+    \path[save path=\coverBL](#1-coverBLPL)--(#1-coverBLPR)--(#1-coverBLPT)--cycle;%
+    %
+    \def\coverColorOne{TikzCol_magicSparkStarOneLineColor\magicWandOverlayColorShiftOne}%
+    \def\coverColorTwo{TikzCol_magicSparkStarOneLineColor\magicWandOverlayColorShiftTwoDark}%
+    \path[use path=\coverLB,fill=\coverColorOne];%
+    \path[use path=\coverTL,fill=\coverColorOne];%
+    \path[use path=\coverRT,fill=\coverColorOne];%
+    \path[use path=\coverBR,fill=\coverColorOne];%
+    \path[use path=\coverLT,fill=\coverColorTwo];%
+    \path[use path=\coverTR,fill=\coverColorTwo];%
+    \path[use path=\coverRB,fill=\coverColorTwo];%
+    \path[use path=\coverBL,fill=\coverColorTwo];%
+    }%
+    \path($(#1-frame-inner.north west)+(-1.4*\magicSparkStarLineWidth,1.4*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(1.4*\magicSparkStarLineWidth,-1.4*\magicSparkStarLineWidth)$);%
+    }%
+  },%
+  magicSparkStarTwo/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \newcommand{\InnerRadius}{0.2*\magicSparkStarSize};%
+    \coordinate(#1-Center)at(0.5*\magicSparkStarSize,0.5*\magicSparkStarSize);%
+    \coordinate(#1-LTip)at(0,0.5*\magicSparkStarSize);%
+    \coordinate(#1-TTip)at(0.5*\magicSparkStarSize,\magicSparkStarSize);%
+    \coordinate(#1-RTip)at(\magicSparkStarSize,0.5*\magicSparkStarSize);%
+    \coordinate(#1-BTip)at(0.5*\magicSparkStarSize,0);%
+    \coordinate(#1-MidTL)at($(#1-Center)+(135:\InnerRadius)$);%
+    \coordinate(#1-MidTR)at($(#1-Center)+(45:\InnerRadius)$);%
+    \coordinate(#1-MidBL)at($(#1-Center)+(225:\InnerRadius)$);%
+    \coordinate(#1-MidBR)at($(#1-Center)+(315:\InnerRadius)$);%
+    %
+    \newcommand{\coverDist}{.5};%
+    \coordinate(#1-coverLBPL)at($(#1-LTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverLBPR)at(#1-Center);%
+    \coordinate(#1-coverLBPT)at($(#1-MidBL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverLTPL)at($(#1-LTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverLTPR)at(#1-Center);%
+    \coordinate(#1-coverLTPT)at($(#1-MidTL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTLPL)at($(#1-TTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTLPR)at(#1-Center);%
+    \coordinate(#1-coverTLPT)at($(#1-MidTL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTRPL)at($(#1-TTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTRPR)at(#1-Center);%
+    \coordinate(#1-coverTRPT)at($(#1-MidTR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRTPL)at($(#1-RTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRTPR)at(#1-Center);%
+    \coordinate(#1-coverRTPT)at($(#1-MidTR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRBPL)at($(#1-RTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRBPR)at(#1-Center);%
+    \coordinate(#1-coverRBPT)at($(#1-MidBR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBRPL)at($(#1-BTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBRPR)at(#1-Center);%
+    \coordinate(#1-coverBRPT)at($(#1-MidBR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBLPL)at($(#1-BTip)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBLPR)at(#1-Center);%
+    \coordinate(#1-coverBLPT)at($(#1-MidBL)!\coverDist!(#1-Center)$);%
+    %
+    \newcommand{\Angle}{30}%
+    \path[line width=\magicSparkStarLineWidth,%
+        draw=TikzCol_magicSparkStarOneLineColor,%
+        fill=TikzCol_magicSparkStarOneFillColor,%
+        save path=\circulation,%
+    ]%
+        (#1-LTip)%
+        to[out=\Angle,in=180+\Angle]%
+            (#1-MidTL)%
+        to[out=90-\Angle,in=270-\Angle]%
+            (#1-TTip)%
+        to[out=270+\Angle,in=90+\Angle]%
+            (#1-MidTR)%
+        to[out=360-\Angle,in=180-\Angle]%
+            (#1-RTip)%
+        to[out=180+\Angle,in=\Angle]%
+            (#1-MidBR)%
+        to[out=270-\Angle,in=90-\Angle]%
+            (#1-BTip)%
+        to[out=90+\Angle,in=270+\Angle]%
+            (#1-MidBL)%
+        to[out=180-\Angle,in=360-\Angle]%
+            cycle%
+    ;%
+    %
+    \path[% fill=TikzCol_magicSparkStarOneFillColor\magicWandOverlayColorShiftOne,%
+        save path=\coverLB,%
+    ](#1-coverLBPL)--(#1-coverLBPR)--(#1-coverLBPT)to[out=180-\Angle,in=360-\Angle]cycle;%
+    \path[save path=\coverLT](#1-coverLTPL)--(#1-coverLTPR)--(#1-coverLTPT)to[out=180+\Angle,in=\Angle]cycle;%
+    \path[save path=\coverTL](#1-coverTLPL)--(#1-coverTLPR)--(#1-coverTLPT)to[out=90-\Angle,in=270-\Angle]cycle;%
+    \path[save path=\coverTR](#1-coverTRPL)--(#1-coverTRPR)--(#1-coverTRPT)to[out=90+\Angle,in=270+\Angle]cycle;%
+    \path[save path=\coverRT](#1-coverRTPL)--(#1-coverRTPR)--(#1-coverRTPT)to[out=360-\Angle,in=180-\Angle]cycle;%
+    \path[save path=\coverRB](#1-coverRBPL)--(#1-coverRBPR)--(#1-coverRBPT)to[out=\Angle,in=180+\Angle]cycle;%
+    \path[save path=\coverBR](#1-coverBRPL)--(#1-coverBRPR)--(#1-coverBRPT)to[out=270-\Angle,in=90-\Angle]cycle;%
+    \path[save path=\coverBL](#1-coverBLPL)--(#1-coverBLPR)--(#1-coverBLPT)to[out=270+\Angle,in=90+\Angle]cycle;%
+    %
+    \def\coverColorOne{TikzCol_magicSparkStarOneLineColor\magicWandOverlayColorShiftOne}%
+    \def\coverColorTwo{TikzCol_magicSparkStarOneLineColor\magicWandOverlayColorShiftTwoDark}%
+    \path[use path=\coverLB,fill=\coverColorOne];%
+    \path[use path=\coverTL,fill=\coverColorOne];%
+    \path[use path=\coverRT,fill=\coverColorOne];%
+    \path[use path=\coverBR,fill=\coverColorOne];%
+    \path[use path=\coverLT,fill=\coverColorTwo];%
+    \path[use path=\coverTR,fill=\coverColorTwo];%
+    \path[use path=\coverRB,fill=\coverColorTwo];%
+    \path[use path=\coverBL,fill=\coverColorTwo];%
+    }%
+    \path($(#1-frame-inner.north west)+(-1.1*\magicSparkStarLineWidth,1.1*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(1.1*\magicSparkStarLineWidth,-1.1*\magicSparkStarLineWidth)$);%
+    }%
+  },%
+  magicSparkStarThree/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \newcommand{\InnerRadius}{0.2*\magicSparkStarSize};%
+    \coordinate(#1-Center)at(0.5*\magicSparkStarSize,0.5*\magicSparkStarSize);%
+    \coordinate(#1-LTip)at(0,0.5*\magicSparkStarSize);%
+    \coordinate(#1-TTip)at(0.5*\magicSparkStarSize,\magicSparkStarSize);%
+    \coordinate(#1-RTip)at(\magicSparkStarSize,0.5*\magicSparkStarSize);%
+    \coordinate(#1-BTip)at(0.5*\magicSparkStarSize,0);%
+    \coordinate(#1-MidTL)at($(#1-Center)+(135:\InnerRadius)$);%
+    \coordinate(#1-MidTR)at($(#1-Center)+(45:\InnerRadius)$);%
+    \coordinate(#1-MidBL)at($(#1-Center)+(225:\InnerRadius)$);%
+    \coordinate(#1-MidBR)at($(#1-Center)+(315:\InnerRadius)$);%
+    %
+    \newcommand{\coverDist}{.6};%
+    \newcommand{\coverDistTip}{.4};%
+    \coordinate(#1-coverLBPL)at($(#1-LTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverLBPR)at(#1-Center);%
+    \coordinate(#1-coverLBPT)at($(#1-MidBL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverLTPL)at($(#1-LTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverLTPR)at(#1-Center);%
+    \coordinate(#1-coverLTPT)at($(#1-MidTL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTLPL)at($(#1-TTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverTLPR)at(#1-Center);%
+    \coordinate(#1-coverTLPT)at($(#1-MidTL)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverTRPL)at($(#1-TTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverTRPR)at(#1-Center);%
+    \coordinate(#1-coverTRPT)at($(#1-MidTR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRTPL)at($(#1-RTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverRTPR)at(#1-Center);%
+    \coordinate(#1-coverRTPT)at($(#1-MidTR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverRBPL)at($(#1-RTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverRBPR)at(#1-Center);%
+    \coordinate(#1-coverRBPT)at($(#1-MidBR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBRPL)at($(#1-BTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverBRPR)at(#1-Center);%
+    \coordinate(#1-coverBRPT)at($(#1-MidBR)!\coverDist!(#1-Center)$);%
+    \coordinate(#1-coverBLPL)at($(#1-BTip)!\coverDistTip!(#1-Center)$);%
+    \coordinate(#1-coverBLPR)at(#1-Center);%
+    \coordinate(#1-coverBLPT)at($(#1-MidBL)!\coverDist!(#1-Center)$);%
+    %
+    \newcommand{\Angle}{30}%
+    \path[line width=\magicSparkStarLineWidth,%
+        draw=TikzCol_magicSparkStarOneLineColor,%
+        fill=TikzCol_magicSparkStarOneFillColor,%
+        save path=\circulation,%
+    ]%
+        (#1-LTip)%
+        to[out=\Angle,in=180]%
+            (#1-MidTL)%
+        to[out=90,in=270-\Angle]%
+            (#1-TTip)%
+        to[out=270+\Angle,in=90]%
+            (#1-MidTR)%
+        to[out=360,in=180-\Angle]%
+            (#1-RTip)%
+        to[out=180+\Angle,in=0]%
+            (#1-MidBR)%
+        to[out=270,in=90-\Angle]%
+            (#1-BTip)%
+        to[out=90+\Angle,in=270]%
+            (#1-MidBL)%
+        to[out=180,in=360-\Angle]%
+            cycle%
+    ;%
+    %
+    \path[% fill=TikzCol_magicSparkStarOneFillColor\magicWandOverlayColorShiftOne,%
+        save path=\coverLB,%
+    ](#1-coverLBPL)--(#1-coverLBPR)--(#1-coverLBPT)to[out=180,in=360-\Angle]cycle;%
+    \path[save path=\coverLT](#1-coverLTPL)--(#1-coverLTPR)--(#1-coverLTPT)to[out=180,in=\Angle]cycle;%
+    \path[save path=\coverTL](#1-coverTLPL)--(#1-coverTLPR)--(#1-coverTLPT)to[out=90,in=270-\Angle]cycle;%
+    \path[save path=\coverTR](#1-coverTRPL)--(#1-coverTRPR)--(#1-coverTRPT)to[out=90,in=270+\Angle]cycle;%
+    \path[save path=\coverRT](#1-coverRTPL)--(#1-coverRTPR)--(#1-coverRTPT)to[out=0,in=180-\Angle]cycle;%
+    \path[save path=\coverRB](#1-coverRBPL)--(#1-coverRBPR)--(#1-coverRBPT)to[out=0,in=180+\Angle]cycle;%
+    \path[save path=\coverBR](#1-coverBRPL)--(#1-coverBRPR)--(#1-coverBRPT)to[out=270,in=90-\Angle]cycle;%
+    \path[save path=\coverBL](#1-coverBLPL)--(#1-coverBLPR)--(#1-coverBLPT)to[out=270,in=90+\Angle]cycle;%
+    %
+    \def\coverColorOne{TikzCol_magicSparkStarOneLineColor\magicWandOverlayColorShiftOne}%
+    \def\coverColorTwo{TikzCol_magicSparkStarOneLineColor\magicWandOverlayColorShiftTwoDark}%
+    \path[use path=\coverLB,fill=\coverColorOne];%
+    \path[use path=\coverTL,fill=\coverColorOne];%
+    \path[use path=\coverRT,fill=\coverColorOne];%
+    \path[use path=\coverBR,fill=\coverColorOne];%
+    \path[use path=\coverLT,fill=\coverColorTwo];%
+    \path[use path=\coverTR,fill=\coverColorTwo];%
+    \path[use path=\coverRB,fill=\coverColorTwo];%
+    \path[use path=\coverBL,fill=\coverColorTwo];%
+    }%
+    \path($(#1-frame-inner.north west)+(-1.0*\magicSparkStarLineWidth,1.0*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(1.0*\magicSparkStarLineWidth,-1.0*\magicSparkStarLineWidth)$);%
+    }%
+  },%
+  magicWandSpiralSpark/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(magicWand){magicWandSpiral};%
+    \coordinate(ClipBL)at(magicWand-frame.south west);%
+    \scopenode[name=magicSpark1,anchor=north west,draw=none,%
+        % transform canvas={scale=0.3},%
+        at={($(magicWand-frame.north east)+(0.0*\magicWandSpiralSize,0.25*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark1-pic)[rotate=300]{magicSparkTwo};}%
+    \scopenode[name=magicSpark2,anchor=north west,draw=none,%
+        at={($(magicWand-frame.north east)+(0.0*\magicWandSpiralSize,-0.05*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark2-pic)[rotate=280]{magicSparkOne};}%
+    \scopenode[name=magicSpark3,anchor=north west,draw=none,%
+        at={($(magicWand-frame.north east)+(-0.06*\magicWandSpiralSize,-0.3*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark3-pic)[rotate=47]{magicSparkStarTwo};}%
+    \coordinate(clipTR)at(magicSpark1-pic-TL -| magicSpark1-pic-TR);%
+    % \draw[blue](ClipBL)rectangle(clipTR);%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\magicSparkStarLineWidth,0.0*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\magicSparkStarLineWidth,-0.0*\magicSparkStarLineWidth)$);%
+    }%
+  },%
+  magicWandSpiralCurlSpark/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(magicWand){magicWandSpiralCurl};%
+    \coordinate(ClipBL)at(magicWand-frame.south west);%
+    \scopenode[name=magicSpark1,anchor=north west,draw=none,%
+        % transform canvas={scale=0.3},%
+        at={($(magicWand-frame.north east)+(0.0*\magicWandSpiralSize,0.25*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark1-pic)[rotate=300]{magicSparkTwo};}%
+    \scopenode[name=magicSpark2,anchor=north west,draw=none,%
+        at={($(magicWand-frame.north east)+(0.0*\magicWandSpiralSize,-0.05*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark2-pic)[rotate=280]{magicSparkOne};}%
+    \scopenode[name=magicSpark3,anchor=north west,draw=none,%
+        at={($(magicWand-frame.north east)+(-0.06*\magicWandSpiralSize,-0.3*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark3-pic)[rotate=47]{magicSparkStarTwo};}%
+    \coordinate(clipTR)at(magicSpark1-pic-TL -| magicSpark1-pic-TR);%
+    % \draw[blue](ClipBL)rectangle(clipTR);%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\magicSparkStarLineWidth,0.0*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\magicSparkStarLineWidth,-0.0*\magicSparkStarLineWidth)$);%
+    }%
+  },%
+  magicWandSpiralSparkyCurlSpark/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(magicWand){magicWandSpiralSparkyCurl};%
+    \coordinate(ClipBL)at(magicWand-frame.south west);%
+    \scopenode[name=magicSpark1,anchor=north west,draw=none,%
+        % transform canvas={scale=0.3},%
+        at={($(magicWand-frame.north east)+(0.0*\magicWandSpiralSize,0.25*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark1-pic)[rotate=300]{magicSparkTwo};}%
+    \scopenode[name=magicSpark2,anchor=north west,draw=none,%
+        at={($(magicWand-frame.north east)+(0.0*\magicWandSpiralSize,-0.05*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark2-pic)[rotate=280]{magicSparkOne};}%
+    \scopenode[name=magicSpark3,anchor=north west,draw=none,%
+        at={($(magicWand-frame.north east)+(-0.06*\magicWandSpiralSize,-0.3*\magicWandSpiralSize)$)}%
+    ]{\pic(magicSpark3-pic)[rotate=47]{magicSparkStarTwo};}%
+    \coordinate(clipTR)at(magicSpark1-pic-TL -| magicSpark1-pic-TR);%
+    % \draw[blue](ClipBL)rectangle(clipTR);%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\magicSparkStarLineWidth,0.0*\magicSparkStarLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\magicSparkStarLineWidth,-0.0*\magicSparkStarLineWidth)$);%
+    }%
+  }%
+}%
+%
+%
+%
+%
+%
+\definecolor{TikzCol_kiwiSkinBright}{RGB}{171,141,51}%
+\definecolor{TikzCol_kiwiSkinBright2}{RGB}{135,90,55}%
+\definecolor{TikzCol_kiwiSkinMedium}{RGB}{115,80,55}%
+\definecolor{TikzCol_kiwiSkinDark}{RGB}{100,70,55}%
+\definecolor{TikzCol_kiwiHairBright}{RGB}{171,141,51}%
+\definecolor{TikzCol_kiwiHairDark}{RGB}{100,70,21}%
+\definecolor{TikzCol_kiwiGreenBright}{RGB}{139,205,30}%
+\definecolor{TikzCol_kiwiGreenMedium}{RGB}{130,152,15}%
+\definecolor{TikzCol_kiwiGreenMedium2}{RGB}{164,186,39}%
+\definecolor{TikzCol_kiwiGreenDark}{RGB}{100,124,13}%
+\definecolor{TikzCol_kiwiCoreWhite}{RGB}{240,255,240}%
+\definecolor{TikzCol_kiwiLineBright}{RGB}{215,239,93}%
+\definecolor{TikzCol_kiwiLineDark}{RGB}{93,121,26}%
+\colorlet{TikzCol_kiwiSeedShell}{TikzCol_kiwiGreenDark!30!black}%
+%
+\definecolor{TikzCol_eggShellWhite}{RGB}{240,234,224}% {240,234,214}% {239,235,220}% {245,235,230}%
+\definecolor{TikzCol_eggWhiteWhite}{RGB}{255,255,255}%
+\definecolor{TikzCol_eggYolkYellow}{RGB}{246,187,7}% {244,187,41}%
+\definecolor{TikzCol_eggYolkOrange}{RGB}{247,167,39}%
+%
+\colorlet{TikzCol_eggYolkOrangeShadow}{TikzCol_eggYolkOrange!80!black}%
+\colorlet{TikzCol_eggShellShadow}{TikzCol_eggShellWhite!80!black}%
+\colorlet{TikzCol_kiwiSkinShadow}{TikzCol_kiwiSkinBright2!85!black}%
+%
+\colorlet{TikzCol_eggYolkOrangeLight}{TikzCol_eggYolkOrange!30!white}%
+%
+\def\KiwiEggSize{10em}% 8pt, 12pt, 3ex
+\def\KiwiEggWidth{\KiwiEggSize}% 8pt, 12pt, 3ex
+\def\KiwiEggHeight{1.4*\KiwiEggSize}% 8pt, 12pt, 3ex
+\def\KiwiEggCrackOpenHeight{0.6*\KiwiEggHeight}
+\def\KiwiEggLineWidth{0.004*\KiwiEggSize}% 0.07
+%
+\def\KiwiEggSeedSize{0.025*\KiwiEggSize}% 8pt, 12pt, 3ex
+\tikzset{%
+  KiwiEggFusionCrackOpenLine/.style={%
+    draw=none,%
+    line width=\KiwiEggLineWidth%
+  },%
+  KiwiEggFusionCrackOpen/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \coordinate(#1-BellyLeft)at(0,\KiwiEggCrackOpenHeight);%
+    \coordinate(#1-BellyRight)at($(#1-BellyLeft)+(\KiwiEggWidth,0)$);%
+    \coordinate(#1-BellyCenter)at($(#1-BellyLeft)!.5!(#1-BellyRight)$);%
+    \coordinate(#1-BellyCenterHigh)at($(#1-BellyCenter)+(0,0.25*\KiwiEggCrackOpenHeight)$);%
+    \coordinate(#1-BellyCenterLow)at($(#1-BellyCenter)+(0,-0.25*\KiwiEggCrackOpenHeight)$);%
+    \coordinate(#1-BottomCenter)at($(#1-BellyCenter)+(0,-\KiwiEggCrackOpenHeight)$);%
+    %
+    \coordinate(#1-EggYolkTop)at($(#1-BellyCenterHigh)!.2!(#1-BellyCenterLow)$);%
+    \coordinate(#1-EggYolkBottom)at($(#1-BellyCenterLow)!.3!(#1-BellyCenterHigh)$);%
+    \coordinate(#1-EggYolkTip)at($(#1-EggYolkBottom)+(17:0.32*\KiwiEggWidth)$);%
+    \coordinate(#1-KiwiCoreTop)at($(#1-BellyCenterHigh)!.2!(#1-BellyCenterLow)$);%
+    \coordinate(#1-KiwiCoreBottom)at($(#1-BellyCenterLow)!.3!(#1-BellyCenterHigh)$);%
+    \coordinate(#1-KiwiCoreTipOne)at($(#1-BellyCenter)+(-0.2*\KiwiEggSize,0.05*\KiwiEggSize)$);%
+    \coordinate(#1-KiwiCoreTipTwo)at($(#1-BellyCenter)+(-0.25*\KiwiEggSize,-0.06*\KiwiEggSize)$);%
+    %
+    \coordinate(#1-EggYolkShadowTop)at($(#1-EggYolkBottom)!.15!(#1-EggYolkTop)$);%
+    \coordinate(#1-EggShellShadowTop)at($(#1-BottomCenter)!.1!(#1-BellyCenterLow)$);%
+    \coordinate(#1-kiwiSkinShadowOutside)at($(#1-EggShellShadowTop)+(-0.3*\KiwiEggSize,0.06*\KiwiEggSize)$);%
+    %
+    \coordinate(#1-EggYolkLightT)at($(#1-EggYolkTop)!.1!(#1-EggYolkBottom)$);%
+    \coordinate(#1-EggYolkLightB)at($(#1-EggYolkTop)!.18!(#1-EggYolkBottom)$);%
+    \coordinate(#1-EggYolkLightR)at($(#1-EggYolkLightB)+(-3:0.12*\KiwiEggSize)$);%
+    %
+    % \newcommand{\CutFaceAngle}{60}%
+    % \path[draw]%
+    %     (#1-BellyLeft)%
+    %         to[out=\CutFaceAngle,in=180]%
+    %     (#1-BellyCenterHigh)%
+    %         --++(40:0.1*\KiwiEggSize)%
+    %         --++(-50:0.12*\KiwiEggSize)%
+    %         --
+    %     (#1-BellyRight)%
+    %         to[out=180+\CutFaceAngle,in=0]%
+    %     (#1-BellyCenterLow)%
+    %         to[out=180,in=360-\CutFaceAngle]%
+    %     cycle;
+    % \path[draw=green]%
+    %     (#1-BellyLeft)%
+    %         to[out=\CutFaceAngle,in=180]%
+    %     (#1-BellyCenterHigh)%
+    %         to[out=0,in=180-\CutFaceAngle]%
+    %     (#1-BellyRight)%
+    %         to[out=180+\CutFaceAngle,in=0]%
+    %     (#1-BellyCenterLow)%
+    %         to[out=180,in=360-\CutFaceAngle]%
+    %     cycle;
+    % \path[fill=none]%TikzCol_kiwiSkinMedium]%
+    %     (#1-BellyLeft)%
+    %         to[out=270,in=180]%
+    %     (#1-BottomCenter)%
+    %         to[out=0,in=290]%
+    %     (#1-BellyRight)%
+    %         --%
+    %     (#1-BellyCenterLow)%
+    %         to[out=180,in=360-\CutFaceAngle]%
+    %     cycle;
+    %
+    \newcommand{\BezierOneX}{0.0}%
+    \newcommand{\BezierOneY}{0.15}%
+    \newcommand{\BezierTwoX}{0.2}%
+    \newcommand{\BezierTwoY}{0.0}%
+    % \path[draw=green]%
+    %     (#1-BellyLeft)%
+    %         ..controls%
+    %             ++(\BezierOneX*\KiwiEggSize,\BezierOneY*\KiwiEggSize)%Relative to Start-Point
+    %             and%
+    %             ++(-\BezierTwoX*\KiwiEggSize,\BezierTwoY*\KiwiEggSize)%Relative to End-Point
+    %         ..%
+    %     (#1-BellyCenterHigh)%
+    %         ..controls%
+    %             ++(\BezierTwoX*\KiwiEggSize,\BezierTwoY*\KiwiEggSize)%
+    %             and%
+    %             ++(-\BezierOneX*\KiwiEggSize,\BezierOneY*\KiwiEggSize)%
+    %         ..%
+    %     (#1-BellyRight)%
+    %         ..controls%
+    %             ++(-\BezierOneX*\KiwiEggSize,-\BezierOneY*\KiwiEggSize)%
+    %             and%
+    %             ++(\BezierTwoX*\KiwiEggSize,-\BezierTwoY*\KiwiEggSize)%
+    %         ..%
+    %     (#1-BellyCenterLow)%
+    %         ..controls%
+    %             ++(-\BezierTwoX*\KiwiEggSize,-\BezierTwoY*\KiwiEggSize)%
+    %             and%
+    %             ++(\BezierOneX*\KiwiEggSize,-\BezierOneY*\KiwiEggSize)%
+    %         ..%
+    %     cycle;
+    \path[KiwiEggFusionCrackOpenLine,save path=\KiwiCut,fill=TikzCol_kiwiGreenBright]%
+        (#1-BellyLeft)%
+            ..controls%
+                ++(\BezierOneX*\KiwiEggSize,\BezierOneY*\KiwiEggSize)%Relative to Start-Point
+                and%
+                ++(-\BezierTwoX*\KiwiEggSize,\BezierTwoY*\KiwiEggSize)%Relative to End-Point
+            ..%
+        (#1-BellyCenterHigh)%
+            --%
+        (#1-BellyCenterLow)%
+            ..controls%
+                ++(-\BezierTwoX*\KiwiEggSize,-\BezierTwoY*\KiwiEggSize)%
+                and%
+                ++(\BezierOneX*\KiwiEggSize,-\BezierOneY*\KiwiEggSize)%
+            ..%
+        cycle;
+    \path[KiwiEggFusionCrackOpenLine,save path=\KiwiCutLight]%
+        ($(#1-BellyCenterHigh)!.6!(#1-KiwiCoreTop)$)%
+            ..controls%
+                ++(-0.25*\KiwiEggSize,-0.0*\KiwiEggSize)%Relative to Start-Point
+                and%
+                ++(0.04*\KiwiEggSize,0.1*\KiwiEggSize)%Relative to End-Point
+            ..%
+        ($(#1-BellyLeft)+(0.03*\KiwiEggSize,-0.07*\KiwiEggSize)$)%
+            --%
+        ($(#1-BellyLeft)+(0,-0.3*\KiwiEggSize)$)%
+            |-
+        (#1-BellyCenterHigh)%
+            --%
+        cycle;
+    \newcommand{\KiwiCoreLineBrightPattern}[3]{% Angle, Length
+        \path[draw=##3, line width=0.016*\KiwiEggSize]%
+            (#1-BellyCenter)--++(##1:##2);%
+        \fill[color=##3]($(#1-BellyCenter)+(##1:##2)$)circle(0.008*\KiwiEggSize);%
+    }%
+    \newcommand{\KiwiCoreLineBright}[2]{% Angle, Length
+        \KiwiCoreLineBrightPattern{##1}{##2}{TikzCol_kiwiLineBright}%
+    }%
+    \newcommand{\KiwiCoreLineDarkScaling}[2]{% Angle, Length
+        \path[fill=TikzCol_kiwiLineDark]%
+            (#1-BellyCenter)%
+                ..controls%
+                    ++(##1-10:0.8*##2)% (90-10:0.7*##2)
+                    and%
+                    ++(180+##1+15:0.4*##2)% (270+20:0.4*##2)
+                ..%
+            ($(#1-BellyCenter)+(##1:##2)$)%
+                ..controls%
+                    ++(180+##1-15:0.4*##2)% (270-20:0.4*##2)
+                    and%
+                    ++(##1+10:0.8*##2)% (90+10:0.7*##2)
+                ..%
+            cycle;%
+    }%
+    \newcommand{\KiwiCoreLineDarkPattern}[3]{% Angle, Length
+        \path[fill=##3]%
+            ($(#1-BellyCenter)+(##1-90:0.02*\KiwiEggSize)$)%
+                ..controls%
+                    ++(##1-0:0.8*##2)% (90-10:0.7*##2)
+                    and%
+                    ++(180+##1+10:0.5*##2)% (270+20:0.4*##2)
+                ..%
+            ($(#1-BellyCenter)+(##1:##2)$)%
+                ..controls%
+                    ++(180+##1-10:0.5*##2)% (270-20:0.4*##2)
+                    and%
+                    ++(##1+0:0.8*##2)% (90+10:0.7*##2)
+                ..%
+            ($(#1-BellyCenter)+(##1+90:0.02*\KiwiEggSize)$)%
+                --%
+            cycle;%
+    }%
+    \newcommand{\KiwiCoreLineDark}[2]{% Angle, Length
+        \KiwiCoreLineDarkPattern{##1}{##2}{TikzCol_kiwiLineDark}%
+    }%
+    \KiwiCoreLineDark{96}{0.18*\KiwiEggSize}%
+    \KiwiCoreLineDark{130}{0.20*\KiwiEggSize}%
+    \KiwiCoreLineDark{161}{0.31*\KiwiEggSize}%
+    \KiwiCoreLineDark{181}{0.36*\KiwiEggSize}%
+    \KiwiCoreLineDark{204}{0.26*\KiwiEggSize}%
+    \KiwiCoreLineDark{252}{0.16*\KiwiEggSize}%
+    \KiwiCoreLineBright{112}{0.19*\KiwiEggSize}%
+    \KiwiCoreLineBright{146}{0.27*\KiwiEggSize}%
+    \KiwiCoreLineBright{171}{0.39*\KiwiEggSize}%
+    \KiwiCoreLineBright{191}{0.35*\KiwiEggSize}%
+    \KiwiCoreLineBright{225}{0.18*\KiwiEggSize}%
+    \KiwiCoreLineBright{273}{0.15*\KiwiEggSize}%
+    \begin{scope}%
+        \clip[use path=\KiwiCut];%
+        \path[KiwiEggFusionCrackOpenLine,use path=\KiwiCutLight,fill=TikzCol_kiwiGreenBright!70!white];%
+        \clip[use path=\KiwiCutLight];%
+        \KiwiCoreLineDarkPattern{96}{0.18*\KiwiEggSize}{TikzCol_kiwiLineDark!70!white}%
+        \KiwiCoreLineDarkPattern{130}{0.20*\KiwiEggSize}{TikzCol_kiwiLineDark!70!white}%
+        \KiwiCoreLineDarkPattern{161}{0.31*\KiwiEggSize}{TikzCol_kiwiLineDark!70!white}%
+        \KiwiCoreLineBrightPattern{112}{0.19*\KiwiEggSize}{TikzCol_kiwiLineBright!70!white}%
+        \KiwiCoreLineBrightPattern{146}{0.27*\KiwiEggSize}{TikzCol_kiwiLineBright!70!white}%
+        \KiwiCoreLineBrightPattern{171}{0.39*\KiwiEggSize}{TikzCol_kiwiLineBright!70!white}%
+    \end{scope}%
+    \path[KiwiEggFusionCrackOpenLine,use path=\KiwiCut,draw=TikzCol_kiwiSkinDark];%
+    \path[KiwiEggFusionCrackOpenLine,line width=0.7*\KiwiEggLineWidth,draw=TikzCol_kiwiGreenMedium,fill=TikzCol_kiwiCoreWhite]%
+        (#1-KiwiCoreTop)%
+            ..controls%
+                ++(-0.0*\KiwiEggSize,-0.04*\KiwiEggSize)%
+                and%
+                ++(0.05*\KiwiEggSize,0*\KiwiEggSize)%
+            ..%
+        (#1-KiwiCoreTipOne)%
+            ..controls%
+                ++(0.03*\KiwiEggSize,-0.06*\KiwiEggSize)%
+                and%
+                ++(0.02*\KiwiEggSize,0.03*\KiwiEggSize)%
+            ..%
+        (#1-KiwiCoreTipTwo)%
+            ..controls%
+                ++(0.05*\KiwiEggSize,0.01*\KiwiEggSize)%
+                and%
+                ++(-0.04*\KiwiEggSize,0.03*\KiwiEggSize)%
+            ..%
+        (#1-KiwiCoreBottom)%
+            --%
+        cycle;%
+    \newcommand{\KiwiSeedLight}[5]{% Position, Angle, LightShift_X, LightShift_Y, LightRotation
+        \fill[white!55!TikzCol_kiwiSeedShell]($(##1)+(270+##2:0.5*\KiwiEggSeedSize)+(##3*\KiwiEggSeedSize,##4*\KiwiEggSeedSize)$)circle[x radius=0.07*\KiwiEggSeedSize,y radius=0.17*\KiwiEggSeedSize,rotate=##5];%ellipse(0.2*\KiwiEggSeedSize and 0.2*\KiwiEggSeedSize);
+    }%
+    \newcommand{\KiwiSeedOne}[5]{% Position, Angle, LightShift_X, LightShift_Y, LightRotation
+        \path[fill=TikzCol_kiwiSeedShell]%
+            (##1)%
+                ..controls%
+                    ($(##1)+(270+##2+50:0.3*\KiwiEggSeedSize)$)%
+                    and%
+                    ($(##1)+(270+##2+30:1.0*\KiwiEggSeedSize)$)%
+                ..%
+            ($(##1)+(270+##2:\KiwiEggSeedSize)$)%
+                ..controls%
+                    ($(##1)+(270+##2-30:1.0*\KiwiEggSeedSize)$)%
+                    and%
+                    ($(##1)+(270+##2-10:0.3*\KiwiEggSeedSize)$)%
+                ..%
+            cycle;%
+        \KiwiSeedLight{##1}{##2}{##3}{##4}{##5}%
+    }%
+    \newcommand{\KiwiSeedTwo}[5]{%
+        \path[fill=TikzCol_kiwiSeedShell]%
+            (##1)%
+                ..controls%
+                    ($(##1)+(270+##2+20:0.3*\KiwiEggSeedSize)$)%
+                    and%
+                    ($(##1)+(270+##2+30:1.1*\KiwiEggSeedSize)$)%
+                ..%
+            ($(##1)+(270+##2:\KiwiEggSeedSize)$)%
+                ..controls%
+                    ($(##1)+(270+##2-30:0.9*\KiwiEggSeedSize)$)%
+                    and%
+                    ($(##1)+(270+##2-40:0.3*\KiwiEggSeedSize)$)%
+                ..%
+            cycle;%
+        \KiwiSeedLight{##1}{##2}{##3}{##4}{##5}%
+    }%
+    \KiwiSeedOne{0.485*\KiwiEggSize,0.95*\KiwiEggSize}{201}{-0.1}{0.14}{-10}%
+    \KiwiSeedOne{0.45*\KiwiEggSize,0.93*\KiwiEggSize}{204}{-0.1}{0.14}{0}%
+    \KiwiSeedTwo{0.41*\KiwiEggSize,0.91*\KiwiEggSize}{200}{-0.1}{0.12}{14}%
+    \KiwiSeedOne{0.42*\KiwiEggSize,0.94*\KiwiEggSize}{207}{-0.1}{0.11}{10}%
+    \KiwiSeedOne{0.392*\KiwiEggSize,0.908*\KiwiEggSize}{213}{-0.12}{0.14}{12}%
+    \KiwiSeedTwo{0.34*\KiwiEggSize,0.93*\KiwiEggSize}{214}{-0.1}{0.1}{40}%
+    \KiwiSeedOne{0.365*\KiwiEggSize,0.905*\KiwiEggSize}{211}{-0.12}{0.11}{25}%
+    \KiwiSeedOne{0.335*\KiwiEggSize,0.907*\KiwiEggSize}{211}{-0.12}{0.13}{-5}%
+    \KiwiSeedTwo{0.31*\KiwiEggSize,0.895*\KiwiEggSize}{219}{-0.13}{0.09}{44}%
+    \KiwiSeedTwo{0.31*\KiwiEggSize,0.917*\KiwiEggSize}{201}{-0.1}{0.1}{29}%
+    \KiwiSeedOne{0.28*\KiwiEggSize,0.9*\KiwiEggSize}{240}{-0.18}{0.04}{14}%
+    \KiwiSeedTwo{0.265*\KiwiEggSize,0.878*\KiwiEggSize}{274}{-0.22}{0.0}{-18}%
+    \KiwiSeedOne{0.3*\KiwiEggSize,0.88*\KiwiEggSize}{260}{-0.2}{0.0}{12}%
+    \KiwiSeedTwo{0.305*\KiwiEggSize,0.86*\KiwiEggSize}{269}{-0.2}{0.0}{-10}%
+    \KiwiSeedTwo{0.268*\KiwiEggSize,0.845*\KiwiEggSize}{272}{-0.2}{0.0}{-13}%
+    \KiwiSeedTwo{0.30*\KiwiEggSize,0.841*\KiwiEggSize}{274}{-0.2}{0.0}{-9}%
+    \KiwiSeedOne{0.275*\KiwiEggSize,0.816*\KiwiEggSize}{244}{-0.17}{0.09}{22}%
+    \KiwiSeedTwo{0.264*\KiwiEggSize,0.804*\KiwiEggSize}{291}{-0.2}{-0.05}{-26}%
+    \KiwiSeedOne{0.24*\KiwiEggSize,0.782*\KiwiEggSize}{281}{-0.18}{0.04}{-81}%
+    \KiwiSeedOne{0.236*\KiwiEggSize,0.768*\KiwiEggSize}{299}{-0.2}{-0.08}{-40}%
+    \KiwiSeedOne{0.27*\KiwiEggSize,0.78*\KiwiEggSize}{309}{-0.2}{-0.09}{-33}%
+    \KiwiSeedTwo{0.268*\KiwiEggSize,0.756*\KiwiEggSize}{309}{-0.2}{-0.06}{-39}%
+    \KiwiSeedOne{0.298*\KiwiEggSize,0.778*\KiwiEggSize}{326}{-0.15}{-0.1}{-24}%
+    \KiwiSeedTwo{0.32*\KiwiEggSize,0.781*\KiwiEggSize}{332}{-0.15}{-0.1}{-13}%
+    \KiwiSeedOne{0.321*\KiwiEggSize,0.756*\KiwiEggSize}{334}{-0.09}{-0.1}{-23}%
+    \KiwiSeedOne{0.338*\KiwiEggSize,0.781*\KiwiEggSize}{360}{-0.05}{-0.14}{-13}%
+    \KiwiSeedOne{0.339*\KiwiEggSize,0.75*\KiwiEggSize}{366}{-0.04}{-0.1}{-10}%
+    \KiwiSeedTwo{0.366*\KiwiEggSize,0.771*\KiwiEggSize}{349}{-0.07}{-0.11}{0}%
+    \KiwiSeedOne{0.384*\KiwiEggSize,0.778*\KiwiEggSize}{355}{-0.04}{-0.12}{-14}%
+    \KiwiSeedOne{0.4*\KiwiEggSize,0.764*\KiwiEggSize}{361}{0}{-0.09}{0}%
+    \KiwiSeedTwo{0.425*\KiwiEggSize,0.774*\KiwiEggSize}{355}{-0.05}{-0.15}{12}%
+    \KiwiSeedOne{0.448*\KiwiEggSize,0.769*\KiwiEggSize}{358}{-0.04}{-0.1}{-12}%
+    \KiwiSeedTwo{0.446*\KiwiEggSize,0.734*\KiwiEggSize}{352}{-0.05}{-0.11}{9}%
+    \KiwiSeedTwo{0.468*\KiwiEggSize,0.758*\KiwiEggSize}{358}{-0.04}{-0.13}{12}%
+    \KiwiSeedTwo{0.487*\KiwiEggSize,0.735*\KiwiEggSize}{352}{-0.05}{-0.03}{-8}%
+    \path[KiwiEggFusionCrackOpenLine,save path=\KiwiSkin,fill=TikzCol_kiwiSkinBright2]% TikzCol_kiwiSkinMedium
+        (#1-BellyLeft)%
+            to[out=270,in=180]%
+        (#1-BottomCenter)%
+            --%
+        (#1-BellyCenterLow)%
+            ..controls%
+                ++(-\BezierTwoX*\KiwiEggSize,-\BezierTwoY*\KiwiEggSize)%
+                and%
+                ++(\BezierOneX*\KiwiEggSize,-\BezierOneY*\KiwiEggSize)%
+            ..%
+        cycle;
+    \path[save path=\KiwiSkinShadow]%
+        (#1-EggShellShadowTop)%
+            to[out=180,in=340]%
+        (#1-kiwiSkinShadowOutside)%
+            to[out=270,in=180]%
+        (#1-BottomCenter)%
+            --%
+        cycle;%
+    \begin{scope}%
+        \clip[use path=\KiwiSkin];%
+        \path[KiwiEggFusionCrackOpenLine,fill=TikzCol_kiwiSkinShadow,use path=\KiwiSkinShadow];%
+    \end{scope}%
+    \path[KiwiEggFusionCrackOpenLine,use path=\KiwiSkin,draw=TikzCol_kiwiSkinDark];%
+    \newcommand{\KiwiHair}[4]{% Position, Angle, Color, AdditionalOptions
+        \path[draw=##3, line width=0.03*\KiwiEggSize ##4]%
+            (##1)--++(##2:0.08*\KiwiEggSize);%
+        \fill[color=##3](##1)circle(0.015*\KiwiEggSize);%
+        \fill[color=##3]($(##1)+(##2:0.08*\KiwiEggSize)$)circle(0.015*\KiwiEggSize);%
+    }%
+    \KiwiHair{0.08*\KiwiEggSize,0.66*\KiwiEggSize}{280}{TikzCol_kiwiHairBright}{};%
+    \KiwiHair{0.17*\KiwiEggSize,0.62*\KiwiEggSize}{275}{TikzCol_kiwiHairDark}{};%
+    \KiwiHair{0.27*\KiwiEggSize,0.53*\KiwiEggSize}{265}{TikzCol_kiwiHairDark}{};%
+    \KiwiHair{0.35*\KiwiEggSize,0.58*\KiwiEggSize}{275}{TikzCol_kiwiHairBright}{};%
+    \KiwiHair{0.44*\KiwiEggSize,0.47*\KiwiEggSize}{260}{TikzCol_kiwiHairDark}{};%
+    \KiwiHair{0.36*\KiwiEggSize,0.39*\KiwiEggSize}{265}{TikzCol_kiwiHairDark}{};%
+    \KiwiHair{0.44*\KiwiEggSize,0.30*\KiwiEggSize}{280}{TikzCol_kiwiHairBright}{};%
+    \KiwiHair{0.11*\KiwiEggSize,0.5*\KiwiEggSize}{280}{TikzCol_kiwiHairDark}{};%
+    \KiwiHair{0.16*\KiwiEggSize,0.33*\KiwiEggSize}{272}{TikzCol_kiwiHairBright}{};%
+    \KiwiHair{0.24*\KiwiEggSize,0.2*\KiwiEggSize}{280}{TikzCol_kiwiHairDark}{};%
+    \KiwiHair{0.35*\KiwiEggSize,0.21*\KiwiEggSize}{260}{TikzCol_kiwiHairDark}{};%
+    \KiwiHair{0.26*\KiwiEggSize,0.37*\KiwiEggSize}{272}{TikzCol_kiwiHairBright}{};%
+    \KiwiHair{0.43*\KiwiEggSize,0.14*\KiwiEggSize}{275}{TikzCol_kiwiHairBright}{};%
+    \begin{scope}%
+        \clip[use path=\KiwiSkinShadow];%
+        \KiwiHair{0.43*\KiwiEggSize,0.14*\KiwiEggSize}{275}{TikzCol_kiwiHairBright!80!black}{};%
+    \end{scope}%
+    %
+    %
+    %
+    \path[KiwiEggFusionCrackOpenLine,draw,fill=TikzCol_eggShellWhite]%
+        (#1-BellyCenterHigh)%
+            --++(50:0.1*\KiwiEggSize)%
+            --++(-60:0.13*\KiwiEggSize)%
+            --++(60:0.17*\KiwiEggSize)%
+            --++(-60:0.12*\KiwiEggSize)%
+            --++(50:0.1*\KiwiEggSize)%
+            --++(-77:0.15*\KiwiEggSize)%
+            --++(50:0.08*\KiwiEggSize)%
+            --++(-80:0.11*\KiwiEggSize)%
+            --++(55:0.05*\KiwiEggSize)%
+            --%
+        (#1-BellyRight)%
+            ..controls%
+                ++(-\BezierOneX*\KiwiEggSize,-\BezierOneY*\KiwiEggSize)%
+                and%
+                ++(\BezierTwoX*\KiwiEggSize,-\BezierTwoY*\KiwiEggSize)%
+            ..%
+        (#1-BellyCenterLow)%
+            --%
+        cycle;
+    \path[KiwiEggFusionCrackOpenLine,draw,fill=TikzCol_eggWhiteWhite]%
+        (#1-BellyCenterHigh)%
+            ..controls%
+                ++(\BezierTwoX*\KiwiEggSize,\BezierTwoY*\KiwiEggSize)%
+                and%
+                ++(-\BezierOneX*\KiwiEggSize,\BezierOneY*\KiwiEggSize)%
+            ..%
+        (#1-BellyRight)%
+            ..controls%
+                ++(-\BezierOneX*\KiwiEggSize,-\BezierOneY*\KiwiEggSize)%
+                and%
+                ++(\BezierTwoX*\KiwiEggSize,-\BezierTwoY*\KiwiEggSize)%
+            ..%
+        (#1-BellyCenterLow)%
+            --%
+        cycle;
+    % \path[draw,fill=red]%
+    %     (#1-EggYolkTop)%
+    %         ..controls%
+    %             ++(0.3*\KiwiEggSize,0*\KiwiEggSize)%
+    %             and%
+    %             ++(0.5*\KiwiEggSize,0*\KiwiEggSize)%
+    %         ..%
+    %     (#1-EggYolkBottom)%
+    %         --%
+    %     cycle;%
+    \path[KiwiEggFusionCrackOpenLine,save path=\EggYolk,fill=TikzCol_eggYolkOrange]%
+        (#1-EggYolkTop)%
+            ..controls%
+                ++(0.29*\KiwiEggSize,-0.02*\KiwiEggSize)%
+                and%
+                ++(0.0*\KiwiEggSize,0.0*\KiwiEggSize)%
+            ..%
+        (#1-EggYolkTip)%
+            ..controls%
+                ++(0.02*\KiwiEggSize,-0.08*\KiwiEggSize)%
+                and%
+                ++(0.1*\KiwiEggSize,-0.0*\KiwiEggSize)%
+            ..%
+        (#1-EggYolkBottom)%
+            --%
+        cycle;%
+    \path[KiwiEggFusionCrackOpenLine,fill=TikzCol_eggYolkOrangeLight]%
+        (#1-EggYolkLightT)%
+            ..controls%
+                ++(0.13*\KiwiEggSize,0.0*\KiwiEggSize)%
+                and%
+                ++(0.0*\KiwiEggSize,0.0*\KiwiEggSize)%
+            ..%
+        (#1-EggYolkLightR)%
+            ..controls%
+                ++(0.0*\KiwiEggSize,-0.01*\KiwiEggSize)%
+                and%
+                ++(0.07*\KiwiEggSize,0.007*\KiwiEggSize)%
+            ..%
+        (#1-EggYolkLightB)%
+            --%
+        cycle;%
+    \path[KiwiEggFusionCrackOpenLine,fill=TikzCol_eggYolkOrangeShadow]%
+        (#1-EggYolkShadowTop)%
+            ..controls%
+                ++(0.29*\KiwiEggSize,-0.02*\KiwiEggSize)%
+                and%
+                ++(0.0*\KiwiEggSize,0.0*\KiwiEggSize)%
+            ..%
+        (#1-EggYolkTip)%
+            ..controls%
+                ++(0.02*\KiwiEggSize,-0.08*\KiwiEggSize)%
+                and%
+                ++(0.1*\KiwiEggSize,-0.0*\KiwiEggSize)%
+            ..%
+        (#1-EggYolkBottom)%
+            --%
+        cycle;%
+    \path[KiwiEggFusionCrackOpenLine,use path=\EggYolk,draw];%
+    % overlay prevents the path from being considered in bounding-box calculation (note: if an added node on a path shall be considered, you can override it for that node with an option overlay=true)
+    \path[KiwiEggFusionCrackOpenLine,save path=\EggShellFront,fill=TikzCol_eggShellWhite,overlay=true]% TikzCol_kiwiSkinMedium
+        (#1-BottomCenter)%
+            to[out=0,in=285]%
+        (#1-BellyRight)%
+            --++(93+10:0.07*\KiwiEggSize)%
+            --++(-90-10:0.12*\KiwiEggSize)%
+            --++(90+40:0.05*\KiwiEggSize)%
+            --++(-90-10:0.10*\KiwiEggSize)%
+            --++(90+50:0.06*\KiwiEggSize)%
+            --++(-90-20:0.09*\KiwiEggSize)%
+            --++(90+70:0.14*\KiwiEggSize)%
+            --++(-90-15:0.09*\KiwiEggSize)%
+            --++(90+70:0.08*\KiwiEggSize)%
+            --++(-90-35:0.05*\KiwiEggSize)%
+            --++(90+50:0.05*\KiwiEggSize)%
+            --%
+        (#1-BellyCenterLow)%
+            --%
+        cycle;
+    \path[KiwiEggFusionCrackOpenLine,fill=TikzCol_eggShellShadow,overlay=true]% TikzCol_kiwiSkinMedium
+        (#1-BottomCenter)%
+            to[out=0,in=285]%
+        (#1-BellyRight)%
+            to[out=275,in=00]%
+        (#1-EggShellShadowTop)%
+            --%
+        cycle;
+    \path[KiwiEggFusionCrackOpenLine,use path=\EggShellFront,draw];%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.6*\KiwiEggLineWidth,1.2*\KiwiEggLineWidth)$)--($(#1-frame-inner.south east)+(0.027*\KiwiEggSize,-0.0*\KiwiEggLineWidth)$);%
+    }%
+  }%
+}%
+%
+%
+%
+%
+%

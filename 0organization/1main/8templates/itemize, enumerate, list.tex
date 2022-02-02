@@ -28,3 +28,19 @@
 %
 %
 % % %  Additionally, you may just use my defined List-Style "enuminlrom" (Enumeration-Inline-Roman)
+%
+%
+%
+%
+%
+% % % %   Indentation in List only in First Line ("Hängender Einzug"). Useful for enumerating big blocks of text
+% Either
+% \setlist[enumerate]{itemindent=\dimexpr\labelwidth+\labelsep\relax,leftmargin=0pt}
+% Or alternatively
+% \setlist[enumerate]{wide=\parindent}
+%
+% % %  You can apply this only to a specific list level:
+% \setlist[enumerate,1]{wide=\parindent}
+%
+% % %  And say, you do want to move the second level further to the right after all, add something like
+% \setlist[enumerate,2]{leftmargin=6em}

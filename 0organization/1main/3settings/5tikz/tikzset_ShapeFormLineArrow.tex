@@ -80,16 +80,25 @@
 \definecolor{Datastream_Color}{RGB}{100,0,170}%
 \definecolor{MPTCP_Path1_Color}{RGB}{255,60,0}%
 \definecolor{MPTCP_Path2_Color}{RGB}{50,0,255}%
-\tikzstyle{cable}=[ultra thick,double,double distance=4pt,%
+\tikzstyle{innerWhite}=[semithick, white,line width=1.4pt, shorten >= 4.5pt]%
+\tikzstyle{cable}=[line width=6pt,%
+	postaction = {draw,line width=4pt, white},%
+	postaction = {draw,line width=1pt, Datastream_Color}
+]%
+\tikzstyle{cable2}=[line width=6pt,%
+	postaction = {draw=MPTCP_Path2_Color,line width=1pt, shorten >= -0.2pt}]%
+\tikzstyle{cable_optional}=[line width=6pt,%
+	postaction = {draw=MPTCP_Path1_Color,line width=1pt, shorten >= -0.2pt}]%
+%
+\tikzstyle{cableShortened}=[ultra thick,double,double distance=4pt,%
 % 	I,%
 	shorten >= -0.1pt,%
 	postaction = {draw,line width=4pt, white, shorten >= -0.2pt},%
 	postaction = {draw,line width=1pt, Datastream_Color, shorten >= -0.2pt}]%
-\tikzstyle{cable2}=[cable,%
+\tikzstyle{cableShortened2}=[cableShortened,%
 	postaction = {draw=MPTCP_Path2_Color,line width=1pt, shorten >= -0.2pt}]%
-\tikzstyle{cable_optional}=[cable,%
+\tikzstyle{cableShortened_optional}=[cableShortened,%
 	postaction = {draw=MPTCP_Path1_Color,line width=1pt, shorten >= -0.2pt}]%
-\tikzstyle{innerWhite}=[semithick, white,line width=1.4pt, shorten >= 4.5pt]%
 %
 %
 \tikzstyle{arrow2} = [ultra thick,%
@@ -132,41 +141,6 @@
 %
 %
 %
-%
-%
-\definecolor{TikzCol_folderbg}{RGB}{124,166,198}%
-\definecolor{TikzCol_folderborder}{RGB}{110,144,169}%
-% \definecolor{txtbg}{RGB}{90,130,170}%
-\definecolor{TikzCol_DirTxtbg}{RGB}{170,170,190}%
-\definecolor{TikzCol_DirTxtborder}{RGB}{255,255,255}%
-%
-\def\Size{4pt}
-\tikzset{%
-  folder/.pic={%
-    \filldraw[draw=TikzCol_folderborder,top color=TikzCol_folderbg!50,bottom color=TikzCol_folderbg]%
-      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);%
-    \filldraw[draw=TikzCol_folderborder,top color=TikzCol_folderbg!50,bottom color=TikzCol_folderbg]%
-      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);%
-  }%
-}%
-\tikzset{%
-  txt/.pic={%
-    \filldraw[draw=TikzCol_DirTxtborder,top color=TikzCol_DirTxtbg,bottom color=TikzCol_DirTxtbg!50]%
-      (-1.15*\Size,-1.1*\Size) rectangle (1.15*\Size,1.3*\Size);%
-    \draw[draw=black]%
-      (-0.8*\Size,0.75*\Size)--(0.8*\Size,0.75*\Size);%
-    \draw[draw=black]%
-      (-0.8*\Size,0.2*\Size)--(0.7*\Size,0.2*\Size);%
-    \draw[draw=black]%
-      (-0.8*\Size,-0.35*\Size)--(0.2*\Size,-0.35*\Size);%
-  }%
-}%
-%
-%
-%
-%
-%
-%
 \tikzstyle{rect_tight}=[
 	rectangle,
 	text centered,
@@ -176,8 +150,6 @@
 	%draw=none
 	%fill=gray!30
 ]%
-%
-%
 %
 %
 %
