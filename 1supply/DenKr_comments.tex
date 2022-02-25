@@ -14,13 +14,13 @@
 \newcommanddisw{\notice}{notecol}{Notice: #1}%
 %\renewcommand{\notice}[1]{}%% Disable comments [selectively this]
 %
-\definecolor{denkrComCol1}{named}{purple}%
-\newcommanddisw{\denkrcom}{denkrComCol1}{{\#}DenKr: #1}%
-\newcommanddisw{\denkrhigh}{denkrComCol1}{#1}%
+\definecolor{dekrComCol1}{named}{purple}%
+\newcommanddisw{\dekrcom}{dekrComCol1}{{\#}DenKr: #1}%
+\newcommanddisw{\dekrhigh}{dekrComCol1}{#1}%
 % \renewcommand{\denkrcom}[1]{}%% Disable comments [selectively this]
 % \renewcommand{\denkrhigh}[1]{#1}%% Disable highlighting of text [selectively this]
 % \renewcommand{\denkrhigh}[1]{}%% Completely disable this kind of text [selectively this]
-\newcommand{\dkc}[1]{\denkrcom{#1}}
+\newcommand{\dkc}[1]{\dekrcom{#1}}
 %
 \definecolor{denkrComCol2}{named}{blue}%
 \newcommanddisw{\chficom}{denkrComCol2}{{\#}ChFi: #1}%
@@ -78,7 +78,7 @@
 	\section{Draft-State: Comment Color Code}{\noindent\raggedright%
 	\todo{Comments: ToDos: \mbox{$\Rightarrow$ \textbackslash todo\{ \}}}\nl%
     \notice{Comment: A general Notice: \mbox{$\Rightarrow$ \textbackslash notice\{ \}}}\nl%
-	\denkrcom{Comments: Dennis Krummacker: \mbox{$\Rightarrow$ \textbackslash denkrcom\{ \}}}\nl%
+	\dekrcom{Comments: Dennis Krummacker: \mbox{$\Rightarrow$ \textbackslash dekrcom\{ \}}}\nl%
 	\chficom{Comments: Christoph Fischer: \mbox{$\Rightarrow$ \textbackslash chficom\{ \}}}\nl%
 	\mabecom{Comments: Maximilian Berndt: \mbox{$\Rightarrow$ \textbackslash mabecom\{ \}}}\nl%
 	\jazecom{Comments: Janis Zemitis: \mbox{$\Rightarrow$ \textbackslash jazecom\{ \}}}\nl%

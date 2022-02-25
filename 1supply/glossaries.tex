@@ -32,6 +32,13 @@
 % {Architecture-Daemon}% long form
 % {Part of the \gls{denkrsuite}. \textit{\gls{integhierarchl}~4} of the \gls{integhierarch} from the \gls{denkrnuc}.}% description
 % % % % % % % % % % % % % % %
+\newacronym{auditf}{TTF}{Trust \& Traceability Function}
+\newacronym{specal}{SASF}{Spectrum Allocation \& Sharing Function}
+%
+%------------------------------------------------------------------------
+%				Former Documents
+%========================================================================
+\newacronym{ar}{AR}{Application Relation}%
 \newacronym{indeco}{InDeCo}{Interconnection Detachment \& Convergence}%ArchDaemon-Tool: Interconnection
 \newacronym{coma}{CoMa}{Context-Management}%ArchDaemon-Tool: Context-Management
 \newacronym{peac}{PeAc}{Permission \& Access}%ArchDaemon-Tool: Permission & Access
@@ -46,38 +53,13 @@
 \newacronym{atserv}{AtServ}{Atop-Service}%
 \newacronym{orcus}{OrCuS}{Organic Customization System}% Culmination, Cumulation
 \newacronym{ore}{ORE}{Organic Runtime Environment}
-
-%------------------------------------------------------------------------
-%________________________________________________________________________
-%
-
-\newacronym{imu}{IMU}{Intertial Measurement Unit}
-\newacronym{api}{API}{Application Programming Interface}
-\newacronym{ros}{ROS}{Robot Operating System}
-\newacronym{ml}{ML}{Machine Learning}
-\newacronym{uwb}{UWB}{Ultra Wideband}
-\newacronym{nr}{NR}{New Radio}
-\newacronym{etl}{ETL}{Extract, Transfer, Load}
-\newacronym{dds}{DDS}{Data Distribution Service}
-\newacronym{3gpp}{3GPP}{3rd Generation Partnership Project}
-\newacronym{dgps}{DGPS}{Differential Global Positioning System}
-\newacronym{ecef}{ECEF}{Earth-centered, Earth-fixed}
-\newacronym{gnss}{GNSS}{Global Navigation Satellite System}
-
-
-\newacronym{dcmod}{DCMod}{Data Collection Module}
-
-
-\newacronym{posmod}{PosMod}{Positioning Module}
-\newacronym{mts}{MTS}{Map Transformation Stage}
-\newacronym{sensmod}{SensMod}{Sensing Module}
-\newacronym{sidr}{SIDR}{Sensor ID Resolver}
-
-
-
-
-\newacronym{camod}{CAMod}{Carrier Aggregation Module}
-\newacronym{muxs}{MuxS}{Multiplexer Stage}
+\newacronym{dcmod}{DCMod}{Data Collection Module}%
+\newacronym{posmod}{PosMod}{Positioning Module}%
+\newacronym{mts}{MTS}{Map Transformation Stage}%
+\newacronym{sensmod}{SensMod}{Sensing Module}%
+\newacronym{sidr}{SIDR}{Sensor ID Resolver}%
+\newacronym{camod}{CAMod}{Carrier Aggregation Module}%
+\newacronym{muxs}{MuxS}{Multiplexer Stage}%
 \newacronym[plural=CSEs,%
 	firstplural=Carrier State Estimators (CSEs),%
 	longplural=Carrier State Estimators]%
@@ -87,11 +69,9 @@
 	firstplural=Information Anchors (IAs),%
 	longplural=Information Anchors]%
 	{ia}{IA}{Information Anchor}%
-
-
-\newacronym{dbmod}{DBMod}{Data Base Module}
-\newacronym{bui}{BUI}{Base User Interface}
-\newacronym{bman}{BMan}{Base Manager}
+\newacronym{dbmod}{DBMod}{Data Base Module}%
+\newacronym{bui}{BUI}{Base User Interface}%
+\newacronym{bman}{BMan}{Base Manager}%
 \newacronym[plural=DSs,%
 	firstplural=Data Suppliers (DSs),%
 	longplural=Data Suppliers]%
@@ -100,8 +80,9 @@
 	firstplural=Gateways (GWs),%
 	longplural=Gateways]%
 	{gw}{GW}{Gateway}%
-
-
+%------------------------------------------------------------------------
+%________________________________________________________________________
+%
 %\glsunset{funcserv}%
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 %					Central Terms done
@@ -141,6 +122,7 @@
 %________________________________________________________________________
 %------------------------------------------------------------------------
 %						Akronyme (Abkürzungen)
+%                       -- (More Universal) --
 %  -  -  -  -  -  -  -
 % Example:
 %        \newacronym{sdning}{SDN}{Software-Defined Networking}%
@@ -156,9 +138,12 @@
 %        	longplural=Virtuelle Maschinen]%
 %        {vm}{VM}{Virtuelle Maschine}%
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+%
+%--------------------------------------------------------
+% = = = General Terms
+%________________________________________________________
 \newacronym{mdns}{mDNS}{Multicast DNS}%
 \newacronym{dnssd}{DNS-SD}{DNS Service Discovery}%
-\newacronym{ar}{AR}{Application Relation}%
 \newacronym{qos}{QoS}{Quality-of-Service}%
 \newacronym[plural=SDNs,%
 	firstplural=Software-defined Networks (SDNs),%
@@ -167,86 +152,77 @@
 \newacronym{sdn}{SDN}{Software-defined Networking}%
 %\glsunset{sdn}%
 \newacronym{tsn}{TSN}{Time-Sensitive Networking}%
-\newacronym{cnc}{CNC}{Central Network Controller}
-\newacronym{tsncnc}{TSN CNC}{TSN Central Network Controller}
+\newacronym{cnc}{CNC}{Central Network Controller}%
+\newacronym{tsncnc}{TSN CNC}{TSN Central Network Controller}%
 \newacronym{tssdn}{TSSDN}{Time-Sensitive Software-Defined Networking}%
 %
-\newacronym{iot}{IoT}{Internet of Things}
-\newacronym{ftp}{FTP}{File Transfer Protocol}
-\newacronym{http}{HTTP}{Hypertext Transfer Protocol}
-\newacronym{https}{HTTPS}{Hypertext Transfer Protocol Secure}
-\newacronym{opc}{OPC}{Open Platform Communication}
-\newacronym{opcua}{\gls{opc} UA}{OPC Unified Architecture}
-\newacronym{opcda}{\gls{opc} DA}{OPC Data Access}
-\newacronym{mqtt}{MQTT}{Message Queuing Telemetry Transport}
-\newacronym{iiot}{IIoT}{Industrial Internet of Things}
-\newacronym{nic}{NIC}{Network Interface Card}
-\newacronym{gps}{GPS}{Global Positioning System}
-\newacronym{ntp}{NTP}{Network Time Protocol}
+\newacronym{api}{API}{Application Programming Interface}%
+\newacronym{ftp}{FTP}{File Transfer Protocol}%
+\newacronym{http}{HTTP}{Hypertext Transfer Protocol}%
+\newacronym{https}{HTTPS}{Hypertext Transfer Protocol Secure}%
+\newacronym{nic}{NIC}{Network Interface Card}%
+\newacronym{gps}{GPS}{Global Positioning System}%
+\newacronym{ntp}{NTP}{Network Time Protocol}%
 \newacronym{ptp}{PTP}{Precision Time Protocol}%
 \newacronym{p2p}{P2P}{Point-to-Point}%
 \newacronym{peer2p}{Peer2P}{Peer-to-Peer}%
-\newacronym{rbs}{RBS}{Reference Broadcast Time Synchronization}
-\newacronym{rbis}{RBIS}{Reference Broadcast Infrastructure Synchronization}
-\newacronym{utc}{UTC}{Coordinated Universal Time}
-\newacronym{acp}{AP}{Access-Point}
-\newacronym{i40}{I4.0}{Industry 4.0}
-\newacronym{dns}{DNS}{Domain Name System}
-\newacronym{nfv}{NFV}{Network Function Virtualization}
-\newacronym{netfunc}{NF}{Network Function}
+\newacronym{rbs}{RBS}{Reference Broadcast Time Synchronization}%
+\newacronym{rbis}{RBIS}{Reference Broadcast Infrastructure Synchronization}%
+\newacronym{utc}{UTC}{Coordinated Universal Time}%
+\newacronym{acp}{AP}{Access-Point}%
+\newacronym{i40}{I4.0}{Industry 4.0}%
+\newacronym{dns}{DNS}{Domain Name System}%
+\newacronym{nfv}{NFV}{Network Function Virtualization}%
+\newacronym{netfunc}{NF}{Network Function}%
 \newacronym{m2m}{M2M}{Machine-to-Machine}%
-\newacronym{ip}{IP}{Internet Protocol}
-\newacronym{lldp}{LLDP}{Link Layer Discovery Protocol}
+\newacronym{ip}{IP}{Internet Protocol}%
+\newacronym{lldp}{LLDP}{Link Layer Discovery Protocol}%
 \newacronym[plural=KPIs,%
 	firstplural=Key Performance Indicators (KPIs),%
 	longplural=Key Performance Indicators]%
 	{kpi}{KPI}{Key Performance Indicator}%
-\newacronym{loc}{LoC}{Lines of Code}
-\newacronym[plural=AGVs,%
-	firstplural=Automated Guided Vehicles (AGVs),%
-	longplural=Automated Guided Vehicles]%
-	{agv}{AGV}{Automated Guided Vehicle}%
-\newacronym{urllc}{URLLC}{Ultra-Reliable Low-Latency Communication}
-\newacronym{relag}{Agent}{Agent}
-\newacronym{relorc}{Orc}{Orchestrator}
-\newacronym{slaag}{SLAAg}{Service Level Agreement Agent}
-\newacronym{cpci}{CPCI}{Central Process Control Instance}
-\newacronym{sla}{SLA}{Service Level Agreement}
-\newacronym{cmdc}{CMDC}{Centralized Mission and Driving Control}
-\newacronym{b2b}{B2B}{Business-To-Business}
-\newacronym{b2c}{B2C}{Business-To-Consumer}
-\newacronym{snr}{SNR}{Signal to Noise Ratio}
-\newacronym{erp}{ERP}{Enterprise Resource Planning}
-\newacronym{ips}{IPS}{Indoor Positioning System}
-\newacronym{vmc}{VMC}{Vehicle Motion Control}
+\newacronym{loc}{LoC}{Lines of Code}%
+\newacronym{agv}{AGV}{Automated Guided Vehicle}%
+\newacronym{urllc}{URLLC}{Ultra Reliable Low Latency Communication}%
+\newacronym{relag}{Agent}{Agent}%
+\newacronym{relorc}{Orc}{Orchestrator}%
+\newacronym{slaag}{SLAAg}{Service Level Agreement Agent}%
+\newacronym{cpci}{CPCI}{Central Process Control Instance}%
+\newacronym{sla}{SLA}{Service Level Agreement}%
+\newacronym{cmdc}{CMDC}{Centralized Mission and Driving Control}%
+\newacronym{b2b}{B2B}{Business-To-Business}%
+\newacronym{b2c}{B2C}{Business-To-Consumer}%
+\newacronym{snr}{SNR}{Signal to Noise Ratio}%
+\newacronym{erp}{ERP}{Enterprise Resource Planning}%
+\newacronym{ips}{IPS}{Indoor Positioning System}%
+\newacronym{vmc}{VMC}{Vehicle Motion Control}%
 \newacronym[plural=UAVs,%
 	firstplural=Unmanned Aerial Vehicles (UAVs),%
 	longplural=Unmanned Aerial Vehicles]%
 	{uav}{UAV}{Unmanned Aerial Vehicle}%
 \newacronym{cuc}{CUC}{Central User Configuration}%
-\newacronym{arq}{ARQ}{Automatic Repeat Request}
-\newacronym{ai}{AI}{Artificial Intelligence}
-\newacronym{tcp}{TCP}{Transmission Control Protocol}
-\newacronym{rtt}{RTT}{Round Trip Time}
-\newacronym{sba}{SBA}{5G Service Based Architecture}
-\newacronym{ran}{RAN}{Radio Access Network}
-\newacronym{jcas}{JC\&S}{Joint Communication and Sensing}
-\newacronym{rrm}{RRM}{Radio Resource Management}
-\newacronym{lmf}{LMF}{Localization Management Function}
-\newacronym{uequ}{UE}{User Equipment}
-\newacronym{mlc}{MLC}{Mobile Location Center}
-\newacronym{lcs}{LCS}{Location Services}
-\newacronym{nef}{NEF}{Network Exposure Function}
-\newacronym{embb}{eMBB}{enhanced Mobile Broadband}
-\newacronym{mmtc}{mMTC}{massive Machine Type Communication}
-\newacronym{rand}{R\&D}{Research \& Development}
-\newacronym{poc}{PoC}{Proof-of-Concept}
-\newacronym{snmp}{SNMP}{Simple Network Management Protocol}
-\newacronym{typlv}{TLV}{Type-Length-Value}
+\newacronym{arq}{ARQ}{Automatic Repeat Request}%
+\newacronym{ai}{AI}{Artificial Intelligence}%
+\newacronym{tcp}{TCP}{Transmission Control Protocol}%
+\newacronym{rtt}{RTT}{Round Trip Time}%
+\newacronym{sba}{SBA}{5G Service Based Architecture}%
+\newacronym{ran}{RAN}{Radio Access Network}%
+\newacronym{jcas}{JC\&S}{Joint Communication and Sensing}%
+\newacronym{rrm}{RRM}{Radio Resource Management}%
+\newacronym{lmf}{LMF}{Localization Management Function}%
+\newacronym{uequ}{UE}{User Equipment}%
+\newacronym{gmlc}{GMLC}{Gateway Mobile Location Center}%
+\newacronym{nef}{NEF}{Network Exposure Function}%
+\newacronym{embb}{eMBB}{enhanced Mobile Broad-band}%
+\newacronym{mmtc}{MMTC}{Massive Machine Type Communication}%
+\newacronym{rand}{R\&D}{Research \& Development}%
+\newacronym{poc}{PoC}{Proof-of-Concept}%
+\newacronym{snmp}{SNMP}{Simple Network Management Protocol}%
+\newacronym{typlv}{TLV}{Type-Length-Value}%
 \newacronym{trl}{TRL}{Technology Readiness Level}%
-\newacronym{ot}{OT}{Operation Technology}
+\newacronym{ot}{OT}{Operation Technology}%
 \newacronym{inft}{IT}{Information Technology}%
-\newacronym{mano}{MANO}{Management \& Orchestration}
+\newacronym{mano}{MANO}{Management \& Orchestration}%
 \newacronym{nsh}{NSH}{Network Service Header}%
 \newacronym{plc}{PLC}{Programmable Logic Controller}%
 \newacronym{vpc}{VPC}{Virtual Process Controller}%
@@ -255,6 +231,37 @@
 \newacronym{fsm}{FSM}{Finite-State Machine}%
 \newacronym{fsa}{FSA}{Finite-State Automaton}%
 \newacronym{checkres}{C/R}{Checkpoint/Restore}%
+\newacronym{bnetza}{BNetzA}{Bundesnetzagentur}%
+\newacronym{pmse}{PMSE}{Programme Making and Special Events}%
+\newacronym[longplural={Distributed Ledger Technologies}]{dlt}{DLT}{Distributed Ledger Technology}%
+\newacronym{mlearn}{ML}{Machine Learning}%
+%--------------------------------------------------------
+% = = = Specific for: Mobile Communications, 5G, 6G
+%________________________________________________________
+\newacronym{mnoper}{MNO}{Mobile Network Operator}%
+\newacronym{coretc}{CtC}{Core-to-Core}%
+\newacronym{ngap}{NGAP}{Next Generation Application Protocol}%
+\newacronym{amf}{AMF}{Access and Mobility Management Function}%
+\newacronym{gnodb}{gNB}{5G gNodeB Basestation}%
+\newacronym{3gpp}{3GPP}{3rd Generation Partnership Project}%
+\newacronym{uwb}{UWB}{Ultra Wideband}%
+\newacronym{newr}{NR}{New Radio}%
+%--------------------------------------------------------
+% = = = Specific for: Automation, Robotic, Logistics
+%________________________________________________________
+\newacronym{imu}{IMU}{Inertial Measurement Unit}%
+\newacronym{ros}{ROS}{Robot Operating System}%
+\newacronym{iot}{IoT}{Internet of Things}%
+\newacronym{iiot}{IIoT}{Industrial Internet of Things}%
+\newacronym{opc}{OPC}{Open Platform Communication}%
+\newacronym{opcua}{\gls{opc} UA}{OPC Unified Architecture}%
+\newacronym{mqtt}{MQTT}{Message Queue Telemetry Transport}%
+\newacronym{etl}{ETL}{Extract, Transfer, Load}%
+\newacronym{dds}{DDS}{Data Distribution Service}%
+% = = = Localization
+\newacronym{dgps}{DGPS}{Differential Global Positioning System}%
+\newacronym{ecef}{ECEF}{Earth-centered, Earth-fixed}%
+\newacronym{gnss}{GNSS}{Global Navigation Satellite System}%
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 %						Akronyme fertig
 %------------------------------------------------------------------------

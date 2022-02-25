@@ -6,6 +6,9 @@
 %
 %
 %
+\def\DenKrtwodigits#1{\ifnum#1<10 0\fi\the#1}
+\def\DenKrdateToday{\leavevmode\hbox{\the\year-\DenKrtwodigits\month-\DenKrtwodigits\day}}
+%
 %####################################################################
 %====================================================================
 %------------- Framed TextBox with Banner-Header -------------

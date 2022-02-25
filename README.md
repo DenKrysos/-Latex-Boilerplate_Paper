@@ -1,6 +1,6 @@
 # -Latex-Boilerplate_Paper
 
-A quite nice Boilerplate/Template together with some Macros and ready-to-use set up suroundings for LaTeX. Documenttype "Article-Level", i.e. no "Book".
+A quite nice Boilerplate/Template together with some Macros and ready-to-use set up surroundings for LaTeX. Document-Type "Article-Level", i.e. no "Book".
 
 * Layout and Skeleton Setup is well separated from the content
 * Set up for Biblatex
