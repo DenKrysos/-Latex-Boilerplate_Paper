@@ -1579,3 +1579,133 @@
 %
 %
 %
+% \definecolor{TikzCol_RadioTowerLine}{named}{black}%
+\definecolor{TikzCol_RadioTowerLine}{RGB}{13,96,139}
+%
+\def\RadioTowerLineWidth{1.4pt}%
+\def\RadioTowerSize{4.5em}% 80*0.6pt % 80*\RadioTowerLineWidth %
+\def\RadioTowerWidth{0.7*\RadioTowerSize}%
+\def\RadioTowerHeight{\RadioTowerSize}%
+\def\RadioTowerAntennaRadius{0.04*\RadioTowerSize}%
+%
+\tikzset{%
+  RadioTowerLine/.style={%
+    draw=TikzCol_RadioTowerLine,%
+    line width=\RadioTowerLineWidth,%
+    line join=round,%
+    line cap=round%
+  },%
+  RadioTower/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \newcommand{\RadioTowerIntersectOnePos}{0.4}%
+    \newcommand{\RadioTowerIntersectTwoPos}{0.7}%
+    \coordinate(#1-TowerBottomL)at(0,0);%
+    \coordinate(#1-TowerBottomR)at(\RadioTowerWidth,0);%
+    \coordinate(#1-TowerTip)at(0.5*\RadioTowerWidth,\RadioTowerHeight);%
+    \coordinate(#1-TowerAntennaCenter)at($(#1-TowerTip)+(0,\RadioTowerAntennaRadius)$);%
+    \path[RadioTowerLine,line join=round,line cap=round]%
+        (#1-TowerBottomL)%
+        --%
+        (#1-TowerTip)%
+            coordinate[pos=\RadioTowerIntersectOnePos](#1-IntersectOneL)%
+            coordinate[pos=\RadioTowerIntersectTwoPos](#1-IntersectTwoL)%
+        --%
+        (#1-TowerBottomR)%
+            coordinate[pos=1-\RadioTowerIntersectOnePos](#1-IntersectOneR)%
+            coordinate[pos=1-\RadioTowerIntersectTwoPos](#1-IntersectTwoR)%
+    ;%
+    %
+    \path[RadioTowerLine,line join=round,line cap=round]%
+        (\RadioTowerWidth,0)%
+        --%
+        (#1-IntersectOneL)%
+    ;%
+    \path[RadioTowerLine,line join=round,line cap=round]%
+        (0,0)%
+        --%
+        (#1-IntersectOneR)%
+    ;%
+    \path[RadioTowerLine,line join=round,line cap=round]%
+        (#1-IntersectOneL)%
+        --%
+        (#1-IntersectTwoR)%
+    ;%
+    \path[RadioTowerLine,line join=round,line cap=round]%
+        (#1-IntersectOneR)%
+        --%
+        (#1-IntersectTwoL)%
+    ;%
+    %
+    \draw[RadioTowerLine](#1-TowerAntennaCenter)circle(\RadioTowerAntennaRadius);%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.55*\RadioTowerLineWidth,0.5*\RadioTowerLineWidth)$)--($(#1-frame-inner.south east)+(0.55*\RadioTowerLineWidth,-0.6*\RadioTowerLineWidth)$);%
+    }%
+  },%
+  RadioTowerWFloor/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(#1-RadioTowerPic){RadioTower};%
+    \coordinate(#1-FloorTwoL)at($(#1-RadioTowerPic-TowerBottomL)+(-0.1*\RadioTowerSize,0)$);%
+    \coordinate(#1-FloorTwoR)at($(#1-RadioTowerPic-TowerBottomR)+(0.1*\RadioTowerSize,0)$);%
+    \coordinate(#1-FloorOneL)at($(#1-FloorTwoL)+(0,-0.06*\RadioTowerHeight)$);%
+    \coordinate(#1-FloorOneR)at(#1-FloorOneL-|#1-FloorTwoR);%
+    \path[RadioTowerLine,line join=round,line cap=round]%
+        (#1-FloorTwoL)%
+        --%
+        (#1-FloorTwoR)%
+    ;%
+    \path[RadioTowerLine,line join=round,line cap=round]%
+        (#1-FloorOneL)%
+        --%
+        (#1-FloorOneR)%
+    ;%
+    }%
+    \path($(#1-frame-inner.north west)+(-0.5*\RadioTowerLineWidth,0.0*\RadioTowerLineWidth)$)--($(#1-frame-inner.south east)+(0.5*\RadioTowerLineWidth,-0.5*\RadioTowerLineWidth)$);%
+    }%
+  },%
+  RadioTowerWRadioWave/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(#1-RadioTowerPic){RadioTower};%
+    \newcommand{\RadioWave}[2]{%
+        %\draw[RadioTowerLine](#1-RadioTowerPic-TowerAntennaCenter)+(##1,0)arc[start angle=0,end angle=360,radius=##1];%
+        \draw[RadioTowerLine,line width=0.8*\RadioTowerLineWidth](#1-RadioTowerPic-TowerAntennaCenter)+(-##2:##1)arc(-##2:##2:##1);%
+        \draw[RadioTowerLine,line width=0.8*\RadioTowerLineWidth](#1-RadioTowerPic-TowerAntennaCenter)+(180-##2:##1)arc(180-##2:180+##2:##1);%
+    }%
+    \RadioWave{3.0*\RadioTowerAntennaRadius}{30}%
+    \RadioWave{5.0*\RadioTowerAntennaRadius}{30}%
+    \RadioWave{7.0*\RadioTowerAntennaRadius}{30}%
+    %
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\RadioTowerLineWidth,0.45*\RadioTowerLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\RadioTowerLineWidth,-0.0*\RadioTowerLineWidth)$);%
+    }%
+  },%
+  RadioTowerWFloorWRadioWave/.pic={%
+    \scopenode[name=-frame,draw=none]{%
+    \scopenode[name=-frame-inner,draw=none]{%
+    \pic(#1-RadioTowerWFloorPic){RadioTowerWFloor};%
+    \newcommand{\RadioWave}[2]{%
+        %\draw[RadioTowerLine](#1-RadioTowerPic-TowerAntennaCenter)+(##1,0)arc[start angle=0,end angle=360,radius=##1];%
+        \draw[RadioTowerLine,line width=0.8*\RadioTowerLineWidth](#1-RadioTowerWFloorPic-RadioTowerPic-TowerAntennaCenter)+(-##2:##1)arc(-##2:##2:##1);%
+        \draw[RadioTowerLine,line width=0.8*\RadioTowerLineWidth](#1-RadioTowerWFloorPic-RadioTowerPic-TowerAntennaCenter)+(180-##2:##1)arc(180-##2:180+##2:##1);%
+    }%
+    \RadioWave{3.0*\RadioTowerAntennaRadius}{30}%
+    \RadioWave{5.0*\RadioTowerAntennaRadius}{30}%
+    \RadioWave{7.0*\RadioTowerAntennaRadius}{30}%
+    %
+    }%
+    \path($(#1-frame-inner.north west)+(-0.0*\RadioTowerLineWidth,0.45*\RadioTowerLineWidth)$)--($(#1-frame-inner.south east)+(0.0*\RadioTowerLineWidth,-0.0*\RadioTowerLineWidth)$);%
+    }%
+  }%
+}%
+%
+% Usage Suggestion:
+%    \scopenode[name=RadioTower,draw=none,anchor=north west,at={(0,0)}]{%
+%    \pic(RadioTowerPic){RadioTowerWFloorWRadioWave};%
+%    }
+%
+%
+%
+%
+%

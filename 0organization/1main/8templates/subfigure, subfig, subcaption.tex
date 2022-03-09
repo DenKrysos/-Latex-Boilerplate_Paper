@@ -55,8 +55,32 @@
 \begin{figure*}%[!ht]
 \centering
 	\includegraphics[width=0.98\textwidth]{{"\DenKrGraphicsRootDir/Blockdiagram"}.png}
-	\caption{Block-Diagram and Examplarily Device-Configuration
-	%\chficom{ADAg darstellen, dass schon in der Abbildung klar wird, dass es mehrere geben kann?! Und Core /RAN raus und durch Inserve ersetzen?!}
-	}
+	\caption{Block-Diagram and Examplarily Device-Configuration}
 	\label{fig:blockdiagram}
+\end{figure*}
+
+
+
+% And with Standalone-TikZ-Pictures
+\begin{figure*}[!htpb]
+\centering
+    \hspace*{\fill}
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+		\includestandalone[width=\textwidth,mode=\includestandalonedefaultmode]{\tikzFilesPath/MigArb_in_FW/MigArb_in_FW_fig1}%
+    	\subcaption{Initial State}%
+    	\label{subfig:migarb_in_fw-1}
+    \end{minipage}
+    \hspace*{\fill}
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+		\includestandalone[width=\textwidth,mode=\includestandalonedefaultmode]{\tikzFilesPath/MigArb_in_FW/MigArb_in_FW_fig2}%
+    	\subcaption{PPM Phase}%
+    	\label{subfig:migarb_in_fw-2}
+    \end{minipage}
+    \hspace*{\fill}
+	\caption{%
+	    \glstext{migarb}
+	}%
+	\label{fig:migarb_in_fw}
 \end{figure*}
