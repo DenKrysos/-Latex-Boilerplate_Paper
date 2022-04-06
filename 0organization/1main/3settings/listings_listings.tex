@@ -30,20 +30,31 @@
 % }
 % lstset for Look like Eclipse
 \lstset{
-	frame=shadowbox,
-	numbers=left,
-	numberstyle=\tiny,
+    rulecolor=\color{ipython_frame},
+    frame=single,%shadowbox, single
+    frameround={t}{t}{t}{t},
+    framexleftmargin=3mm,
+    xleftmargin=3mm,
+% 	xleftmargin=0em,
+% 	xrightmargin=0.3em,
+    numbers=left,
+    numberstyle=\tiny\color{halfgray},
+% 	numberstyle=\tiny,
+    %
+% 	backgroundcolor=\color{lstbg},
+    backgroundcolor=\color{ipython_bg},
+% 	basicstyle=\listingsfont,
+    basicstyle=\scriptsize,
+    %
 	numbersep=5pt,
-	showspaces=false,
 	showtabs=false,
 	tabsize=2,
 	breaklines=true,
-	keepspaces=true,
-% 	basicstyle=\listingsfont,
+    sensitive=true
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
 	captionpos=b,
-	xleftmargin=0em,
-	xrightmargin=0.3em,
-	backgroundcolor=\color{lstbg},
 	keywordstyle=\color{eclipse_keyword1}\bfseries,
 	keywordstyle=[2]\color{eclipse_keyword2}\bfseries,
 	keywordstyle=[3]\color{eclipse_keyword3}\bfseries,
@@ -91,6 +102,59 @@
     emphstyle={\color{red}\bfseries}%\underbar}%
 }%
 \lstdefinelanguage{C_var}
+{
+	language=C,
+	morecomment=[l]{//},
+	morekeywords={
+		strlen,
+	},
+	morekeywords=[2]{
+	    main,
+		malloc,
+		recv,
+		send,
+		sem_init,
+		sem_wait,
+		sem_post,
+		sem_getvalue,
+		sem_destroy,
+		raise,
+		signal,
+		pthread_create,
+		pthread_join,
+		pthread_detach,
+		pthread_cancel,
+		pthread_setcancelstate,
+		pcap_breakloop,
+		pcap_close
+	},
+	morekeywords=[3]{
+		int8_t,
+		uint8_t,
+		int16_t,
+		uint16_t,
+		int32_t,
+		uint32_t,
+		int64_t,
+		uint64_t,
+		int128_t,
+		uint128_t,
+		uintptr_t,
+		sem_t,
+		pthread_t
+	},
+	morekeywords=[9]{
+		critical section
+	},
+	%
+	keywordstyle=\color{eclipse_keyword1}\bfseries,
+	keywordstyle=[2]\color{eclipse_keyword2}\bfseries,
+	keywordstyle=[3]\color{eclipse_keyword3}\bfseries,
+	keywordstyle=[9]\color{red}\bfseries,
+	stringstyle=\color{eclipse_string},
+	commentstyle=\color{eclipse_comment}\itshape,
+}
+\lstdefinelanguage{C_var_old}
 {
 	language=C,
 	morecomment=[l]{//},
@@ -294,9 +358,8 @@
     rulecolor=\color{ipython_frame},
     frame=single,
     frameround={t}{t}{t}{t},
-    framexleftmargin=3mm,% 3mm
-    xleftmargin=2.0em,% 3mm, 1.75em, 1.9em, 2.0em
-    xrightmargin=1.0em,% 0.6em
+    framexleftmargin=3mm,
+    xleftmargin=3mm,
     numbers=left,
     numberstyle=\tiny\color{halfgray},
     %
