@@ -1,0 +1,38 @@
+
+\block{~}
+{
+    \blindtext
+}
+
+\begin{columns}
+    \column{0.4}
+    \block{More text}{Text and more text}
+    \note[rotate=8, connection, width=8cm,
+    % roundedcorners=15, targetoffsetx=2cm
+    ]{Look! Differently formatted Note!}
+    
+    \block{Second 0.4}{Text and more text}
+    
+    \column{0.6}
+    \block{Something else}{Here, \blindtext \vspace{4cm}}
+    \note[
+        targetoffsetx=-9cm, 
+        targetoffsety=-6.5cm, 
+        width=0.5\linewidth
+        ]
+        {e-mail \texttt{welcome@overleaf.com}}
+\end{columns}
+
+\begin{columns}
+    \column{0.5}
+    \block{A figure}
+    {
+        \begin{tikzfigure}
+            \includegraphics[width=0.1\textwidth]{{"\DenKrGraphicsRootDir/Quatsch/thumbsup"}.png}
+        \end{tikzfigure}
+    }
+    \column{0.5}
+    \block{Description of the figure}{\blindtext}
+    
+    \DenKrPosterReferences
+\end{columns}
