@@ -1,8 +1,9 @@
 %________________________________________________________________________
 %------------------------------------------------------------------------
 %			Load Theme(s)
+%           -- from the "/theme/" directory here
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-\usepackage{\DenKrLayoutRootDir/theme/uwtheme}%
+% \usepackage{\DenKrLayoutRootDir/theme/uwtheme1}% uwtheme1, uwtheme2, SUtheme, emory-theme
 %
 %
 %
@@ -14,12 +15,23 @@
 %======== Default, Basic, Simple, Envelope, Board, Rays, Wave, Autumn, Desert
 %=== Custom Themes, i.e. taken the file from the "/theme/" directory here
 %======== UWTheme
-\usetheme{Envelope}%
+\usetheme{Basic}%
+%------------------------------------------------------------------------
+%=== Color Palette
+%======== Default, BlueGrayOrange, GreenGrayViolet, PurpleGrayBlue, BrownBlueOrange
+% \usecolorpalette{Default}
+%------------------------------------------------------------------------
 %=== Color Styles
-%========
+%======== Default, Australia, Britain, Sweden, Spain, Russia, Denmark, Germany
 %=== Custom Color Styles
 %======== UWStyle
-% \usecolorstyle{UWStyle}%
+% \usecolorstyle[%
+%     colorPalette=BrownOrangeBlue,% BrownOrangeBlue
+%     colorOne=blue,% blue
+%     colorTwo=black,% black
+%     colorThree=green% green
+% ]{Default}%
+%------------------------------------------------------------------------
 %=== Title Styles
 %======== Default, Basic, Empty, Filled, Envelope, Wave, verticalShading
 % \usetitlestyle{Default}% 
