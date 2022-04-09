@@ -1,5 +1,51 @@
 %________________________________________________________________________
 %------------------------------------------------------------------------
+%			Custom Style Definitions
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+\definetitlestyle{sampletitle}{%
+	width=500mm, roundedcorners=20, linewidth=2pt, innersep=5pt,%
+	titletotopverticalspace=15mm, titletoblockverticalspace=30mm%
+}{%
+	\begin{scope}[line width=\titlelinewidth, rounded corners=\titleroundedcorners]%
+		\draw[color=blocktitlebgcolor, fill=titlebgcolor]%
+		(\titleposleft,\titleposbottom) rectangle (\titleposright,\titlepostop);%
+	\end{scope}%
+}%
+%
+\definecolorstyle{DenKrPosterColorStyle}{%
+	\definecolor{colorOne}{RGB}{50, 130, 150}% {50, 130, 150} {17, 102, 153}
+	\definecolor{colorTwo}{RGB}{95, 158, 160}% {95, 158, 160} {14, 82, 122}
+	\definecolor{colorThree}{named}{orange}% orange {215, 135, 96}
+}{%
+	% Background Colors
+	\colorlet{backgroundcolor}{colorOne!20!white}%
+	\colorlet{framecolor}{colorOne!100!white}%
+	% Title Colors
+	\colorlet{titlefgcolor}{black!100!colorOne}%
+	\colorlet{titlebgcolor}{colorOne!50!white}%
+	% Block Colors
+	\colorlet{blocktitlebgcolor}{colorTwo}%
+	\colorlet{blocktitlefgcolor}{white}%
+	\colorlet{blockbodybgcolor}{white}%
+	\colorlet{blockbodyfgcolor}{black}%
+	% Innerblock Colors
+	\colorlet{innerblocktitlebgcolor}{white}%
+	\colorlet{innerblocktitlefgcolor}{black}%
+	\colorlet{innerblockbodybgcolor}{colorTwo!30!white}%
+	\colorlet{innerblockbodyfgcolor}{black}%
+	% Note colors
+	\colorlet{notefgcolor}{black}%
+	\colorlet{notebgcolor}{colorThree!40!white}%
+	\colorlet{notefrcolor}{colorThree!70!black}% noteframecolor not working, instead: notefrcolor
+}%
+%
+%
+%
+%
+%
+%
+%________________________________________________________________________
+%------------------------------------------------------------------------
 %			Load Theme(s)
 %           -- from the "/theme/" directory here
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
@@ -19,22 +65,22 @@
 %------------------------------------------------------------------------
 %=== Color Palette
 %======== Default, BlueGrayOrange, GreenGrayViolet, PurpleGrayBlue, BrownBlueOrange
-% \usecolorpalette{Default}
+% \usecolorpalette{Default}% Seems not to do anything. Instead use the colorPalette Option in the \usecolorstyle
 %------------------------------------------------------------------------
 %=== Color Styles
 %======== Default, Australia, Britain, Sweden, Spain, Russia, Denmark, Germany
 %=== Custom Color Styles
 %======== UWStyle
-% \usecolorstyle[%
-%     colorPalette=BrownOrangeBlue,% BrownOrangeBlue
-%     colorOne=blue,% blue
-%     colorTwo=black,% black
-%     colorThree=green% green
-% ]{Default}%
+\usecolorstyle[%
+% 	colorPalette=BlueGrayOrange,% BrownBlueOrange
+%  	colorOne=blue,% blue
+% 	colorTwo=Gray,% black
+% 	colorThree=orange% green
+]{DenKrPosterColorStyle}%
 %------------------------------------------------------------------------
 %=== Title Styles
 %======== Default, Basic, Empty, Filled, Envelope, Wave, verticalShading
-% \usetitlestyle{Default}% 
+\usetitlestyle{Envelope}% 
 %
 %
 %
