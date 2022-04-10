@@ -1,29 +1,5 @@
 %________________________________________________________________________
 %------------------------------------------------------------------------
-%				Title Page Format
-%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-% place logo to right of centered title
-\makeatletter%
-\renewcommand\TP@maketitle{%
-   \centering%
-   \begin{minipage}[b]{0.8\linewidth}%
-        \centering%
-        \color{titlefgcolor}%
-        {\bfseries \Huge \sc \@title \par}%
-        \vspace*{1em}%
-        {\huge \@author \par}%
-        \vspace*{1em}%
-        {\LARGE \@institute}%
-    \end{minipage}%
-    \tikz[remember picture,overlay]\node[anchor=south west,xshift=-0.5\linewidth,inner sep=0pt]{%
-       \@titlegraphic%
-    };%
-}%
-\makeatother%
-%
-%
-%________________________________________________________________________
-%------------------------------------------------------------------------
 %					Make the Title Area
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 \maketitle%

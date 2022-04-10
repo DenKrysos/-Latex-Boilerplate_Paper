@@ -1,0 +1,229 @@
+%%###########################################################%%
+%%        vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv        %%
+%%-----------------------------------------------------------%%
+% Theme Definition for Class »tikzposter«
+%    --> \usepackage{DenKrPoster}
+%    --> \usetheme{DenKrPoster}
+%
+%  Author:
+%      - Dennis Krummacker
+%  Created:
+%      2022-04-09
+%  Last Update:
+%      2022-04-10
+%%------------------------------------------------------------%%
+%%        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        %%
+%%============================================================%%
+%
+%
+%
+%
+%
+%
+%________________________________________________________________________
+%------------------------------------------------------------------------
+%				Title Page Format
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+% place logo to right of centered title
+\settitle{\centering\vbox{%
+    \centering%
+    \begin{minipage}[c]{0.09\linewidth}%
+        \hspace*{\baselineskip}
+    \end{minipage}%
+    \begin{minipage}[c]{0.82\linewidth}%
+        \centering%
+        \color{titlefgcolor}%
+        {\bfseries \Huge \sc \@title \par}%
+        \vspace*{1em}%
+        {\huge \@author \par}%
+        \vspace*{1em}%
+        {\LARGE \@institute}%
+    \end{minipage}%
+    \begin{minipage}[c]{0.09\linewidth}%
+        %\centering%
+        \@titlegraphic%
+    \end{minipage}%
+}}%
+%
+%________________________________________________________________________
+%------------------------------------------------------------------------
+%			More Theme-related Settings
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+\tikzposterlatexaffectionproofoff% Turns of this stupid "Latex Tikzposter" Mark in the lower right corner
+%
+%
+%
+%
+%
+%
+%________________________________________________________________________
+%------------------------------------------------------------------------
+%			Colors
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+% First, some Color Definitions
+%------------------------------------------------------------------------
+%=== Primary Color Palette
+\definecolor{DenKrPoster_GreenBlueDarkOne}{RGB}{50, 130, 150}%
+\definecolor{DenKrPoster_GreenBlueDarkTwo}{RGB}{17, 102, 153}%
+%
+%------------------------------------------------------------------------
+%=== Secondary Color Palette
+\definecolor{DenKrPoster_GreenBlueLightOne}{RGB}{95, 158, 160}%
+\definecolor{DenKrPoster_GreenBlueLightTwo}{RGB}{14, 82, 122}%
+%
+%------------------------------------------------------------------------
+%=== Tertiary Color Palette
+\definecolor{DenKrPoster_OrangeDarkOne}{named}{orange}%
+\definecolor{DenKrPoster_OrangeLightOne}{RGB}{215, 135, 96}%
+%
+%========================================================================
+%=== Color Palette, Define tikzposter
+\definecolorpalette{DenKrPosterPalette}{%
+    \definecolor{colorOne}{named}{DenKrPoster_GreenBlueDarkOne}%
+    \definecolor{colorTwo}{named}{DenKrPoster_GreenBlueLightOne}%
+    \definecolor{colorThree}{named}{DenKrPoster_OrangeDarkOne}%
+}%
+%
+%========================================================================
+%=== Color Style, Define tikzposter
+\definecolorstyle{DenKrPosterColorStyle}{%
+    \usecolorpalette{DenKrPosterPalette}%
+}{%
+	% Background Colors
+	\colorlet{backgroundcolor}{colorOne!20!white}%
+	\colorlet{framecolor}{colorOne!100!white}%
+	% Title Colors
+	\colorlet{titlefgcolor}{black!100!colorOne}%
+	\colorlet{titlebgcolor}{colorOne!50!white}%
+	% Block Colors
+	\colorlet{blocktitlebgcolor}{colorTwo}%
+	\colorlet{blocktitlefgcolor}{white}%
+	\colorlet{blockbodybgcolor}{white}%
+	\colorlet{blockbodyfgcolor}{black}%
+	% Innerblock Colors
+	\colorlet{innerblocktitlebgcolor}{white}%
+	\colorlet{innerblocktitlefgcolor}{black}%
+	\colorlet{innerblockbodybgcolor}{colorTwo!30!white}%
+	\colorlet{innerblockbodyfgcolor}{black}%
+	% Note colors
+	\colorlet{notefgcolor}{black}%
+	\colorlet{notebgcolor}{colorThree!40!white}%
+	\colorlet{notefrcolor}{colorThree!70!black}% noteframecolor not working, instead: notefrcolor
+}%
+%
+%
+%
+%
+%
+%
+%________________________________________________________________________
+%------------------------------------------------------------------------
+%			Style Layout
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+%
+%------------------------------------------------------------------------
+%=== Background, Define tikzposter
+\definebackgroundstyle{DenKrPosterDiagonalGradation}{%
+    \path[inner sep=0pt,line width=2pt,save path=\bgpath]%
+        (bottomleft)rectangle(topright);%
+    \path[use path=\bgpath,%
+        fill=backgroundcolor%
+    ];%
+    \coordinate(topleft)at(bottomleft|-topright);%
+    \coordinate(bottomright)at(bottomleft-|topright);%
+    \coordinate(bgcenter)at(0,0);%
+    %
+    \coordinate(shadingRadiusTopX)at($(topleft)!.4!(topright)$);%
+    \coordinate(shadingRadiusTopY)at($(topleft)!.3!(bottomleft)$);%
+    \coordinate(shadingRadiusTop)at(shadingRadiusTopX|-shadingRadiusTopY);%
+    \path[shading=radial,%
+        outer color=backgroundcolor,%
+        inner color=backgroundcolor!20!colorOne,%
+        %shading angle=135+30%
+    ]%
+        let\p1=($(topright)-(shadingRadiusTop)$),\n1={veclen(\x1,\y1)}%
+        in(topright)circle[radius=\n1];
+    %
+    \coordinate(shadingRadiusBottomX)at($(bottomleft)!.2!(bottomright)$);%
+    \coordinate(shadingRadiusBottomY)at($(bottomleft)!.1!(topleft)$);%
+    \coordinate(shadingRadiusBottom)at(shadingRadiusBottomX|-shadingRadiusBottomY);%
+    \path[shading=radial,%
+        outer color=backgroundcolor,%
+        inner color=backgroundcolor!10!white,%
+        %shading angle=135+30%
+    ]%
+        let\p1=($(bottomleft)-(shadingRadiusBottom)$),\n1={veclen(\x1,\y1)}%
+        in(bottomleft)circle[radius=\n1];
+    %
+    \coordinate(shadingLeftAnchor)at($(topleft)!.4!(bottomleft)$);%
+    \coordinate(shadingLeftRadiusPre)at(shadingLeftAnchor-|topright);%
+    \coordinate(shadingLeftRadius)at($(shadingLeftAnchor)!.2!(shadingLeftRadiusPre)$);%
+    \path[shading=radial,%
+        outer color=backgroundcolor,%
+        inner color=backgroundcolor!40!colorOne,%
+        %shading angle=135+30%
+    ]%
+        let\p1=($(shadingLeftAnchor)-(shadingLeftRadius)$),\n1={veclen(\x1,\y1)}%
+        in(shadingLeftAnchor)circle[radius=\n1];
+    %
+    \coordinate(shadingRightAnchor)at($(bottomright)!.1!(topright)$);%
+    \coordinate(shadingRightRadiusPre)at(shadingRightAnchor-|topleft);%
+    \coordinate(shadingRightRadius)at($(shadingRightAnchor)!.4!(shadingRightRadiusPre)$);%
+    \path[shading=radial,%
+        outer color=backgroundcolor,%
+        inner color=backgroundcolor!10!colorOne,%
+        %shading angle=135+30%
+    ]%
+        let\p1=($(shadingRightAnchor)-(shadingRightRadius)$),\n1={veclen(\x1,\y1)}%
+        in(shadingRightAnchor)circle[radius=\n1];
+    %
+    \coordinate(shadingRadiusTopY)at($(topleft)!.3!(bottomleft)$);%
+    \coordinate(shadingRadiusTop)at(shadingRadiusTopX|-shadingRadiusTopY);%
+    \path[use path=\bgpath,%
+        draw=colorOne%
+    ];%
+}%
+%
+%------------------------------------------------------------------------
+%=== Title, Define tikzposter
+\definetitlestyle{DenKrPosterTitleStyle}{%
+    width=\textwidth, linewidth=5pt, titletotopverticalspace=0in%
+}{%
+    \begin{scope}[line width=\titlelinewidth,]%
+    \draw[color=colorThree,round cap-round cap]%
+    (\titleposleft,\titleposbottom)--(\titleposright,\titleposbottom);%
+    \end{scope}%
+}%
+%
+%------------------------------------------------------------------------
+%=== Block, Define tikzposter
+\defineblockstyle{DenKrPosterBlockStyle}{%
+    titlewidthscale=0.9, bodywidthscale=1, roundedcorners=5%
+}{%
+    \draw[color=framecolor, fill=blockbodybgcolor,%
+    rounded corners=\blockroundedcorners] (blockbody.south west)%
+    rectangle (blockbody.north east);%
+    \ifBlockHasTitle%
+    \draw[color=framecolor, fill=blocktitlebgcolor,%
+    rounded corners=\blockroundedcorners] (blocktitle.south west)%
+    rectangle (blocktitle.north east);%
+    \fi%
+}%
+%
+%
+%
+%
+%
+%
+%________________________________________________________________________
+%------------------------------------------------------------------------
+%			Theme Definition
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+\definelayouttheme{DenKrPoster}{%
+    \usecolorstyle[colorPalette=DenKrPosterPalette]{DenKrPosterColorStyle}%
+    \usebackgroundstyle{DenKrPosterDiagonalGradation}%
+    \usetitlestyle{Envelope}%
+    \useblockstyle{Basic}%
+    \useinnerblockstyle{Default}%
+    \usenotestyle{Sticky}%
+}%
