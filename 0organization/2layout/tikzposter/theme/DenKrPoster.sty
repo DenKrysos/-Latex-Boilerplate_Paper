@@ -75,6 +75,9 @@
 %=== Tertiary Color Palette
 \definecolor{DenKrPoster_OrangeDarkOne}{named}{orange}%
 \definecolor{DenKrPoster_OrangeLightOne}{RGB}{215, 135, 96}%
+\definecolor{DenKrPoster_VioletOne}{RGB}{112, 36, 255}%
+\definecolor{DenKrPoster_VioletTwo}{RGB}{87, 36, 255}%
+\definecolor{DenKrPoster_IceBlueOne}{RGB}{36, 193, 255}%
 %
 %========================================================================
 %=== Color Palette, Define tikzposter
@@ -90,7 +93,7 @@
     \usecolorpalette{DenKrPosterPalette}%
 }{%
 	% Background Colors
-	\colorlet{backgroundcolor}{colorOne!20!white}%
+	\colorlet{backgroundcolor}{colorOne!30!white}%
 	\colorlet{framecolor}{colorOne!100!white}%
 	% Title Colors
 	\colorlet{titlefgcolor}{black!100!colorOne}%
@@ -123,7 +126,7 @@
 %
 %------------------------------------------------------------------------
 %=== Background, Define tikzposter
-\definebackgroundstyle{DenKrPosterDiagonalGradation}{%
+\definebackgroundstyle{DenKrPosterBGShadeRay}{%
     \path[inner sep=0pt,line width=2pt,save path=\bgpath]%
         (bottomleft)rectangle(topright);%
     \path[use path=\bgpath,%
@@ -143,17 +146,6 @@
     ]%
         let\p1=($(topright)-(shadingRadiusTop)$),\n1={veclen(\x1,\y1)}%
         in(topright)circle[radius=\n1];
-    %
-    \coordinate(shadingRadiusBottomX)at($(bottomleft)!.2!(bottomright)$);%
-    \coordinate(shadingRadiusBottomY)at($(bottomleft)!.1!(topleft)$);%
-    \coordinate(shadingRadiusBottom)at(shadingRadiusBottomX|-shadingRadiusBottomY);%
-    \path[shading=radial,%
-        outer color=backgroundcolor,%
-        inner color=backgroundcolor!10!white,%
-        %shading angle=135+30%
-    ]%
-        let\p1=($(bottomleft)-(shadingRadiusBottom)$),\n1={veclen(\x1,\y1)}%
-        in(bottomleft)circle[radius=\n1];
     %
     \coordinate(shadingLeftAnchor)at($(topleft)!.4!(bottomleft)$);%
     \coordinate(shadingLeftRadiusPre)at(shadingLeftAnchor-|topright);%
@@ -177,8 +169,54 @@
         let\p1=($(shadingRightAnchor)-(shadingRightRadius)$),\n1={veclen(\x1,\y1)}%
         in(shadingRightAnchor)circle[radius=\n1];
     %
-    \coordinate(shadingRadiusTopY)at($(topleft)!.3!(bottomleft)$);%
-    \coordinate(shadingRadiusTop)at(shadingRadiusTopX|-shadingRadiusTopY);%
+    \tikzstyle{accentLine}=[%
+        line join=round,line cap=round,%
+        line width=0.002*\textwidth,%
+        draw=none%
+    ]%
+    \tikzstyle{accentLineLight}=[%
+        accentLine,%
+        draw=backgroundcolor!70!white%
+    ]%
+    \tikzstyle{accentLineDark}=[%
+        accentLine,%
+        draw=backgroundcolor!60!colorOne%
+    ]%
+    % \tikzstyle{accentLineMedium}=[%
+    %     accentLine,%
+    %     draw=backgroundcolor!90!colorOne%
+    % ]%
+    %
+    % \coordinate(accentLineMediumAnchorPre)at($(topleft)!.0!(topright)$);%
+    % \coordinate(accentLineMediumAnchor)at($(accentLineMediumAnchorPre)+(0,1.0\textheight)$);%
+    % \path[accentLineMedium](accentLineMediumAnchor)--++(-65:2.9*\textheight);%
+    % \path[accentLineMedium](accentLineMediumAnchor)--++(-75:2.9*\textheight);%
+    % \path[accentLineMedium](accentLineMediumAnchor)--++(-85:2.9*\textheight);%
+    %
+    \path[accentLineLight](bottomleft)--++(10:0.5*\textheight);%
+    \path[accentLineLight](bottomleft)--++(30:0.7*\textheight);%
+    \path[accentLineLight](bottomleft)--++(55:0.98*\textheight);%
+    \path[accentLineLight](bottomleft)--++(75:0.75*\textheight);%
+    \path[accentLineLight](bottomleft)--++(85:0.6*\textheight);%
+    %
+    \coordinate(shadingRadiusBottomX)at($(bottomleft)!.2!(bottomright)$);%
+    \coordinate(shadingRadiusBottomY)at($(bottomleft)!.1!(topleft)$);%
+    \coordinate(shadingRadiusBottom)at(shadingRadiusBottomX|-shadingRadiusBottomY);%
+    \path[shading=radial,%
+        outer color=backgroundcolor,%
+        inner color=backgroundcolor!10!white,%
+        %opacity=0.9%
+    ]%
+        let\p1=($(bottomleft)-(shadingRadiusBottom)$),\n1={veclen(\x1,\y1)}%
+        in(bottomleft)circle[radius=\n1];
+    %
+    \coordinate(accentLineDarkAnchorPre)at($(bottomright)!.6!(topright)$);%
+    \coordinate(accentLineDarkAnchor)at($(accentLineDarkAnchorPre)+(0.2\textwidth,0)$);%
+    \path[accentLineDark](accentLineDarkAnchor)--++(135:0.4*\textheight);%
+    \path[accentLineDark](accentLineDarkAnchor)--++(155:0.6*\textheight);%
+    \path[accentLineDark](accentLineDarkAnchor)--++(175:0.7*\textheight);%
+    \path[accentLineDark](accentLineDarkAnchor)--++(195:0.65*\textheight);%
+    %
     \path[use path=\bgpath,%
         draw=colorOne%
     ];%
@@ -197,8 +235,8 @@
 %
 %------------------------------------------------------------------------
 %=== Block, Define tikzposter
-\defineblockstyle{DenKrPosterBlockStyle}{%
-    titlewidthscale=0.9, bodywidthscale=1, roundedcorners=5%
+\defineblockstyle{DenKrPosterBlockStyleSimple}{%
+    titlewidthscale=0.9, bodywidthscale=1,roundedcorners=5%
 }{%
     \draw[color=framecolor, fill=blockbodybgcolor,%
     rounded corners=\blockroundedcorners] (blockbody.south west)%
@@ -207,6 +245,66 @@
     \draw[color=framecolor, fill=blocktitlebgcolor,%
     rounded corners=\blockroundedcorners] (blocktitle.south west)%
     rectangle (blocktitle.north east);%
+    \fi%
+}%
+%
+\defineblockstyle{DenKrPosterBlockStyle}{%
+    titlewidthscale=1,% 0.9
+    bodywidthscale=1,%
+    roundedcorners=10,%
+    % titleinnersep=6mm,%
+    % bodyinnersep=1c,%
+    % titleleft,%
+    % titleoffsetx=0pt,%
+    % titleoffsety=0pt,%
+    % bodyoffsetx=0mm,%
+    % bodyoffsety=15mm,%
+    % bodyverticalshift=10mm,%
+    % linewidth=2pt%
+}{%
+    \let\framelinewidth\undefined%
+    \newlength\framelinewidth%
+    \setlength\framelinewidth{0.002\textwidth}%
+    \tikzstyle{frameline}=[%
+        line width=\framelinewidth,%
+        line join=round%
+    ]
+    \path[frameline,%
+        draw=framecolor,fill=blockbodybgcolor,%
+        rounded corners=\blockroundedcorners%
+    ]%
+        (blockbody.north east|-blocktitle.east)%
+        --(blockbody.south east)%
+        --(blockbody.south west)%
+        [sharp corners]%
+        --(blockbody.north west|-blocktitle.west)%
+        --cycle%
+    ;%
+    \ifBlockHasTitle%
+    \let\diamondwidth\undefined%
+    \newlength\diamondwidth%
+    \setlength\diamondwidth{2em}%
+    \coordinate(blocktitleTL)at($(blocktitle.north west)+(\diamondwidth,0)$);%
+    \coordinate(blocktitleBL)at($(blocktitle.south west)+(\diamondwidth,0)$);%
+    \coordinate(blocktitleTR)at($(blocktitle.north east)+(-\diamondwidth,0)$);%
+    \coordinate(blocktitleBR)at($(blocktitle.south east)+(-\diamondwidth,0)$);%
+    \path[frameline,%
+        draw=framecolor,fill=blocktitlebgcolor,%
+        rounded corners=\blockroundedcorners%
+    ]%
+        %(blocktitle.south west)rectangle(blocktitle.north east)%
+        ($(blocktitle.west)+(-0,0)$)%
+        [rounded corners=10]%
+        --(blocktitleTL)%
+        --(blocktitleTR)%
+        [sharp corners]%
+        --($(blocktitle.east)+(0,0)$)%
+        [rounded corners=10]%
+        --(blocktitleBR)%
+        --(blocktitleBL)%
+        [sharp corners]%
+        --cycle%
+    ;%
     \fi%
 }%
 %
@@ -221,9 +319,9 @@
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 \definelayouttheme{DenKrPoster}{%
     \usecolorstyle[colorPalette=DenKrPosterPalette]{DenKrPosterColorStyle}%
-    \usebackgroundstyle{DenKrPosterDiagonalGradation}%
+    \usebackgroundstyle{DenKrPosterBGShadeRay}%
     \usetitlestyle{Envelope}%
-    \useblockstyle{Basic}%
+    \useblockstyle{DenKrPosterBlockStyle}% DenKrPosterBlockStyle, Basic
     \useinnerblockstyle{Default}%
     \usenotestyle{Sticky}%
 }%
