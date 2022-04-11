@@ -97,10 +97,10 @@
 	\colorlet{framecolor}{colorOne!100!white}%
 	% Title Colors
 	\colorlet{titlefgcolor}{black!100!colorOne}%
-	\colorlet{titlebgcolor}{colorOne!50!white}%
+	\colorlet{titlebgcolor}{colorTwo}% colorOne!50!white
 	% Block Colors
 	\colorlet{blocktitlebgcolor}{colorTwo}%
-	\colorlet{blocktitlefgcolor}{white}%
+	\colorlet{blocktitlefgcolor}{Purple!0!white}%
 	\colorlet{blockbodybgcolor}{white}%
 	\colorlet{blockbodyfgcolor}{black}%
 	% Innerblock Colors
@@ -171,7 +171,7 @@
     %
     \tikzstyle{accentLine}=[%
         line join=round,line cap=round,%
-        line width=0.002*\textwidth,%
+        line width=0.003*\textwidth,%
         draw=none%
     ]%
     \tikzstyle{accentLineLight}=[%
@@ -224,12 +224,153 @@
 %
 %------------------------------------------------------------------------
 %=== Title, Define tikzposter
-\definetitlestyle{DenKrPosterTitleStyle}{%
+\definetitlestyle{DenKrPosterTitleStyleSeparationLine}{%
     width=\textwidth, linewidth=5pt, titletotopverticalspace=0in%
 }{%
     \begin{scope}[line width=\titlelinewidth,]%
     \draw[color=colorThree,round cap-round cap]%
     (\titleposleft,\titleposbottom)--(\titleposright,\titleposbottom);%
+    \end{scope}%
+}%
+\tikzstyle{DenKrPosterTitleFrame}=[%
+    draw=framecolor,%
+    line width=0.003\textwidth,%
+    line join=round,%
+]
+\tikzstyle{DenKrPosterTitleFill}=[%
+    shading=axis,%
+    top color=titlebgcolor,%
+    bottom color=titlebgcolor!80!black,%
+    middle color=titlebgcolor!50!white,%
+]
+\newcommand{\DenKrPosterTitleAccent}{%
+    \coordinate(accentOneAnchorT)at($(titleTR)+(-0.015\titlewidth,0)$);%
+    \coordinate(accentOneAnchorB)at($(titleBR)!.2!(titleBL)$);%
+    \coordinate(accentTwoAnchorT)at($(titleTR)+(-0.007\titlewidth,0)$);%
+    \coordinate(accentTwoAnchorB)at($(accentOneAnchorB)+(0.02\textwidth,0)$);%
+    \path[%
+        top color=white,%
+        bottom color=blocktitlebgcolor,%
+    ]%
+        (accentOneAnchorT)%
+        ..controls%
+            ++(180+4:1.1\titleheight)%Relative to Start-Point
+            and%
+            ++(5:1.2\titleheight)%Relative to End-Point
+        ..%
+        (accentOneAnchorB)%
+        ..controls%
+            ++(1:1.5\titleheight)%Relative to End-Point
+            and%
+            ++(180+10:1.0\titleheight)%Relative to Start-Point
+        ..%
+        cycle%
+    ;%
+    \path[%
+        right color=white,%
+        left color=blocktitlebgcolor,%
+    ]%
+        (accentTwoAnchorT)%
+        ..controls%
+            ++(180+10:0.75\titleheight)%Relative to Start-Point
+            and%
+            ++(2:1.4\titleheight)%Relative to End-Point
+        ..%
+        (accentTwoAnchorB)%
+        ..controls%
+            ++(1:1.65\titleheight)%Relative to End-Point
+            and%
+            ++(180+25:0.7\titleheight)%Relative to Start-Point
+        ..%
+        cycle%
+    ;%
+}
+\definetitlestyle{DenKrPosterTitleStyleTrapez}{%
+    width=\textwidth,%
+    linewidth=0.003\textwidth,% 5pt, 0.002\textwidth
+    titletotopverticalspace=0in%
+}{%
+    \begin{scope}[line width=\titlelinewidth,]%
+    \coordinate(titleTL)at(\titleposleft,\titlepostop);%
+    \coordinate(titleTR)at(\titleposright,\titlepostop);%
+    \coordinate(titleTC)at($(titleTL)!.5!(titleTR)$);%
+    \coordinate(titleBL)at(\titleposleft,\titleposbottom);%
+    \coordinate(titleBR)at(\titleposright,\titleposbottom);%
+    \coordinate(titleBC)at($(titleBL)!.5!(titleBR)$);%
+    \coordinate(titleL)at($(titleTL)!.5!(titleBL)$);%
+    \coordinate(titleR)at($(titleTR)!.5!(titleBR)$);%
+    \coordinate(titleBLIn)at($(titleBL)!.05!(titleBR)$);%
+    \coordinate(titleBRIn)at($(titleBR)!.05!(titleBL)$);%
+    \path[%
+        DenKrPosterTitleFill,%
+        save path=\titleFrame,%
+    ]
+        (titleTL)%
+        --(titleTR)%
+        [rounded corners=30]%
+        --(titleR)%
+        --(titleBRIn)%
+        --(titleBLIn)%
+        --(titleL)%
+        [sharp corners]%
+        --cycle%
+    ;%
+    \DenKrPosterTitleAccent
+    \path[%
+        DenKrPosterTitleFrame,%
+        use path=\titleFrame,%
+    ];%
+    \end{scope}%
+}%
+\definetitlestyle{DenKrPosterTitleStyleSlanted}{%
+    width=\textwidth,%
+    linewidth=0.003\textwidth,% 5pt, 0.002\textwidth
+    titletotopverticalspace=0in%
+}{%
+    \begin{scope}[line width=\titlelinewidth,]%
+    \coordinate(titleTL)at(\titleposleft,\titlepostop);%
+    \coordinate(titleTR)at(\titleposright,\titlepostop);%
+    \coordinate(titleTC)at($(titleTL)!.5!(titleTR)$);%
+    \coordinate(titleBL)at(\titleposleft,\titleposbottom);%
+    \coordinate(titleBR)at(\titleposright,\titleposbottom);%
+    \coordinate(titleBC)at($(titleBL)!.5!(titleBR)$);%
+    \coordinate(titleL)at($(titleTL)!.5!(titleBL)$);%
+    \coordinate(titleR)at($(titleTR)!.5!(titleBR)$);%
+    \coordinate(titleBLIn)at($(titleBL)!.05!(titleBR)$);%
+    \coordinate(titleBRIn)at($(titleBR)!.05!(titleBL)$);%
+    \let\titleheight\undefined%
+    \newlength\titleheight%
+    \setlength\titleheight{\titlepostop-\titleposbottom}%
+    \let\titlewidth\undefined%
+    \newlength\titlewidth%
+    \setlength\titlewidth{\titleposright-\titleposleft}%
+    \path[%
+        DenKrPosterTitleFill,%
+        save path=\titleFrame,%
+    ]
+        (titleTL)%
+        --(titleTR)%
+        [rounded corners=20]%
+        ..controls%
+            ++(180+50:0.5\titleheight)%Relative to Start-Point
+            and%
+            ++(30:0.6\titleheight)%Relative to End-Point
+        ..%
+        (titleBRIn)%
+        --(titleBLIn)%
+        ..controls%
+            ++(180-30:0.6\titleheight)%
+            and%
+            ++(-50:0.5\titleheight)%
+        ..%
+        cycle%
+    ;%
+    \DenKrPosterTitleAccent
+    %\draw[red](titleL)--($(titleL)+(\titlewidth,0)$);
+    \path[%
+        DenKrPosterTitleFrame,%
+        use path=\titleFrame,%
+    ];%
     \end{scope}%
 }%
 %
@@ -289,7 +430,12 @@
     \coordinate(blocktitleTR)at($(blocktitle.north east)+(-\diamondwidth,0)$);%
     \coordinate(blocktitleBR)at($(blocktitle.south east)+(-\diamondwidth,0)$);%
     \path[frameline,%
-        draw=framecolor,fill=blocktitlebgcolor,%
+        draw=framecolor,%
+        %fill=blocktitlebgcolor,%
+        shading=axis,%
+        top color=blocktitlebgcolor!40!white,%
+        bottom color=blocktitlebgcolor!70!white,%
+        middle color=blocktitlebgcolor,%
         rounded corners=\blockroundedcorners%
     ]%
         %(blocktitle.south west)rectangle(blocktitle.north east)%
@@ -320,7 +466,7 @@
 \definelayouttheme{DenKrPoster}{%
     \usecolorstyle[colorPalette=DenKrPosterPalette]{DenKrPosterColorStyle}%
     \usebackgroundstyle{DenKrPosterBGShadeRay}%
-    \usetitlestyle{Envelope}%
+    \usetitlestyle{DenKrPosterTitleStyleTrapez}% DenKrPosterTitleStyleTrapez, DenKrPosterTitleStyleSlanted, Envelope
     \useblockstyle{DenKrPosterBlockStyle}% DenKrPosterBlockStyle, Basic
     \useinnerblockstyle{Default}%
     \usenotestyle{Sticky}%
