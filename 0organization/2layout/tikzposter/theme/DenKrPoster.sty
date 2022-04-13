@@ -25,21 +25,24 @@
 %				Title Page Format
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 % place logo to right of centered title
+%     0.9 + 0.82 + 0.9
 \settitle{\centering\vbox{%
     \centering%
-    \begin{minipage}[c]{0.09\linewidth}%
+    \begin{minipage}[c]{0.08\linewidth}%
         \hspace*{\baselineskip}
     \end{minipage}%
-    \begin{minipage}[c]{0.82\linewidth}%
+    \begin{minipage}[c]{0.78\linewidth}%
         \centering%
         \color{titlefgcolor}%
-        {\bfseries \Huge \sc \@title \par}%
+        {\bfseries\Huge%\sc%
+        \@title%
+        \par}%
         \vspace*{1em}%
         {\huge \@author \par}%
         \vspace*{1em}%
         {\LARGE \@institute}%
     \end{minipage}%
-    \begin{minipage}[c]{0.09\linewidth}%
+    \begin{minipage}[c]{0.9\linewidth}% This is always placed rightmost aside the others. Hence, the actual width doesn't really matter and is just put a high value, to fill the space and by that press the other blocks to the left
         %\centering%
         \@titlegraphic%
     \end{minipage}%
